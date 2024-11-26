@@ -45,6 +45,6 @@ if __name__ == "__main__":
     mail_filename = 'mail.txt'
     doc_filename = 'Monster_Lebenslauf_muster_Softwareentwickler.pdf'
     json_result = parse_mail(mail_filename)
-    pprint(json_result)
     json_result = parse_document(doc_filename)
-    pprint(json_result)
+    #pprint(json_result)
+    print(json_result)
