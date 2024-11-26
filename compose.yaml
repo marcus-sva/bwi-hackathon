@@ -14,6 +14,10 @@ services:
 
   backend-coordinator:
     image: applicationform-backend-coordinator:v1
+    environment:
+      MINIO_ADDRESS: "application-minio:9000"
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
     build:
       context: ./backend/coordinator
     ports:
