@@ -2,7 +2,7 @@ version: '3'
 
 services:
   frontend:
-    image: applicationform_frontend:v1
+    image: applicationform-frontend:v1
     build: 
       context: ./frontend
     ports:
@@ -14,15 +14,28 @@ services:
       retries: 5
     entrypoint: ["streamlit", "run", "gui.py", "--server.port=8501", "--server.address=0.0.0.0"]
 
-  backend:
-    image: applicationform_backend:v1
+  backend-coordinator:
+    image: applicationform-backend-coordinator:v1
     build:
-      context: ./backend
+      context: ./backend/coordinator
     ports:
       - "8000:8000"
     entrypoint: ["python3", "main.py", "0.0.0.0", "8000"]
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://backend:8000/healthcheck", "||", "exit", "1"]
+      test: ["CMD", "curl", "-f", "http://backend-coordinator:8000/healthcheck", "||", "exit", "1"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+
+  backend-model:
+    image: applicationform-backend-model:v1
+    build:
+      context: ./backend/model
+    ports:
+      - "8001:8001"
+    entrypoint: ["python3", "main.py", "0.0.0.0", "8000"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://backend-model:8000/healthcheck", "||", "exit", "1"]
       interval: 1m30s
       timeout: 30s
       retries: 5
