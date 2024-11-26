@@ -5,8 +5,8 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
  
 # Modell und Tokenizer laden
-model_name = "unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
-#hf_token = os.getenv("HUGGINGFACE_TOKEN")
+model_name = "meta-llama/Llama-3.2-3B-Instruct"
+hf_token = os.getenv("HUGGINGFACE_TOKEN")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16)
 model.to("cuda")

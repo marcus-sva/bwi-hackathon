@@ -33,6 +33,8 @@ services:
     ports:
       - "8001:8001"
     entrypoint: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
+    environment:
+      HUGGINGFACE_TOKEN: <your-token-here>
     healthcheck:
       test: ["CMD", "curl", "-f", "http://backend-model:8001/healthcheck", "||", "exit", "1"]
       interval: 1m30s
