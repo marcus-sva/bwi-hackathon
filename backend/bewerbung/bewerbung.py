@@ -1,3 +1,4 @@
+from tika import parser
 from pprint import pprint
 import json
 import email
@@ -23,7 +24,27 @@ def parse_mail(mail_filename):
         application_json = json.dumps(application_dict)
     return application_json
 
+def parse_document(pdf_filename):
+    """
+    gets text from document
+    """
+    raw = parser.from_file(pdf_filename)
+    metadata = raw['metadata']
+    #pprint(metadata)
+    content = raw['content']
+   
+    doc_dict = {
+            "file" :  pdf_filename,
+            "text": content
+            }
+    doc_json = json.dumps(doc_dict)
+    return doc_json
+
+
 if __name__ == "__main__":
     mail_filename = 'mail.txt'
+    doc_filename = 'Monster_Lebenslauf_muster_Softwareentwickler.pdf'
     json_result = parse_mail(mail_filename)
+    pprint(json_result)
+    json_result = parse_document(doc_filename)
     pprint(json_result)
