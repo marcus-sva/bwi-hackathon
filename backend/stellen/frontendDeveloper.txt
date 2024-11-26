@@ -1,0 +1,128 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BWI Stellenanzeige
+
+
+STELLEN-ID: 58350
+
+Frontend Developer (Web, App, Flutter) (w/m/d)
+
+ab sofort und in Vollzeit bevorzugt in Bonn oder Essen, alternativ bundesweit an einem unserer BWI Standorte.
+
+Sorge gemeinsam mit uns für die digitale Zukunftsfähigkeit der Bundeswehr.
+
+Als primärer Digitalisierungspartner der Bundeswehr erbringen wir stabile, sichere und effiziente IT-Services im In- und Ausland,
+
+vom Grundbetrieb bis in den einsatznahen Bereich und tragen so zur kontinuierlichen Erhöhung der Führungs- und Einsatzfähigkeit
+
+der Bundeswehr bei. Mit über 7.000 Kolleg*innen betreiben und modernisieren wir eine der größten und komplexesten IT-
+
+Infrastrukturen in Deutschland. Wir suchen verantwortungsvolle IT-Spezialist*innen, die die Bundeswehr-IT aus Überzeugung in
+
+herausfordernden Digitalisierungsvorhaben weiterentwickeln und so einen Beitrag zur Sicherheit Deutschlands leisten wollen. 
+
+​Das Competence Center Application Lifecycle Management ist der Application Provider im Chief Information Office (CIO). Wir stellen
+
+die Anwendungen der Corporate IT zur optimalen Nutzung für unsere Kollegen:innen bereit und sichern den Betrieb ab. Wir
+
+verstehen uns als DevOps Organisation in der wir unsere agile Kultur mit Leadership pflegen und weiterentwickeln.
+
+Let's be Agile ist unser Motto! Wir freuen uns auf Dich.
+
+Ihre Aufgaben:
+
+Konzeption und Frontend-Entwicklung mit Flutter im Clean-Code-Umfeld.•
+Test und Dokumentation von Anwendungen•
+Gewährleistung des Zusammenspiels von Front- und Backend•
+Pflege, Optimierung und der Support von bestehenden Anwendungen.•
+Unterstützung des Teams bei übergeordneten Themen wie Dokumentationen, Test- / Qualitätsmanagement und Anwender-
+
+Support
+•
+
+Aufbau und Pflege der Entwicklungsumgebung•
+Ihr Profil:
+
+Abgeschlossene Ausbildung und/oder Studium der Informatik oder im Bereich der IT-Entwicklung•
+
+
+
+Einschlägige Praxis- bzw. Berufserfahrung in der Entwicklung und Betreuung von Webanwendungen•
+Expertise mit Technologien wie Javascript, HTML, CSS oder Kotlin, Java und Swift•
+Fundiertes Verständnis für UI-Design sowie User Experience•
+Vertrautheit mit agilen Entwicklungsprozessen und -methodiken •
+Hohes Interesse in einer IT-Landschaft mit sehr hohen IT-Sicherheitsstandards zu arbeiten•
+Erste praktische Erfahrung mit Flutter wäre ein Vorteil•
+
+Wir bieten:
+
+Abwechslungsreiche und gesellschaftlich relevante Aufgaben, wodurch wir die IT-Sicherheit und Zukunftsfähigkeit Deutschlands
+
+gewährleisten
+•
+
+Mobiles Arbeiten, alternativ kann alternierende oder heimbasierte Telearbeit mit Ausstattung des Heimarbeitsplatzes beantragt
+
+werden
+•
+
+Eine marktgerechte Vergütung, einen sicheren Arbeitsplatz sowie eine prämierte und arbeitgeberfinanzierte betriebliche
+
+Altersvorsorge
+•
+
+30 Tagen Jahresurlaub mit Option auf individuelle Anpassungen•
+Viel Flexibilität, um Beruf und Privatleben in Einklang zu bringen•
+Ein individuelles Weiterbildungsbudget sowie einen kostenfreien Zugriff auf LinkedIn Learning und die Angebote der BWI-
+
+Academy
+•
+
+Ein modernes Notebook (HP EliteBook) und ein High-End Smartphone (Samsung oder Apple) sowie weiteres IT Equipment zur
+
+Einrichtung Ihres Arbeitsplatzes
+•
+
+Fragen?
+
+Nehmen Sie Kontakt mit unserem Recruitingteam auf.
+
+Merin Arathil
+
+Recruiter
+
+Schreiben Sie uns unter bewerbung@bwi.de oder rufen Sie an +49 (0)2225 988 5000.
+
+mailto:bewerbung@bwi.de
+tel:+49022259885000
+
+
