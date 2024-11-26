@@ -28,14 +28,6 @@ services:
     build:
       context: ./backend/model
       dockerfile: Dockerfile
-    runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - capabilities: ["gpu"]
-    environment:
-      NVIDIA_VISIBLE_DEVICES: all
     volumes:
       - /opt/models/huggingface:/root/.cache/huggingface
     ports:
@@ -46,6 +38,12 @@ services:
       interval: 1m30s
       timeout: 30s
       retries: 5
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: ["gpu"]
+              driver: nvidia
 
   application-minio:
     container_name: application-minio
