@@ -12,10 +12,13 @@ def parse_pdf(pdf_filename):
     metadata = raw['metadata']
     #pprint(metadata)
     content = raw['content']
-    stellen_id = parse_id(content)
+    try:
+        stellen_id = parse_id(content)
+    except:
+        stellen_id = -1
     stellen_title = parse_title(content)
-    print("STELLEN_ID: ", stellen_id)
-    print("STELLEN_TITLE: ", stellen_title)
+    #print("STELLEN_ID: ", stellen_id)
+    #print("STELLEN_TITLE: ", stellen_title)
     stellen_dict = {
             "id": stellen_id,
             "title": stellen_title,
@@ -35,6 +38,8 @@ def parse_title(content):
     for line in content_lines:
         if "Stellenanzeige" in line:
             continue
+        if "bewerben" in line:
+            continue
         if "STELLEN" in line:
             continue
         if len(line) > 10:
@@ -43,6 +48,8 @@ def parse_title(content):
     return stellen_title
 
 if __name__ == "__main__":
+    #pdf_filename = 'Scrum Master_AgileCoach_11.2024.pdf'
     pdf_filename = 'frontendDeveloper.pdf'
     json_result = parse_pdf(pdf_filename)
-    pprint(json_result)
+    #pprint(json_result)
+    print(json_result)
