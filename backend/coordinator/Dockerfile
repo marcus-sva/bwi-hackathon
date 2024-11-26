@@ -1,9 +1,9 @@
-FROM python:3.10-slim
+FROM python:3.10-alpine
  
 # Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential cmake libsm6 libxext6 libxrender-dev libgl1-mesa-glx \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk update && \
+    apk upgrade --no-cache && \
+    rm -rf /var/cache/apk/*
  
 # Set the working directory
 WORKDIR /app
