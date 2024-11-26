@@ -1,3 +1,4 @@
+import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from flask import Flask, request, jsonify
