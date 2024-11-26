@@ -177,3 +177,51 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
     except Exception as e:
         # Catch any other unexpected errors and return a 500 error
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
+
+@app.post("/job")
+async def upload_cv(file: UploadFile = File(...)):
+    """
+    Endpoint to upload a PDF as 'job.pdf' to MinIO under the path jobs/RANDOM_JOB_ID/job_description.pdf.
+    """
+    try:
+        # Ensure the uploaded file is a PDF
+        if file.content_type != "application/pdf":
+            raise HTTPException(status_code=400, detail="Only PDF files are allowed.")
+
+        # Generate a random job_id
+        random_job_id = random_id()
+
+        # Define bucket name and object path
+        bucket_name = "jobs"
+        object_path = f"{random_job_id}/job_description.pdf"
+
+        # Ensure the bucket exists; create it if not
+        if not minio_client.bucket_exists(bucket_name):
+            minio_client.make_bucket(bucket_name)
+
+        # Upload the PDF to MinIO
+        minio_client.put_object(
+            bucket_name,
+            object_path,
+            file.file,  # File-like object
+            length=-1,  # Let MinIO calculate the file size
+            part_size=10 * 1024 * 1024,  # Part size for multipart uploads (10MB)
+            content_type="application/pdf",  # Set content type to PDF
+        )
+
+        # Return success response
+        return {
+            "message": f"File uploaded successfully.",
+            "path": f"{bucket_name}/{object_path}",
+            "job_id": f"{random_job_id}",
+        }
+
+    except HTTPException as e:
+        # Re-raise any HTTP exceptions to return the correct status code
+        raise e
+    except S3Error as e:
+        # Catch any other S3 errors and return a 500 error
+        raise HTTPException(status_code=500, detail=f"MinIO error: {str(e)}")
+    except Exception as e:
+        # Catch any other unexpected errors and return a 500 error
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
