@@ -7,8 +7,8 @@ app = Flask(__name__)
 # Modell und Tokenizer laden
 model_name = "meta-llama/Llama-3.2-3B-Instruct"
 hf_token = os.getenv("HUGGINGFACE_TOKEN")
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16)
+tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=hf_token)
+model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=hf_token, torch_dtype=torch.float16)
 model.to("cuda")
  
 def format_messages(messages):
