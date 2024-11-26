@@ -20,7 +20,7 @@ def parse_pdf(pdf_filename):
     #print("STELLEN_ID: ", stellen_id)
     #print("STELLEN_TITLE: ", stellen_title)
     stellen_dict = {
-            "id": stellen_id,
+            "job_id": stellen_id,
             "title": stellen_title,
             "text": content,
             "file": pdf_filename
@@ -48,8 +48,8 @@ def parse_title(content):
     return stellen_title
 
 if __name__ == "__main__":
-    #pdf_filename = 'Scrum Master_AgileCoach_11.2024.pdf'
-    pdf_filename = 'frontendDeveloper.pdf'
+    #pdf_filename = 'frontendDeveloper.pdf'
+    pdf_filename = 'job_description.pdf'
     json_result = parse_pdf(pdf_filename)
     #pprint(json_result)
     print(json_result)
