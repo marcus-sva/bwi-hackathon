@@ -56,7 +56,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ${DOCKER_VOLUME_DIRECTORY:-./volumes}/minio:/minio_data
+      - ${DOCKER_VOLUME_DIRECTORY:-./s3sample}:/minio_data
     command: minio server /minio_data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
