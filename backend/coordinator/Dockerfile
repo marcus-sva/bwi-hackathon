@@ -8,15 +8,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Set the working directory
 WORKDIR /app
  
-# Copy the requirements file
-COPY app/requirements.txt .
+# Copy the application code
+COPY . .
  
 # Install dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
- 
-# Copy the application code
-COPY app/ .
  
 # Expose the port
 EXPOSE 8000
