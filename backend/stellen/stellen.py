@@ -1,6 +1,7 @@
 from tika import parser
 from pprint import pprint
 import re
+import json
 
 
 def parse_pdf(pdf_filename):
@@ -15,6 +16,14 @@ def parse_pdf(pdf_filename):
     stellen_title = parse_title(content)
     print("STELLEN_ID: ", stellen_id)
     print("STELLEN_TITLE: ", stellen_title)
+    stellen_dict = {
+            "id": stellen_id,
+            "title": stellen_title,
+            "text": content,
+            "file": pdf_filename
+            }
+    stellen_json = json.dumps(stellen_dict)
+    return stellen_json
 
 def parse_id(content):
     stellen_id = re.search('(?:STELLEN.ID:\\s*)(\\d+)', content)
@@ -35,4 +44,5 @@ def parse_title(content):
 
 if __name__ == "__main__":
     pdf_filename = 'frontendDeveloper.pdf'
-    parse_pdf(pdf_filename)
+    json_result = parse_pdf(pdf_filename)
+    pprint(json_result)
