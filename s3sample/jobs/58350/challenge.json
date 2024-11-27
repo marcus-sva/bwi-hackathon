@@ -1,0 +1,39 @@
+{
+    "Technische Fragen": [
+      {
+        "Frage": "Was sind die Vorteile von Agile-Methoden im Projektmanagement?",
+        "Bewertungsmaßstab": "Die genannten Vorteile sind korrekt und ausreichend begründet."
+      },
+      {
+        "Frage": "Wie würde du ein komplexes Problem in einem Team lösen, wenn alle Teammitglieder unterschiedliche Ansichten haben?",
+        "Bewertungsmaßstab": "Die Lösung ist konsistent und logisch, die Berücksichtigung der unterschiedlichen Ansichten ist sichtbar."
+      },
+      {
+        "Frage": "Was ist der Unterschied zwischen SQL und NoSQL-Datenbanken?",
+        "Bewertungsmaßstab": "Die genannten Unterschiede sind korrekt und ausreichend begründet."
+      },
+      {
+        "Frage": "Wie würdest du eine neue Funktion in einem bestehenden Projekt implementieren, ohne die bestehende Logik zu ändern?",
+        "Bewertungsmaßstab": "Die genannten Schritte sind korrekt und logisch, die Lösung ist sinnvoll."
+      },
+      {
+        "Frage": "Was sind die wichtigsten Aspekte bei der Planung einer Cloud-Infrastruktur?",
+        "Bewertungsmaßstab": "Die genannten Aspekte sind korrekt und ausreichend begründet."
+      }
+    ],
+    "Persönliche Eignung": [
+      {
+        "Frage": "Können Sie ein Beispiel für eine Situation geben, in der Sie als Teil eines Teams ein schwieriges Projekt erfolgreich umsetzen mussten?",
+        "Bewertungsmaßstab": "Die Situation ist plausibel, die Rolle und die Lösung sind sichtbar."
+      },
+      {
+        "Frage": "Wie würden Sie mit einem Kollegen umgehen, der Ihre Arbeit nicht akzeptiert?",
+        "Bewertungsmaßstab": "Die Lösung ist konstruktiv, die Kommunikation ist sichtbar."
+      },
+      {
+        "Frage": "Können Sie ein Beispiel für eine Situation geben, in der Sie als Führungskraft eine Entscheidung treffen mussten, die nicht von allen Teammitgliedern akzeptiert wurde?",
+        "Bewertungsmaßstab": "Die Entscheidung ist nachvollziehbar, die Kommunikation und der Umgang mit Widerstand sind sichtbar."
+      }
+    ]
+  }
+  
