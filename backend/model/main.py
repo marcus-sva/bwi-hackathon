@@ -69,8 +69,8 @@ def challenge():
 
         job_posting_json = data.get("job_posting_json")
         question_count = data.get("question_count")
-        job_level = data.get("job_level")
 
+        print(job_posting_json)
         # Validate required fields
         if not job_posting_json or not question_count or not job_level:
             raise ValueError("Missing required fields: 'job_posting_json', 'question_count', or 'job_level'.")
@@ -80,12 +80,12 @@ def challenge():
         print("Job Level:", job_level)
 
         # Process the input (call your functions)
-        requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
-        print("Requirements JSON:", requirements_json)
+        #requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
+        #print("Requirements JSON:", requirements_json)
 
-        questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
-        print("Generated Questions:", questions_json)
-
+        #questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
+        #print("Generated Questions:", questions_json)
+        questions_json = job_posting_json
         return jsonify(questions_json)
 
     except Exception as e:
