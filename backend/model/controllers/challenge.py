@@ -38,7 +38,7 @@ def extract_requirements_and_skills_with_json(job_posting_json):
 
     Gib das Ergebnis als JSON zurück mit folgendem Format:
     {{
-        "Anforderungen": [
+        "Stellenbeschreibung": [
             {{
                 "Anforderung": "<Text der Anforderung>",
                 "Fähigkeiten": ["<Fähigkeit 1>", "<Fähigkeit 2>", ...],
@@ -85,12 +85,12 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     {requirements_text}
 
     [INSTRUCTIONS]
-    Basierend auf den oben genannten Anforderungen, Fähigkeiten und Technologien unter Berücksichtigung, dass die Stelle für ein {job_level}-Level ausgeschrieben ist, 
+    Basierend auf den oben genannten Fähigkeiten und Technologien unter Berücksichtigung, dass die Stelle für ein {job_level}-Level ausgeschrieben ist, 
     generiere eine Liste von {question_count} Interviewfragen. Die Fragen sollten eine breite Palette abdecken, von grundlegenden bis zu komplexen Fragestellungen.
     
 
     Unterteile die Fragen in die folgenden Kategorien:
-    1. Technische Fragen: Basierend auf den genannten Technologien. Überprüfung des technischen Wissens und der beruflichen Qualifikationen. z.B. Fragen zu verschiedenen Technologien oder Programmiersprachen.
+    1. Technische Fragen: Basierend auf den genannten Technologien oder Tools (z. B. Programmiersprachen, Software, Frameworks). Überprüfung des technischen Wissens und der beruflichen Qualifikationen.
     2. Persönliche Eignung: Überprüfung von Soft Skills wie Teamfähigkeit, Kommunikationsstärke oder Führungsqualitäten (falls relevant).
     3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
 
