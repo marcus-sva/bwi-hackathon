@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 
 RUN mkdir -p /app/images
+RUN mkdir -p /app/applicant_data
 
 COPY requirements.txt /app/
 COPY *.py /app/
