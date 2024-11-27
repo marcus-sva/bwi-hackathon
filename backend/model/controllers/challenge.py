@@ -89,15 +89,14 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     generiere eine Liste von {question_count} Interviewfragen. Die Fragen sollten eine breite Palette abdecken, von grundlegenden bis zu komplexen Fragestellungen.
     
     Unterteile die Fragen in die folgenden Kategorien:
-    1. Technische Fragen: Überprüfung des technischen Wissens und der beruflichen Qualifikationen. z.B. Fragen zu Technologien oder Programmiersprachen aus den Anforderungen  
+    1. Technische Fragen: Überprüfung des technischen Wissens und der beruflichen Qualifikationen. z.B. Fragen zu verschiedenen Technologien oder Programmiersprachen aus den Angaben zwischen [ANFORDERUNGEN] und [INSTRUCTIONS].
     2. Persönliche Eignung: Überprüfung von Soft Skills wie Teamfähigkeit, Kommunikationsstärke oder Führungsqualitäten (falls relevant).
     3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
 
-    Falls sich die 10 Fragen nicht gleichmäßig auf die Kategorien verteilen lassen, priorisiere **fachliche Fragen**.
-
+    Erstelle die hälfte der {question_count} Fragen als Technische Fragen und den Rest als Persönliche Eignung oder Motivationsfragen.
     Formatiere das Ergebnis exakt im folgenden JSON-Format:
     {{
-        "Fachliche Fragen": [
+        "Technische Fragen": [
             {{
                 "Frage": "<Text der fachlichen Frage>",
                 "Bewertungsmaßstab": "<Bewertungsmaßstab für die Antwort>"
