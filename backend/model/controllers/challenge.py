@@ -56,7 +56,8 @@ def extract_requirements_and_skills_with_json(job_posting_json):
     try:
         response = requests.post(API_URL, json=payload)
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        return result["response"]
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
 
@@ -87,11 +88,11 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     [INSTRUCTIONS]
     Basierend auf den oben genannten Fähigkeiten und Technologien unter Berücksichtigung, dass die Stelle für ein {job_level}-Level ausgeschrieben ist, 
     generiere eine Liste von {question_count} Interviewfragen. Die Fragen sollten eine breite Palette abdecken, von grundlegenden bis zu komplexen Fragestellungen.
-    
+    Beachte JavaScript und Java sind unterschiedliche Sprachen. Python ist keine Frontend Sprache.
 
     Unterteile die Fragen in die folgenden Kategorien:
-    1. Technische Fragen: Basierend auf den genannten Technologien oder Tools (z. B. Programmiersprachen, Software, Frameworks). Überprüfung des technischen Wissens und der beruflichen Qualifikationen.
-    2. Persönliche Eignung: Überprüfung von Soft Skills wie Teamfähigkeit, Kommunikationsstärke oder Führungsqualitäten (falls relevant).
+    1. Technische Fragen: Überprüfung des Wissens ausschließlich zu den genannten Technologien oder Tools (z. B. Programmiersprachen, Software, Frameworks) der Stellenbeschreibung. 
+    2. Persönliche Eignung: Überprüfung von Soft Skills z.B. Teamfähigkeit, Kommunikationsstärke oder andere Soft Skills die zur .
     3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
 
     Erstelle die hälfte der {question_count} Fragen als Technische Fragen und den Rest als Persönliche Eignung oder Motivationsfragen.
@@ -135,6 +136,7 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     try:
         response = requests.post(API_URL, json=payload)
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        return result["response"]
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
