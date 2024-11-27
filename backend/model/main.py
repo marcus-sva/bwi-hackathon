@@ -2,6 +2,7 @@ import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from flask import Flask, request, jsonify
+from controllers.challenge import extract_requirements_and_skills_with_db, generate_questions_from_requirements
  
 app = Flask(__name__)
  
@@ -56,5 +57,14 @@ def generate():
  
     return jsonify({"response": response_text})
  
+@app.route("/generate_challenge", methods=["POST"])
+def challenge(json(job_text,job_title), question_count, job_level):
+
+    requirements_json = extract_requirements_and_skills_with_db(job_posting, job_title)
+    questions_json = generate_questions_from_requirements(requirements_json, question_count=10, job_level="Junior")
+    #request2minio challenge_json,   
+    print(questions_json)
+    return questions_json
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8001)
