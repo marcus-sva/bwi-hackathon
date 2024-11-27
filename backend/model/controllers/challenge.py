@@ -87,12 +87,14 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     [INSTRUCTIONS]
     Basierend auf den oben genannten Fähigkeiten und Technologien unter Berücksichtigung, dass die Stelle für ein {job_level}-Level ausgeschrieben ist, 
     generiere eine Liste von {question_count} Interviewfragen. Die Fragen sollten eine breite Palette abdecken, von grundlegenden bis zu komplexen Fragestellungen.
-    Beachte JavaScript und Java sind unterschiedliche Sprachen. Python ist keine Frontend Sprache.
+    
 
     Unterteile die Fragen in die folgenden Kategorien:
     1. Technische Fragen: Überprüfung des Wissens ausschließlich zu den genannten Technologien oder Tools (z. B. Programmiersprachen, Software, Frameworks) der Stellenbeschreibung. 
     2. Persönliche Eignung: Überprüfung von Soft Skills z.B. Teamfähigkeit, Kommunikationsstärke oder andere Soft Skills die zur .
     3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
+    
+    Keine Fragen zu Java!
 
     Erstelle die hälfte der {question_count} Fragen als Technische Fragen und den Rest als Persönliche Eignung oder Motivationsfragen.
     Formatiere das Ergebnis exakt im folgenden JSON-Format:
