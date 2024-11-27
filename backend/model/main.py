@@ -69,7 +69,7 @@ def challenge():
 
         job_posting_json = data.get("job_posting_json")
         question_count = data.get("question_count")
-
+        job_level = data.get("job_level")
         print(job_posting_json)
         # Validate required fields
         if not job_posting_json or not question_count or not job_level:
