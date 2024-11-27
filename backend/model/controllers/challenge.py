@@ -93,10 +93,46 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     2. Persönliche Eignung: Überprüfung von Soft Skills wie Teamfähigkeit, Kommunikationsstärke oder Führungsqualitäten (falls relevant).
     3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
 
-    Ergänze zu jeder Frage einen Bewertungsmaßstab, der beschreibt, wie eine Antwort bewertet werden kann. 
-    Gib das Ergebnis als JSON zurück mit den folgenden Schlüsseln:
-    - Kategorien: Fachliche Fragen, Persönliche Eignung, Motivationsfragen.
-    - Jede Frage sollte ein zugehöriges Bewertungsmaßstab-Feld haben.
+    [INSTRUCTIONS]
+    Basierend auf den bereitgestellten Informationen generiere **genau {question_count} Interviewfragen** und ergänze jede Frage mit einem Bewertungsmaßstab. Die Fragen sollen gleichmäßig auf die folgenden Kategorien verteilt sein:
+
+    1. Fachliche Fragen: Überprüfung des technischen Wissens und der beruflichen Qualifikationen, die für die Stelle erforderlich sind.
+    2. Persönliche Eignung: Überprüfung von Soft Skills wie Teamfähigkeit, Kommunikationsstärke oder Führungsqualitäten (falls relevant).
+    3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
+
+    Falls sich die 10 Fragen nicht gleichmäßig auf die Kategorien verteilen lassen, priorisiere **fachliche Fragen**.
+
+    Formatiere das Ergebnis exakt im folgenden JSON-Format:
+    {{
+        "Fachliche Fragen": [
+            {{
+                "Frage": "<Text der fachlichen Frage>",
+                "Bewertungsmaßstab": "<Bewertungsmaßstab für die Antwort>"
+            }},
+            ...
+        ],
+        "Persönliche Eignung": [
+            {{
+                "Frage": "<Text der Frage zur persönlichen Eignung>",
+                "Bewertungsmaßstab": "<Bewertungsmaßstab für die Antwort>"
+            }},
+            ...
+        ],
+        "Motivationsfragen": [
+            {{
+                "Frage": "<Text der Motivationsfrage>",
+                "Bewertungsmaßstab": "<Bewertungsmaßstab für die Antwort>"
+            }},
+            ...
+        ]
+    }}
+
+    Achte darauf, dass:
+    - Die Fragen klar und spezifisch formuliert sind.
+    - Jede Kategorie relevante Fragen enthält.
+    - Die Bewertungsmaßstäbe konkrete Hinweise enthalten, um Antworten sinnvoll zu bewerten.
+
+    Liefere ausschließlich die JSON-Ausgabe als Ergebnis.
     """
 
     # Nachricht an das Modell senden
