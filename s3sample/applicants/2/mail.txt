@@ -1,0 +1,32 @@
+From: max.mueller123@example.com
+To: bewerbung@example.com
+Subject: Bewerbung um die Stelle als Frontend Developer
+Date: Fri, 22 Nov 2024 10:00:00 +0000
+
+
+Sehr geehrte Damen und Herren,
+
+mit großem Interesse habe ich die Stellenanzeige für die Position des Frontend Developers bei der BWI auf Ihrer Website gelesen. Aufgrund meiner fundierten Kenntnisse in der Webentwicklung und meiner Leidenschaft für innovative Technologien möchte ich mich hiermit um diese Position bewerben.
+
+Ich habe ein Studium in Informatik abgeschlossen und verfüge über 3 Jahre Erfahrung in der Frontend-Entwicklung. In meinen bisherigen Positionen habe ich umfangreiche Kenntnisse in HTML, CSS und JavaScript sowie in modernen Frameworks wie React und Angular erworben. Ich bin überzeugt, dass ich mit meiner Expertise und meinem kreativen Ansatz zur Problemlösung einen wertvollen Beitrag zu Ihrem Team leisten kann.
+
+Besonders reizt mich die Möglichkeit, bei der BWI an spannenden Projekten zu arbeiten, die einen direkten Einfluss auf die digitale Transformation der Bundeswehr haben. Ich schätze die Werte und die Mission Ihres Unternehmens und bin motiviert, meine Fähigkeiten in einem so bedeutenden Umfeld einzubringen.
+
+Gerne möchte ich meine Erfahrungen und Ideen in einem persönlichen Gespräch mit Ihnen teilen. Ich freue mich auf die Möglichkeit, mehr über die BWI und die Herausforderungen der Position zu erfahren.
+
+Vielen Dank für Ihre Zeit und Überlegung. Ich freue mich auf Ihre Rückmeldung.
+
+Mit freundlichen Grüßen,
+
+Max Schneider
+
+**Adresse:**  
+Musterstraße 12  
+12345 Musterstadt  
+Deutschland  
+
+**Telefonnummer:**  
+0123 4567890  
+
+**E-Mail:**  
+max.mueller123@example.com`

@@ -43,8 +43,16 @@ services:
       - "8001:8001"
     entrypoint: ["python3", "main.py"]
     environment:
-      - HUGGINGFACE_TOKEN="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"
+      - HUGGINGFACE_TOKEN="you-hf-access-key-here"
       - NVIDIA_VISIBLE_DEVICES=all
+    mem_limit: 32g        # Set the maximum amount of memory the container can use (4GB in this case)
+    mem_reservation: 16g  # Set the soft limit for memory (the container will be guaranteed 2GB)
+    deploy:
+      resources:
+        limits:
+          memory: 32G     # Maximum memory limit
+        reservations:
+          memory: 16G
 
   application-minio:
     container_name: application-minio
