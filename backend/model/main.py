@@ -76,10 +76,7 @@ def challenge():
             raise ValueError("Missing required fields: 'job_posting_json', 'question_count', or 'job_level'.")
 
         # Process the input (call your functions)
-        requirements_json = extract_requirements_and_skills_with_json(
-            job_posting_json["text"],
-            job_posting_json["title"]
-        )
+        requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
         questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
 
         return jsonify(questions_json)
