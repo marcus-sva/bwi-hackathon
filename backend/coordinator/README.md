@@ -38,10 +38,10 @@ curl -X PUT "http://127.0.0.1:8000/challenge_solution/1/1" \
   }'
 ```
 
-### POST /job
+### POST /job/{job_id}
 
-Upload a job description as a PDF file and store it in MinIO under the path `jobs/{RANDOM_JOB_ID}/job_description.pdf`.
+Upload a job description PDF to MinIO under the path `jobs/{JOB_ID}/job_description.pdf`.
 
 ```shell
-curl -X POST "http://127.0.0.1:8000/job" -F "file=@developer-job-description.pdf"
+curl -X 'POST' 'http://localhost:8000/job/123' -F 'file=@example.pdf'
 ```

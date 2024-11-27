@@ -161,12 +161,19 @@ paths:
                   detail:
                     type: string
 
-  /job:
+  /job/{job_id}:
     post:
-      summary: Upload a job description
-      description: Upload a job description as a PDF file and store it in MinIO under the path `jobs/{RANDOM_JOB_ID}/job_description.pdf`.
+      summary: Upload a job description PDF
+      description: Upload a PDF job description to MinIO under jobs/{job_id}/job_description.pdf.
+      operationId: uploadJobDescription
+      parameters:
+        - in: path
+          name: job_id
+          required: true
+          schema:
+            type: integer
+          description: The unique ID of the job
       requestBody:
-        required: true
         content:
           multipart/form-data:
             schema:
@@ -175,10 +182,9 @@ paths:
                 file:
                   type: string
                   format: binary
-                  description: The job description file to upload (PDF only).
       responses:
-        '200':
-          description: Job description uploaded successfully.
+        200:
+          description: Job description PDF uploaded successfully
           content:
             application/json:
               schema:
@@ -189,9 +195,9 @@ paths:
                   path:
                     type: string
                   job_id:
-                    type: string
-        '400':
-          description: Invalid file type.
+                    type: integer
+        400:
+          description: Invalid file format or job_id
           content:
             application/json:
               schema:
@@ -199,8 +205,8 @@ paths:
                 properties:
                   detail:
                     type: string
-        '500':
-          description: MinIO or unexpected error.
+        500:
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -208,6 +214,7 @@ paths:
                 properties:
                   detail:
                     type: string
+
 components:
   schemas:
     ChallengeSolution:

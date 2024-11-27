@@ -179,22 +179,23 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
         # Catch any other unexpected errors and return a 500 error
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
-@app.post("/job")
-async def upload_cv(file: UploadFile = File(...)):
+@app.post("/job/{job_id}")
+async def upload_cv(job_id: int, file: UploadFile = File(...)):
     """
-    Endpoint to upload a PDF as 'job.pdf' to MinIO under the path jobs/RANDOM_JOB_ID/job_description.pdf.
+    Endpoint to upload a PDF as 'job_description.pdf' to MinIO under the path jobs/{JOB_ID}/job_description.pdf.
     """
     try:
         # Ensure the uploaded file is a PDF
         if file.content_type != "application/pdf":
             raise HTTPException(status_code=400, detail="Only PDF files are allowed.")
 
-        # Generate a random job_id
-        random_job_id = random_id()
+        # Validate job_id
+        if job_id <= 0:
+            raise HTTPException(status_code=400, detail="Invalid job_id. It must be a positive integer.")
 
         # Define bucket name and object path
         bucket_name = "jobs"
-        object_path = f"{random_job_id}/job_description.pdf"
+        object_path = f"{job_id}/job_description.pdf"
 
         # Ensure the bucket exists; create it if not
         if not minio_client.bucket_exists(bucket_name):
@@ -214,7 +215,7 @@ async def upload_cv(file: UploadFile = File(...)):
         return {
             "message": f"File uploaded successfully.",
             "path": f"{bucket_name}/{object_path}",
-            "job_id": f"{random_job_id}",
+            "job_id": f"{job_id}",
         }
 
     except HTTPException as e:
