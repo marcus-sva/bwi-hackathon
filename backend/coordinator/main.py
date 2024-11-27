@@ -4,13 +4,14 @@ import json
 import os
 import random
 import tempfile
-import copy
+import json
+import PyPDF2
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from minio import Minio
 from minio.error import S3Error
 from pydantic import BaseModel
-from tika import parser
+
 
 minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
 minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
@@ -75,14 +76,17 @@ async def cv_pdf_to_json(applicant_id: int, job_id: int, file: UploadFile):
 
     print(f"CV JSON successfully uploaded to MinIO: {bucket_name}/{json_object_path}")
 
+
+
 async def parse_document(pdf_filename):
     """
     gets text from document
     """
-    raw = parser.from_file(pdf_filename)
-    metadata = raw['metadata']
-    # pprint(metadata)
-    content = raw['content']
+    with open(pdf_filename, 'rb') as file:
+        reader = PyPDF2.PdfReader(file)
+        content = ""
+        for page in reader.pages:
+            content += page.extract_text()
 
     doc_dict = {
         "file": pdf_filename,

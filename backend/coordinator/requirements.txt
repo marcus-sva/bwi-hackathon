@@ -4,4 +4,4 @@ requests
 minio
 python-multipart
 pydantic
-tika
+PyPDF2
