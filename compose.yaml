@@ -1,6 +1,10 @@
 services:
   frontend:
     image: applicationform-frontend:v1
+    environment:
+      MINIO_ADDRESS: "application-minio:9000"
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
     build: 
       context: ./frontend
     ports:
