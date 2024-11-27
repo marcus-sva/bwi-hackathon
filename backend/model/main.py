@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
  
 # Load model and tokenizer
-model_name = "meta-llama/Llama-3.2-3B-Instruct"
+model_name = "meta-llama/Llama-3.1-8B-Instruct"
 hf_token = os.getenv("HUGGINGFACE_TOKEN")
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=hf_token)
 model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=hf_token, torch_dtype=torch.float16)
