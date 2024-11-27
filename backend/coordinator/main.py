@@ -1,4 +1,5 @@
 import io
+import json
 import os
 import random
 
@@ -102,7 +103,7 @@ async def get_challenge(applicant_id: str):
             content = response.read().decode("utf-8")
 
             # Return the JSON content
-            return {"applicant_id": applicant_id, "challenge": content}
+            return json.loads(content)
         finally:
             response.close()
             response.release_conn()
