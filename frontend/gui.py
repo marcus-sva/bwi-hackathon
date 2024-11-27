@@ -6,7 +6,7 @@ import plotly.express as px
 from utils import *
 
 
-# Kommentaraenderung: Function to highlight text within a DataFrame
+#  Function to highlight text within a DataFrame
 def highlight_text(text, keyword, font_size=20):
     highlighted_keyword = f'<b style="font-size: {font_size}px;">{keyword}</b>'
     return text.replace(keyword, highlighted_keyword)
