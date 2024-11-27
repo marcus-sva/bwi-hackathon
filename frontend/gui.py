@@ -2,6 +2,18 @@ import streamlit as st
 import os
 import json
 
+minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
+minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
+minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
+minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
+
+bucket_name = "jobs"
+object_name = "company_values.json"
+response = minio_client.get_object(bucket_name, object_name)
+content = response.read().decode("utf-8")
+json_objects = json.loads(content)
+
+
 # Funktion zum Laden der JSON-Dateien
 def load_applicants_from_json(folder_path):
     applicants = {}
