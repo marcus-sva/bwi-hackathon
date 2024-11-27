@@ -19,6 +19,10 @@ def random_id():
     return random.randint(1, 1000)
 
 
+def cv_pdf_to_json(applicant_id: int, job_id: int):
+    return ""
+
+
 @app.post("/cv/{job_id}/pdf")
 async def upload_cv(job_id: int, file: UploadFile = File(...)):
     """
@@ -55,6 +59,7 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
         )
 
         # @TODO TRIGGER pdf to json generation via other service
+        cv_pdf_to_json(random_applicants_id, job_id)
 
         # Return success response
         return {
@@ -184,6 +189,7 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
     except Exception as e:
         # Catch any other unexpected errors and return a 500 error
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
+
 
 @app.post("/job/{job_id}/pdf")
 async def upload_cv(job_id: int, file: UploadFile = File(...)):
