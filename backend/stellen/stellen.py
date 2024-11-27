@@ -2,6 +2,7 @@ from tika import parser
 from pprint import pprint
 import re
 import json
+import search_job
 
 
 def parse_pdf(pdf_filename):
@@ -25,8 +26,7 @@ def parse_pdf(pdf_filename):
             "text": content,
             "file": pdf_filename
             }
-    stellen_json = json.dumps(stellen_dict)
-    return stellen_json
+    return stellen_dict
 
 def parse_id(content):
     stellen_id = re.search('(?:STELLEN.ID:\\s*)(\\d+)', content)
@@ -47,9 +47,20 @@ def parse_title(content):
             break
     return stellen_title
 
+def process_job(pdf_filename):
+    """
+    process job posting pdf and return description with relevant skills from kaggle data
+    """
+    dict_result = parse_pdf(pdf_filename)
+    dict_result["skills"] = search_job.search_job(dict_result["title"])
+    job_json = json.dumps(dict_result)
+    return job_json
+
+
 if __name__ == "__main__":
     #pdf_filename = 'frontendDeveloper.pdf'
     pdf_filename = 'job_description.pdf'
-    json_result = parse_pdf(pdf_filename)
+    #json_result = parse_pdf(pdf_filename)
+    json_result = process_job(pdf_filename)
     #pprint(json_result)
     print(json_result)
