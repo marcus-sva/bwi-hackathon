@@ -1,10 +1,10 @@
-version: '3'
-
 services:
   frontend:
     image: applicationform-frontend:v1
-    volumes:
-      - ./frontend/applicant_data:/app/applicant_data
+    environment:
+      MINIO_ADDRESS: "application-minio:9000"
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
     build: 
       context: ./frontend
     ports:
@@ -18,11 +18,14 @@ services:
 
   backend-coordinator:
     image: applicationform-backend-coordinator:v1
+    environment:
+      MINIO_ADDRESS: "application-minio:9000"
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
     build:
       context: ./backend/coordinator
     ports:
       - "8000:8000"
-    entrypoint: ["python3", "main.py", "0.0.0.0", "8000"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://backend-coordinator:8000/healthcheck", "||", "exit", "1"]
       interval: 1m30s
@@ -30,17 +33,18 @@ services:
       retries: 5
 
   backend-model:
-    image: applicationform-backend-model:v1
     build:
       context: ./backend/model
+      dockerfile: Dockerfile
+    volumes:
+      - /opt/models/huggingface:/root/.cache/huggingface
+    runtime: nvidia
     ports:
       - "8001:8001"
-    entrypoint: ["python3", "main.py", "0.0.0.0", "8000"]
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://backend-model:8000/healthcheck", "||", "exit", "1"]
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
+    entrypoint: ["python3", "main.py"]
+    environment:
+      - HUGGINGFACE_TOKEN="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"
+      - NVIDIA_VISIBLE_DEVICES=all
 
   application-minio:
     container_name: application-minio
@@ -51,13 +55,14 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ${DOCKER_VOLUME_DIRECTORY:-./volumes}/minio:/minio_data
+      - ${DOCKER_VOLUME_DIRECTORY:-./s3sample}:/minio_data
     command: minio server /minio_data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 20s
       retries: 3
+
 networks:
   default:
     name: application-net

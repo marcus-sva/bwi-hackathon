@@ -1,35 +1,50 @@
 import streamlit as st
 import os
 import json
+from minio import Minio
+#from minio.error import ResponseError
+from fastapi import HTTPException
 
+# MinIO-Konfiguration
 minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
 minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
 
-bucket_name = "jobs"
-object_name = "company_values.json"
-response = minio_client.get_object(bucket_name, object_name)
-content = response.read().decode("utf-8")
-json_objects = json.loads(content)
+bucket_name = "applicants"
 
-
-# Funktion zum Laden der JSON-Dateien
-def load_applicants_from_json(folder_path):
+def load_objects_from_minio(bucket_name):
+    # Überprüfen, ob der Bucket existiert
+    if not minio_client.bucket_exists(bucket_name):
+        raise HTTPException(status_code=404, detail="Bucket does not exist.")
+    
     applicants = {}
-    for file_name in os.listdir(folder_path):
-        if file_name.endswith(".json"):  # Nur JSON-Dateien laden
-            file_path = os.path.join(folder_path, file_name)
-            with open(file_path, "r") as json_file:
-                data = json.load(json_file)
-                applicants[data["applicant_id"]] = data
+
+    # Alle Objekte im Bucket durchlaufen
+    objects = minio_client.list_objects(bucket_name, recursive=True)
+    
+    for obj in objects:
+        # Extrahiere den Ordnernamen (Bewerber-ID) und lade die 'metadata.json'
+        parts = obj.object_name.split("/")
+        
+        if len(parts) > 1 and parts[-1] == "metadata.json":  # Sicherstellen, dass es die 'metadata.json' ist
+            applicant_id = parts[0]  # Der erste Teil des Objektnamens ist die Bewerber-ID
+#            try:
+                # Lade das 'metadata.json' Objekt aus MinIO
+            response = minio_client.get_object(bucket_name, obj.object_name)
+            content = response.read().decode("utf-8")
+            data = json.loads(content)
+                
+                # Bewerberdaten speichern
+            applicants[applicant_id] = data
+                
+#            except ResponseError as e:
+#                print(f"Fehler beim Laden der Datei {obj.object_name}: {e}")
+#    
     return applicants
 
-# JSON-Dateien-Verzeichnis
-JSON_FOLDER = "./applicant_data"  # Ordner mit JSON-Dateien
-
-# Bewerberdaten laden
-applicants = load_applicants_from_json(JSON_FOLDER)
+# Bewerberdaten aus MinIO laden
+applicants = load_objects_from_minio(bucket_name)
 
 # Streamlit Layout
 st.set_page_config(layout="wide")
@@ -70,8 +85,9 @@ with col2:
 with col3:
     st.header("Dokumente")
     if selected_id:
-        documents = applicants[selected_id].get("documents", [])
+        documents = applicant_data.get("documents", [])
         st.write("Liste der Dokumente:")
         for doc in documents:
             st.write(f"- {doc}")
+
 
