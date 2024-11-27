@@ -196,7 +196,7 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
 
 
 @app.post("/job/{job_id}/pdf")
-async def upload_cv(job_id: int, file: UploadFile = File(...)):
+async def upload_job_description(job_id: int, file: UploadFile = File(...)):
     """
     Endpoint to upload a PDF as 'job_description.pdf' to MinIO under the path jobs/{JOB_ID}/job_description.pdf.
     """
