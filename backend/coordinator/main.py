@@ -3,11 +3,14 @@ import io
 import json
 import os
 import random
+import tempfile
+import copy
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from minio import Minio
 from minio.error import S3Error
 from pydantic import BaseModel
+from tika import parser
 
 minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
 minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
@@ -19,12 +22,74 @@ app = FastAPI()
 def random_id():
     return random.randint(1, 1000)
 
+async def cv_pdf_to_json(applicant_id: int, job_id: int, file: UploadFile):
+    """
+    Converts a CV PDF to JSON and uploads it to MinIO under the proper path.
 
-async def cv_pdf_to_json(applicant_id: int, job_id: int):
-    print(f"Started processing cv.pdf to cv.json for applicant {applicant_id} and job {job_id}...")
-    await asyncio.sleep(5)  # Simulate a time-consuming task
-    print(f"Completed processing cv.pdf to cv.json for applicant {applicant_id} and job {job_id}...")
-    return ""
+    Args:
+        applicant_id (str): The unique ID of the applicant.
+        job_id (int): The job ID.
+        file (UploadFile): The uploaded PDF file.
+    """
+    bucket_name = "applicants"
+    json_object_path = f"{applicant_id}/{job_id}/cv.json"
+
+    # Temporary file management
+    temp_file = None
+    try:
+        # Write the uploaded PDF to a temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+            temp_file.write(await file.read())
+            temp_file_path = temp_file.name
+
+        # Call the parser with the temporary file handle (replace with actual parser logic)
+        parsed_data = await parse_document(temp_file_path)
+
+        # Write parsed data to a temporary JSON file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_json_file:
+            temp_json_file.write(parsed_data.encode("utf-8"))
+            temp_json_path = temp_json_file.name
+
+        # Ensure the bucket exists in MinIO
+        if not minio_client.bucket_exists(bucket_name):
+            minio_client.make_bucket(bucket_name)
+
+        # Upload the JSON file to MinIO
+        with open(temp_json_path, "rb") as json_file:
+            minio_client.put_object(
+                bucket_name,
+                json_object_path,
+                json_file,
+                os.path.getsize(temp_json_path),
+                content_type="application/json",
+            )
+
+    except Exception as e:
+        raise Exception(f"An error occurred during PDF to JSON conversion: {str(e)}")
+    finally:
+        # Clean up temporary files
+        if temp_file and os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+        if 'temp_json_path' in locals() and os.path.exists(temp_json_path):
+            os.remove(temp_json_path)
+
+    print(f"CV JSON successfully uploaded to MinIO: {bucket_name}/{json_object_path}")
+
+async def parse_document(pdf_filename):
+    """
+    gets text from document
+    """
+    raw = parser.from_file(pdf_filename)
+    metadata = raw['metadata']
+    # pprint(metadata)
+    content = raw['content']
+
+    doc_dict = {
+        "file": pdf_filename,
+        "text": content
+    }
+    doc_json = json.dumps(doc_dict)
+    return doc_json
 
 
 @app.post("/cv/{job_id}/pdf")
@@ -226,6 +291,8 @@ async def upload_job_description(job_id: int, file: UploadFile = File(...)):
             part_size=10 * 1024 * 1024,  # Part size for multipart uploads (10MB)
             content_type="application/pdf",  # Set content type to PDF
         )
+
+        await cv_pdf_to_json("1", job_id, file)
 
         # Return success response
         return {
