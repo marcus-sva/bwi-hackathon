@@ -56,8 +56,7 @@ def extract_requirements_and_skills_with_json(job_posting_json):
     try:
         response = requests.post(API_URL, json=payload)
         response.raise_for_status()
-        result = response.json()
-        return json.loads(result["response"])
+        return response.json()
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
 
@@ -136,7 +135,6 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     try:
         response = requests.post(API_URL, json=payload)
         response.raise_for_status()
-        result = response.json()
-        return json.loads(result["response"])
+        return response.json()
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
