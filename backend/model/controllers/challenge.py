@@ -1,64 +1,33 @@
-import requests, os
+import requests
 
-def fetch_job_database_info(job_title):
+
+def extract_requirements_and_skills_with_json(job_posting_json):
     """
-    Simuliert eine Abfrage der Job-Datenbank und gibt relevante Informationen zurück.
+    Kombiniert die Anforderungen aus der Stellenbeschreibung mit Informationen aus einem JSON-Datensatz.
 
     Args:
-        job_title (str): Der Titel der Stelle, z. B. "Softwareentwickler".
-
-    Returns:
-        dict: Eine Struktur mit branchenspezifischen Informationen.
-    """
-    # Simulierte Datenbankinformationen
-    job_database = {
-        "Softwareentwickler": {
-            "branchenspezifische_anforderungen": [
-                "Kenntnisse in agilen Entwicklungsmethoden",
-                "Erfahrung mit Versionskontrollsystemen wie Git"
-            ],
-            "übliche_fähigkeiten": ["Problemlösung", "Teamarbeit", "Projektmanagement"],
-            "übliche_technologien": ["Python", "JavaScript", "Docker", "Kubernetes"]
-        },
-        "Datenanalyst": {
-            "branchenspezifische_anforderungen": [
-                "Erfahrung mit Datenvisualisierungstools",
-                "Kenntnisse in statistischer Modellierung"
-            ],
-            "übliche_fähigkeiten": ["Analytisches Denken", "Aufmerksamkeit für Details"],
-            "übliche_technologien": ["SQL", "Tableau", "R", "Python"]
-        }
-    }
-    return job_database.get(job_title, {})
-
-def extract_requirements_and_skills_with_db(job_posting, job_title):
-    """
-    Kombiniert die Anforderungen aus der Stellenbeschreibung mit Daten aus einer Job-Datenbank.
-
-    Args:
-        job_posting (str): Der Text der Stellenbeschreibung.
-        job_title (str): Der Titel der Stelle.
+        job_posting_json (dict): JSON-Daten mit Stellenbeschreibung, Fähigkeiten und anderen Informationen.
 
     Returns:
         dict: Eine JSON-kompatible Struktur mit Anforderungen, Fähigkeiten und Technologien.
     """
-    # Abrufen der Job-Datenbank-Informationen
-    db_info = fetch_job_database_info(job_title)
+    # Extrahiere Informationen aus dem JSON
+    job_title = job_posting_json.get("title", "N/A")
+    job_description = job_posting_json.get("text", "Keine Beschreibung verfügbar.")
+    it_skills = job_posting_json.get("skills", {}).get("IT Skills", "")
+    soft_skills = job_posting_json.get("skills", {}).get("Soft Skills", "")
 
     # Prompt für die Modellanfrage
     prompt = f"""
     [STELLENBESCHREIBUNG]
-    {job_posting}
+    {job_description}
+
+    [JOB-TITEL]
+    {job_title}
 
     [ZUSÄTZLICHE INFORMATIONEN]
-    Branchenspezifische Anforderungen:
-    {', '.join(db_info.get("branchenspezifische_anforderungen", []))}
-    
-    Übliche Fähigkeiten:
-    {', '.join(db_info.get("übliche_fähigkeiten", []))}
-    
-    Übliche Technologien:
-    {', '.join(db_info.get("übliche_technologien", []))}
+    IT-Fähigkeiten: {it_skills}
+    Soft Skills: {soft_skills}
 
     [INSTRUCTIONS]
     Analysiere die Stellenbeschreibung und die zusätzlichen Informationen. Extrahiere die Anforderungen in Stichpunkten.
@@ -89,6 +58,7 @@ def extract_requirements_and_skills_with_db(job_posting, job_title):
         return response.json()
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
+
 
 def generate_questions_from_requirements(requirements_json, question_count=10, job_level="Junior"):
     """
