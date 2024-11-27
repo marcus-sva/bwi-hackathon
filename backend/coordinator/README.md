@@ -8,12 +8,12 @@ docker run -p 8000:8000 coordinator
 
 ## Rest Calls
 
-### POST /cv/pdf
+### POST /cv/{job_id}/pdf
 
 Upload a CV as a PDF file and store it in MinIO under the path `applicants/{RANDOM_APPLICANT_ID}/cv.pdf`.
 
 ```shell
-curl -X POST "http://127.0.0.1:8000/cv" -F "file=@my-cv.pdf"
+curl -X POST "http://127.0.0.1:8000/cv/123/pdf" -F "file=@my-cv.pdf"
 ```
 
 ### GET /challenge/{applicant_id}
@@ -43,5 +43,5 @@ curl -X PUT "http://127.0.0.1:8000/challenge_solution/1/1" \
 Upload a job description PDF to MinIO under the path `jobs/{JOB_ID}/job_description.pdf`.
 
 ```shell
-curl -X 'POST' 'http://localhost:8000/job/123' -F 'file=@example.pdf'
+curl -X 'POST' 'http://localhost:8000/job/123/pdf' -F 'file=@example.pdf'
 ```

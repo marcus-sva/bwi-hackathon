@@ -19,8 +19,8 @@ def random_id():
     return random.randint(1, 1000)
 
 
-@app.post("/cv/pdf")
-async def upload_cv(file: UploadFile = File(...)):
+@app.post("/cv/{job_id}/pdf")
+async def upload_cv(job_id: int, file: UploadFile = File(...)):
     """
     Endpoint to upload a PDF as 'cv.pdf' to MinIO under the path applicants/RANDOM_APPLICANT_ID/cv.pdf.
     """
@@ -28,6 +28,10 @@ async def upload_cv(file: UploadFile = File(...)):
         # Ensure the uploaded file is a PDF
         if file.content_type != "application/pdf":
             raise HTTPException(status_code=400, detail="Only PDF files are allowed.")
+
+        # Validate job_id
+        if job_id <= 0:
+            raise HTTPException(status_code=400, detail="Invalid job_id. It must be a positive integer.")
 
         # Generate a random applicants_id
         random_applicants_id = random_id()
@@ -49,6 +53,8 @@ async def upload_cv(file: UploadFile = File(...)):
             part_size=10 * 1024 * 1024,  # Part size for multipart uploads (10MB)
             content_type="application/pdf",  # Set content type to PDF
         )
+
+        # @TODO TRIGGER pdf to json generation via other service
 
         # Return success response
         return {

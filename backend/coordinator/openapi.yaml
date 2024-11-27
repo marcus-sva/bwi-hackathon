@@ -4,10 +4,17 @@ info:
   description: An API for managing CVs, job descriptions, and challenge solutions with MinIO as the storage backend.
   version: 1.0.0
 paths:
-  /cv/pdf:
+  /cv/{job_id}/pdf:
     post:
       summary: Upload a CV
       description: Upload a CV as a PDF file and store it in MinIO under the path `applicants/{RANDOM_APPLICANT_ID}/cv.pdf`.
+      parameters:
+        - in: path
+          name: job_id
+          required: true
+          schema:
+            type: integer
+          description: The unique ID of the job
       requestBody:
         required: true
         content:
