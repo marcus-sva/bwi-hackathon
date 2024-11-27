@@ -80,12 +80,12 @@ def challenge():
         print("Job Level:", job_level)
 
         # Process the input (call your functions)
-        #requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
-        #print("Requirements JSON:", requirements_json)
+        requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
+        print("Requirements JSON:", requirements_json)
 
-        #questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
-        #print("Generated Questions:", questions_json)
-        questions_json = job_posting_json
+        questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
+        print("Generated Questions:", questions_json)
+        
         return jsonify(questions_json)
 
     except Exception as e:
