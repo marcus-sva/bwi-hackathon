@@ -81,10 +81,10 @@ def challenge():
         requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
         print("Requirements JSON:", jsonify(requirements_json))
 
-        #questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
+        questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
         #print("Generated Questions:", questions_json)
-        return jsonify(requirements_json)
-        #return jsonify(questions_json)
+        #return jsonify(requirements_json)
+        return jsonify(questions_json)
 
     except Exception as e:
         print(f"Error occurred: {e}")  # Log the error
