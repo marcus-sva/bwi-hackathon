@@ -1,5 +1,6 @@
 import requests
 
+API_URL = "http://localhost:8001/generate"
 
 def extract_requirements_and_skills_with_json(job_posting_json):
     """
@@ -36,16 +37,16 @@ def extract_requirements_and_skills_with_json(job_posting_json):
     - Die zugehörigen Technologien oder Tools (z. B. Programmiersprachen, Software, Frameworks).
 
     Gib das Ergebnis als JSON zurück mit folgendem Format:
-    {
+    {{
         "Anforderungen": [
-            {
+            {{
                 "Anforderung": "<Text der Anforderung>",
                 "Fähigkeiten": ["<Fähigkeit 1>", "<Fähigkeit 2>", ...],
                 "Technologien": ["<Technologie 1>", "<Technologie 2>", ...]
-            },
+            }},
             ...
         ]
-    }
+    }}
     """
 
     # Nachricht an das Modell senden
