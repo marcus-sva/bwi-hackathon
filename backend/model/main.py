@@ -57,14 +57,33 @@ def generate():
  
     return jsonify({"response": response_text})
  
+from flask import request, jsonify
+
 @app.route("/generate_challenge", methods=["POST"])
-def challenge(job_posting_json, question_count, job_level):
+def challenge():
+    try:
+        # Extract the data from the JSON payload
+        data = request.get_json()
+        if not data:
+            raise ValueError("No JSON payload found in the request.")
 
-    requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
-    questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
-    #request2minio challenge_json,   
-    #print(questions_json)
-    return questions_json
+        job_posting_json = data.get("job_posting_json")
+        question_count = data.get("question_count")
+        job_level = data.get("job_level")
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8001)
+        # Validate required fields
+        if not job_posting_json or not question_count or not job_level:
+            raise ValueError("Missing required fields: 'job_posting_json', 'question_count', or 'job_level'.")
+
+        # Process the input (call your functions)
+        requirements_json = extract_requirements_and_skills_with_db(
+            job_posting_json["text"],
+            job_posting_json["title"]
+        )
+        questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
+
+        return jsonify(questions_json)
+
+    except Exception as e:
+        # Return error message with a 500 status code
+        return jsonify({"error": str(e)}), 500
