@@ -21,6 +21,9 @@ def random_id():
 
 
 async def cv_pdf_to_json(applicant_id: int, job_id: int):
+    print(f"Started processing cv.pdf to cv.json for applicant {applicant_id} and job {job_id}...")
+    await asyncio.sleep(5)  # Simulate a time-consuming task
+    print(f"Completed processing cv.pdf to cv.json for applicant {applicant_id} and job {job_id}...")
     return ""
 
 
