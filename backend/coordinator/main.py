@@ -1,3 +1,4 @@
+import asyncio
 import io
 import json
 import os
@@ -19,7 +20,7 @@ def random_id():
     return random.randint(1, 1000)
 
 
-def cv_pdf_to_json(applicant_id: int, job_id: int):
+async def cv_pdf_to_json(applicant_id: int, job_id: int):
     return ""
 
 
@@ -59,7 +60,7 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
         )
 
         # @TODO TRIGGER pdf to json generation via other service
-        cv_pdf_to_json(random_applicants_id, job_id)
+        asyncio.create_task(cv_pdf_to_json(random_applicants_id, job_id))
 
         # Return success response
         return {
