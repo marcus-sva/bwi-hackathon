@@ -1,0 +1,221 @@
+openapi: 3.0.3
+info:
+  title: MinIO File Management API
+  description: An API for managing CVs, job descriptions, and challenge solutions with MinIO as the storage backend.
+  version: 1.0.0
+paths:
+  /cv:
+    post:
+      summary: Upload a CV
+      description: Upload a CV as a PDF file and store it in MinIO under the path `applicants/{RANDOM_APPLICANT_ID}/cv.pdf`.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The CV file to upload (PDF only).
+      responses:
+        '200':
+          description: CV uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  path:
+                    type: string
+                  applicant_id:
+                    type: string
+        '400':
+          description: Invalid file type.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+        '500':
+          description: MinIO or unexpected error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+
+  /challenge/{applicant_id}:
+    get:
+      summary: Retrieve a challenge for an applicant
+      description: Retrieve the `challenge.json` file for a specific applicant.
+      parameters:
+        - in: path
+          name: applicant_id
+          schema:
+            type: string
+          required: true
+          description: The applicant ID whose challenge to retrieve.
+      responses:
+        '200':
+          description: Challenge JSON retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applicant_id:
+                    type: integer
+                  challenge:
+                    type: string
+                  job_id:
+                    type: integer
+        '404':
+          description: Bucket or `challenge.json` file not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+        '500':
+          description: MinIO or unexpected error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+
+  /challenge_solution/{applicant_id}/{job_id}:
+    put:
+      summary: Upload a challenge solution
+      description: Upload the `challenge_solution.json` file to the path `applications/{applicant_id}/{job_id}/challenge_solution.json`.
+      parameters:
+        - in: path
+          name: applicant_id
+          schema:
+            type: integer
+          required: true
+          description: The applicant ID.
+        - in: path
+          name: job_id
+          schema:
+            type: integer
+          required: true
+          description: The job ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                applicant_id:
+                  type: integer
+                job_id:
+                  type: integer
+                solution:
+                  type: string
+      responses:
+        '200':
+          description: Challenge solution uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  path:
+                    type: string
+                  applicant_id:
+                    type: integer
+                  challenge_id:
+                    type: integer
+        '400':
+          description: Validation error with applicant or job ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+        '500':
+          description: MinIO or unexpected error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+
+  /job:
+    post:
+      summary: Upload a job description
+      description: Upload a job description as a PDF file and store it in MinIO under the path `jobs/{RANDOM_JOB_ID}/job_description.pdf`.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The job description file to upload (PDF only).
+      responses:
+        '200':
+          description: Job description uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  path:
+                    type: string
+                  job_id:
+                    type: string
+        '400':
+          description: Invalid file type.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+        '500':
+          description: MinIO or unexpected error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+components:
+  schemas:
+    ChallengeSolution:
+      type: object
+      properties:
+        applicant_id:
+          type: integer
+        job_id:
+          type: integer
+        solution:
+          type: string
