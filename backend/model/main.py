@@ -41,7 +41,7 @@ def generate():
     # Generate response
     outputs = model.generate(
         **inputs,
-        max_length=1024,
+        max_length=2024,
         do_sample=True,
         temperature=0.7,
         eos_token_id=tokenizer.convert_tokens_to_ids("\n[USER]")  # Stop when a new user input begins
@@ -56,8 +56,6 @@ def generate():
         response_text = response_text[assistant_start:].strip()
  
     return jsonify({"response": response_text})
- 
-from flask import request, jsonify
 
 @app.route("/generate_challenge", methods=["POST"])
 def challenge():
