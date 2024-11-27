@@ -85,11 +85,12 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     {requirements_text}
 
     [INSTRUCTIONS]
-    Basierend auf den oben genannten Anforderungen und unter Berücksichtigung, dass die Stelle für ein {job_level}-Level ausgeschrieben ist, 
+    Basierend auf den oben genannten Anforderungen, Fähigkeiten und Technologien unter Berücksichtigung, dass die Stelle für ein {job_level}-Level ausgeschrieben ist, 
     generiere eine Liste von {question_count} Interviewfragen. Die Fragen sollten eine breite Palette abdecken, von grundlegenden bis zu komplexen Fragestellungen.
     
+
     Unterteile die Fragen in die folgenden Kategorien:
-    1. Technische Fragen: Überprüfung des technischen Wissens und der beruflichen Qualifikationen. z.B. Fragen zu verschiedenen Technologien oder Programmiersprachen aus den Anforderungen.
+    1. Technische Fragen: Überprüfung des technischen Wissens und der beruflichen Qualifikationen. z.B. Fragen zu verschiedenen Technologien oder Programmiersprachen.
     2. Persönliche Eignung: Überprüfung von Soft Skills wie Teamfähigkeit, Kommunikationsstärke oder Führungsqualitäten (falls relevant).
     3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
 
