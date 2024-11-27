@@ -19,7 +19,7 @@ def random_id():
     return random.randint(1, 1000)
 
 
-@app.post("/cv")
+@app.post("/cv/pdf")
 async def upload_cv(file: UploadFile = File(...)):
     """
     Endpoint to upload a PDF as 'cv.pdf' to MinIO under the path applicants/RANDOM_APPLICANT_ID/cv.pdf.
@@ -179,7 +179,7 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
         # Catch any other unexpected errors and return a 500 error
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
-@app.post("/job/{job_id}")
+@app.post("/job/{job_id}/pdf")
 async def upload_cv(job_id: int, file: UploadFile = File(...)):
     """
     Endpoint to upload a PDF as 'job_description.pdf' to MinIO under the path jobs/{JOB_ID}/job_description.pdf.

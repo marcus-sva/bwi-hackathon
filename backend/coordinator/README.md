@@ -8,7 +8,7 @@ docker run -p 8000:8000 coordinator
 
 ## Rest Calls
 
-### POST /cv
+### POST /cv/pdf
 
 Upload a CV as a PDF file and store it in MinIO under the path `applicants/{RANDOM_APPLICANT_ID}/cv.pdf`.
 
@@ -38,7 +38,7 @@ curl -X PUT "http://127.0.0.1:8000/challenge_solution/1/1" \
   }'
 ```
 
-### POST /job/{job_id}
+### POST /job/{job_id}/pdf
 
 Upload a job description PDF to MinIO under the path `jobs/{JOB_ID}/job_description.pdf`.
 
