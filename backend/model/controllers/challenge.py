@@ -90,7 +90,7 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     
 
     Unterteile die Fragen in die folgenden Kategorien:
-    1. Technische Fragen: Überprüfung des technischen Wissens und der beruflichen Qualifikationen. z.B. Fragen zu verschiedenen Technologien oder Programmiersprachen.
+    1. Technische Fragen: Basierend auf den genannten Technologien. Überprüfung des technischen Wissens und der beruflichen Qualifikationen. z.B. Fragen zu verschiedenen Technologien oder Programmiersprachen.
     2. Persönliche Eignung: Überprüfung von Soft Skills wie Teamfähigkeit, Kommunikationsstärke oder Führungsqualitäten (falls relevant).
     3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
 
