@@ -1,0 +1,16 @@
+{
+  "company_values": [
+    {
+      "name": "Integrity",
+      "description": "We uphold the highest standards of integrity in all our actions and decisions."
+    },
+    {
+      "name": "Innovation",
+      "description": "We strive to innovate and create solutions that add value for our customers."
+    },
+    {
+      "name": "Customer-Centricity",
+      "description": "Our customers are at the heart of everything we do, and we aim to exceed their expectations."
+    }
+  ]
+}
