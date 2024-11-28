@@ -181,10 +181,7 @@ def evaluate_candidate_responses(response_json):
     geeignet oder ungeeignet ist. Falls ungeeignet, schlage höflich Verbesserungsmöglichkeiten vor.
 
     Hier ist der Input (JSON-Format):
-    """
-    prompt += "\n\n" + json.dumps(response_json, indent=4)
-
-    prompt += """
+    {response_json}
     
     Gib folgende Informationen aus:
     1. Bewertung für jede Antwort (Skala: 1-5, 5 ist die beste Bewertung).
