@@ -70,10 +70,24 @@ with col3:
         personal_data = selected_applicant.get("personal_data", {})
         st.write({k: v for k, v in personal_data.items() if k != "Name"})
 
+    # set session data if not exists
+    if 'button' not in st.session_state:
+        st.session_state.button = False
+    if 'mail_type' not in st.session_state:
+        st.session_state.mail_type = ""
+
+    st.subheader("Challengeübersicht")
+    if st.session_state.button and st.session_state.mail_type == "Aufgabe senden":
+        st.spinner("Warte auf Antwort")
+    else:
+        st.write("Keine Challenge an Bewerber gesendet")
+
     st.subheader("Mailvorlage")
-    mail_type = st.selectbox("Wähle eine Aktion:", ["Absage", "Einladung", "Sonstiges"])
+    mail_type = st.selectbox("Wähle eine Aktion:", ["Absage", "Einladung", "Aufgabe senden", "Sonstiges"])
     if st.button("Mail generieren"):
         st.success(f"Mail für {mail_type} generiert!")
+        st.session_state.button = True
+        st.session_state.mail_type = mail_type
 
 # Linke Spalte: Bewerber IDs
 with col1:
