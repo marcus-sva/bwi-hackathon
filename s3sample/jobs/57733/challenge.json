@@ -1,46 +1,48 @@
 {
-  "applicant_id": 1,
-  "job_id": 1,
-    "Technische Fragen": [
-      {
-        "Frage": "Was ist der Unterschied zwischen einer Retro und einem Post Mortem?",
-        "Bewertungsmaßstab": "Korrekte Beschreibung der Unterschiede zwischen Retro und Post Mortem"
-      },
-      {
-        "Frage": "Erklären Sie, warum Sie die Programmiersprache Python für diese Aufgabe gewählt haben.",
-        "Bewertungsmaßstab": "Plausibilität und Rechtfertigung der Programmiersprachewahl"
-      },
-      {
-        "Frage": "Was sind die Vorteile einer Datenbanken-Verwendung im KVInfoSysBund?",
-        "Bewertungsmaßstab": "Korrekte und umfassende Darstellung der Vorteile einer Datenbanken-Verwendung"
-      },
-      {
-        "Frage": "Beschreiben Sie die grundlegenden Eigenschaften eines Points of Interest (POI).",
-        "Bewertungsmaßstab": "Korrekte und umfassende Darstellung der POI-Eigenschaften"
-      }
-    ],
-    "Persönliche Eignung": [
-      {
-        "Frage": "Wie würden Sie in einem Team eine komplexe Aufgabe unternehmen? Beschreiben Sie Ihre Arbeitsabläufe und Ihre Kommunikationsstrategien.",
-        "Bewertungsmaßstab": "Klare und überzeugende Beschreibung der Arbeitsabläufe und Kommunikationsstrategien"
-      },
-      {
-        "Frage": "Wie würden Sie mit einem Kollegen oder einer Kollegin an einem Projekt arbeiten, wenn Sie unterschiedliche Ansichten oder Meinungen haben?",
-        "Bewertungsmaßstab": "Klare und konstruktive Beschreibung der Kommunikationsstrategie und der Lösungsmöglichkeiten"
-      },
-      {
-        "Frage": "Beschreiben Sie Ihre Erfahrungen mit Zeitmanagement und Priorisierung in einem Projekt. Wie würden Sie in einem Projekt priorisieren?",
-        "Bewertungsmaßstab": "Korrekte und umfassende Darstellung der Erfahrungen mit Zeitmanagement und Priorisierung"
-      },
-      {
-        "Frage": "Wie würden Sie mit einem Problem oder einer Herausforderung in einem Projekt umgehen? Beschreiben Sie Ihre Denkprozesse und Ihre Lösungsmöglichkeiten.",
-        "Bewertungsmaßstab": "Klare und überzeugende Beschreibung der Denkprozesse und der Lösungsmöglichkeiten"
-      }
-    ],
-    "Codingaufgabe": [
-      {
-        "Aufgabe": "Entwickeln Sie eine API für die Speicherung und Abfrage von Points of Interest (POI). Die API sollte die folgenden Endpunkte enthalten:\n*   GET /pois: Liest alle POI-Daten aus der Datenbank und gibt sie zurück.\n*   POST /pois: Fügt ein neues POI hinzu.\n*   GET /pois/:id: Liest die POI-Daten eines spezifischen POI aus der Datenbank und gibt sie zurück.\n*   PUT /pois/:id: Aktualisiert die POI-Daten eines spezifischen POI in der Datenbank.\n*   DELETE /pois/:id: Löscht ein POI aus der Datenbank.\n\nDie API sollte die folgenden Felder enthalten:\n*   id (Primärschlüssel): ein eindeutiger Schlüssel für das POI.\n*   name: der Name des POI.\n*   geoCoordinate: die Geo-Koordinate des POI.\n*   type: die Art des POI.\n*   address: die Adresse des POI.\n*   hospital: die Anzahl der Betten auf der Intensivstation und der Pflegestation des POI.\n*   pier: die Anzahl der Piers mit Name und Geo-Koordinate des POI.\n*   runway: die Himmelsrichtung und Länge der Landebahn des POI.\n\nSie können eine Datenbank verwenden, die Sie selbst erstellen oder eine bereits existierende verwenden. Die Implementierung sollte in Python sein. Sie sollten die Benachrichtigungen bei Datenänderungen senden, indem Sie die `requests`-Bibliothek verwenden. Benachrichtigungen werden bei folgenden Ereignissen gesendet:\n*   Aktualisierung eines POI.\n*   Löschen eines POI.\n*   Hinzufügen eines neuen POI."
-      }
-    ]
-  }
-  
+  "applicant_id": 3,
+  "job_id": 3,
+  "Technische Fragen": [
+    {
+      "Frage": "Was ist der Unterschied zwischen relationalen und NoSQL-Datenbanken?",
+      "Bewertung": "Die Antwort sollte den strukturellen Unterschied zwischen relationalen Datenbanken und NoSQL-Datenbanken sowie deren optimale Einsatzbereiche erklären."
+    },
+    {
+      "Frage": "Warum ist Python eine geeignete Wahl für Data Engineering?",
+      "Bewertung": "Die Antwort sollte die Stärken von Python hervorheben, z. B. Bibliotheken wie Pandas und PySpark, und seine Integration in Cloud-Dienste sowie einfache Lernkurve erwähnen."
+    },
+    {
+      "Frage": "Wie würden Sie Datenpipelines in einer Cloud-Umgebung effizient gestalten?",
+      "Bewertung": "Die Antwort sollte zeigen, wie Tools wie AWS Glue oder Google Dataflow für ETL-Prozesse verwendet werden, und Strategien zur Kostenreduktion und Skalierbarkeit beinhalten."
+    },
+    {
+      "Frage": "Beschreiben Sie die grundlegenden Prinzipien von Data Warehousing.",
+      "Bewertung": "Die Antwort sollte grundlegende Konzepte wie Datenkonsistenz, ETL-Prozesse und die Nutzung von OLAP für Analysen behandeln."
+    }
+  ],
+  "Persönliche Eignung": [
+    {
+      "Frage": "Wie würden Sie ein komplexes Data Engineering-Projekt in einem Team strukturieren?",
+      "Bewertung": "Die Antwort sollte zeigen, wie das Projekt in kleinere, überschaubare Aufgaben aufgeteilt wird, und betonen, wie Tools und regelmäßige Meetings genutzt werden, um den Fortschritt zu überwachen."
+    },
+    {
+      "Frage": "Wie würden Sie mit einem Konflikt im Team umgehen?",
+      "Bewertung": "Die Antwort sollte Ansätze wie offene Kommunikation, Verständnis für beide Seiten und faktenbasierte Lösungen aufzeigen."
+    },
+    {
+      "Frage": "Wie priorisieren Sie Aufgaben in einem zeitkritischen Projekt?",
+      "Bewertung": "Die Antwort sollte Methoden wie die Eisenhower-Matrix oder ähnliche Ansätze zur Priorisierung von Aufgaben und zur Vermeidung von Blockaden beschreiben."
+    },
+    {
+      "Frage": "Wie gehen Sie mit Herausforderungen in einer Datenpipeline um?",
+      "Bewertung": "Die Antwort sollte den Einsatz von Monitoring-Tools, die Analyse von Fehlerquellen und Strategien zur Optimierung und Fehlerbehebung hervorheben."
+    }
+  ],
+  "Codingaufgabe": [
+    {
+      "Aufgabe": "Entwickeln Sie eine Datenpipeline zur Verarbeitung von Logdaten, die die Daten säubert, in ein Data Warehouse lädt und eine wöchentliche Zusammenfassung erstellt.",
+      "Bewertung": "Die Lösung sollte zeigen, wie Daten mit Tools wie Pandas bereinigt, in ein Data Warehouse geladen und Berichte automatisiert erstellt werden. Die Pipeline sollte modular und skalierbar sein."
+    }
+  ],
+  "Zusammenfassung": "Der Bewerber sollte fundierte Kenntnisse in Cloud- und Datenbanktechnologien sowie praktische Erfahrung im Aufbau effizienter Datenpipelines demonstrieren. Die Antworten sollten technische Genauigkeit und Relevanz für die Praxis zeigen.",
+  "Empfehlung": "Die Antworten und die Codingaufgabe sollten die Eignung des Bewerbers für die Rolle als Cloud Data Engineer unterstreichen, insbesondere durch die Kombination aus technischem Fachwissen und Teamorientierung."
+}

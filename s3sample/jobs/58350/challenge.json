@@ -1,44 +1,48 @@
 {
+  "applicant_id": 2,
+  "job_id": 2,
   "Technische Fragen": [
     {
-      "Frage": "Was sind die wichtigsten Unterschiede zwischen GeoJSON und GeoTIFF als Format für die Speicherung von Geo-Daten?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von GeoJSON für die Beschreibung von geometrischen Objekten und die Verwendung von GeoTIFF für die Speicherung von Bildern und Tabellen erklären"
+      "Frage": "Was sind die wichtigsten Unterschiede zwischen React und Angular?",
+      "Bewertung": "Die Antwort sollte die unterschiedlichen Ansätze von React als Bibliothek und Angular als Framework beschreiben, einschließlich Aspekte wie Flexibilität, Struktur und Zusatzfunktionen wie Dependency Injection."
     },
     {
-      "Frage": "Wie wird die Kommunikation zwischen den verschiedenen Komponenten eines Geo-Informationssystems (GIS) durchgeführt?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von Standards wie Web Map Service (WMS) oder Web Feature Service (WFS) erklären"
+      "Frage": "Wie wird in React der Zustand einer Anwendung verwaltet?",
+      "Bewertung": "Die Antwort sollte den Unterschied zwischen lokalen Zustandsverwaltungs-Methoden wie `useState` und globalen Ansätzen wie Context API oder Redux erklären."
     },
     {
-      "Frage": "Was ist ein Geo-Informationssystem (GIS) und wie wird es in der Praxis verwendet?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Definition eines GIS und seine Anwendungsbereiche in der Landwirtschaft, Urbanistik und Umweltbahn erklären"
+      "Frage": "Was ist der Unterschied zwischen serverseitigem Rendering (SSR) und clientseitigem Rendering (CSR)?",
+      "Bewertung": "Die Antwort sollte die Funktionsweise, Vor- und Nachteile von SSR und CSR vergleichen, insbesondere in Bezug auf Performance und Benutzererfahrung."
     },
     {
-      "Frage": "Wie wird die Datenbank für ein Geo-Informationssystem (GIS) konfiguriert und gehandhabt?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von Datenbank-Management-Systemen wie PostgreSQL oder MySQL erklären"
+      "Frage": "Beschreiben Sie die grundlegenden Eigenschaften von CSS-in-JS-Lösungen wie styled-components.",
+      "Bewertung": "Die Antwort sollte die Vorteile und Arbeitsweise von CSS-in-JS erklären, z. B. dynamische Styles basierend auf Props und die Isolierung von Stilen."
     }
   ],
   "Persönliche Eignung": [
     {
-      "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Kommunikationsfähigkeiten unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, effektiv mit anderen Teammitgliedern zusammenzuarbeiten und Bedürfnisse zu kommunizieren"
+      "Frage": "Wie arbeiten Sie in einem Team, das an einer großen Frontend-Anwendung arbeitet?",
+      "Bewertung": "Die Antwort sollte aufzeigen, wie der Bewerber Aufgaben aufteilt, Tools wie Jira oder Trello nutzt und Konsistenz durch Coding-Standards und Code-Reviews sicherstellt."
     },
     {
-      "Frage": "Wie würdest du als Junior-Entwickler im Bereich Geo-Informationssysteme (GIS) deine Problemlösungsfähigkeiten unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, komplexe Probleme zu analysieren und effektive Lösungen zu finden"
+      "Frage": "Wie gehen Sie mit Meinungsverschiedenheiten zu technischen Entscheidungen im Team um?",
+      "Bewertung": "Die Antwort sollte Strategien zur Konfliktlösung und Entscheidungsfindung basierend auf Daten und externen Quellen beschreiben."
     },
     {
-      "Frage": "Wie würdest du als Geo-Informationssystem-Entwickler deine Motivation und Leidenschaft für die Branche unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, die Bedeutung von Geo-Informationssystemen in verschiedenen Branchen zu erkennen und zu motivieren"
+      "Frage": "Wie priorisieren Sie Aufgaben in einem Projekt mit vielen Abhängigkeiten?",
+      "Bewertung": "Die Antwort sollte Ansätze zur Priorisierung von Aufgaben basierend auf kritischen Pfaden und Abhängigkeiten sowie der Wirkung und Komplexität von Tasks erläutern."
     },
     {
-      "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Fähigkeiten und Erfahrungen unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, relevante Erfahrungen und Fähigkeiten zu nennen und zu erklären, wie diese für die Rolle als Geo-Informationssystem-Entwickler relevant sind"
+      "Frage": "Wie gehen Sie mit Herausforderungen in einer Frontend-Architektur um?",
+      "Bewertung": "Die Antwort sollte zeigen, wie der Bewerber Herausforderungen analysiert, skalierbare und modulare Lösungen findet und Feedback vom Team einholt."
     }
   ],
   "Codingaufgabe": [
     {
-      "Aufgabe": "Implementieren Sie eine RESTful-API für die Speicherung und Abfrage von Punkten von Interesse (POI) in einer Datenbank. Die API sollte folgende Endpunkte haben: GET /pois, POST /pois, GET /pois/:id. Die Datenbank sollte ein JSON-Format haben. Die API sollte auch Benachrichtigungen an die Entwickler senden, wenn Daten in der Datenbank verändert werden. Sie können eine beliebige Programmiersprache und eine beliebige Datenbank verwenden.",
-      "Bewertungsmaßstab": "Die Lösung sollte korrekt implementiert sein, die API sollte korrekt funktionieren und die Benachrichtigungen korrekt senden. Die Lösung sollte auch die Anforderungen der Aufgabe erfüllen."
+      "Aufgabe": "Erstellen Sie eine einfache React-Anwendung zur Verwaltung von Aufgaben. Die Anwendung sollte folgende Funktionen bieten: Hinzufügen, Löschen und Bearbeiten von Aufgaben. Die Daten sollten lokal gespeichert werden.",
+      "Bewertung": "Die Lösung sollte React Hooks wie `useState` und `useEffect` verwenden, eine saubere Benutzeroberfläche bieten und die lokale Speicherung der Daten sicherstellen."
     }
-  ]
+  ],
+  "Zusammenfassung": "Der Bewerber sollte fundiertes Wissen in Frontend-Technologien wie React und moderne Entwicklungsansätze demonstrieren. Die Antworten sollten präzise, technisch korrekt und für die Praxis relevant sein.",
+  "Empfehlung": "Die Antworten und die Codingaufgabe sollten die Eignung des Bewerbers für die Rolle als Frontend Developer reflektieren, insbesondere durch die Kombination aus technischer Expertise und Teamorientierung."
 }

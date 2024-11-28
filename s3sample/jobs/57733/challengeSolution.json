@@ -1,47 +1,57 @@
 {
-  "applicant_id": 1,
-  "job_id": 1,
-    "Technische Fragen": [
-      {
-        "Frage": "Was ist der Unterschied zwischen einer Retro und einem Post Mortem?",
-        "Antwort": "Eine Retro (Retrospektive) findet während eines Projekts oder nach einem Sprint statt und dient dazu, kontinuierlich Verbesserungen umzusetzen. Ein Post Mortem wird nach Abschluss eines Projekts durchgeführt und fokussiert sich auf eine tiefere Analyse, um Lehren für zukünftige Projekte zu ziehen."
-      },
-      {
-        "Frage": "Erklären Sie, warum Sie die Programmiersprache Python für diese Aufgabe gewählt haben.",
-        "Antwort": "Python wurde gewählt, weil es leicht zu lernen ist, eine große Anzahl von Bibliotheken bietet und eine starke Community hat. Es ist besonders nützlich für API-Entwicklung und schnelle Prototypenerstellung, was bei dieser Aufgabe wichtig ist."
-      },
-      {
-        "Frage": "Was sind die Vorteile einer Datenbanken-Verwendung im KVInfoSysBund?",
-        "Antwort": "Datenbanken ermöglichen eine strukturierte Speicherung und Abfrage großer Datenmengen. Im KVInfoSysBund kann dies verwendet werden, um Daten effizient zu speichern, zu analysieren und zugänglich zu machen, was eine verbesserte Entscheidungsfindung und Datensicherheit gewährleistet."
-      },
-      {
-        "Frage": "Beschreiben Sie die grundlegenden Eigenschaften eines Points of Interest (POI).",
-        "Antwort": "Ein POI ist ein definierter Ort mit spezifischem Interesse. Grundlegende Eigenschaften umfassen einen Namen, eine geografische Position (Koordinaten), eine Beschreibung des Typs (z. B. Restaurant, Krankenhaus) und möglicherweise zusätzliche Metadaten wie Adresse oder spezifische Attribute wie Kapazität."
-      }
-    ],
-    "Persönliche Eignung": [
-      {
-        "Frage": "Wie würden Sie in einem Team eine komplexe Aufgabe unternehmen? Beschreiben Sie Ihre Arbeitsabläufe und Ihre Kommunikationsstrategien.",
-        "Antwort": "Ich würde zunächst gemeinsam mit dem Team die Aufgabe in kleinere Teilaufgaben zerlegen und klare Verantwortlichkeiten festlegen. Regelmäßige Meetings und Tools wie Slack oder Trello helfen, den Fortschritt zu verfolgen und Hindernisse zu besprechen."
-      },
-      {
-        "Frage": "Wie würden Sie mit einem Kollegen oder einer Kollegin an einem Projekt arbeiten, wenn Sie unterschiedliche Ansichten oder Meinungen haben?",
-        "Antwort": "Ich würde offen und respektvoll die Ansichten diskutieren, die Perspektiven des anderen verstehen wollen und versuchen, einen Kompromiss oder eine datengetriebene Entscheidung zu finden. Wenn nötig, würde ich eine dritte Meinung hinzuziehen."
-      },
-      {
-        "Frage": "Beschreiben Sie Ihre Erfahrungen mit Zeitmanagement und Priorisierung in einem Projekt. Wie würden Sie in einem Projekt priorisieren?",
-        "Antwort": "Ich verwende oft Methoden wie Eisenhower-Matrix oder Kanban-Boards, um Aufgaben nach Dringlichkeit und Wichtigkeit zu priorisieren. Ich plane zuerst die wichtigsten Aufgaben und lasse genügend Puffer für unerwartete Herausforderungen."
-      },
-      {
-        "Frage": "Wie würden Sie mit einem Problem oder einer Herausforderung in einem Projekt umgehen? Beschreiben Sie Ihre Denkprozesse und Ihre Lösungsmöglichkeiten.",
-        "Antwort": "Ich analysiere das Problem, um die Hauptursache zu identifizieren, recherchiere mögliche Lösungen und bespreche sie mit dem Team. Anschließend implementiere ich die beste Lösung und überwache die Ergebnisse, um sicherzustellen, dass das Problem behoben ist."
-      }
-    ],
-    "Codingaufgabe": [
-      {
-        "Aufgabe": "Entwickeln Sie eine API für die Speicherung und Abfrage von Points of Interest (POI).",
-        "Antwort": "Die API wurde mit Python entwickelt und umfasst die Endpunkte GET, POST, PUT, DELETE und spezifische GET-Anfragen. Die Datenbank wurde so gestaltet, dass sie alle benötigten Felder wie `id`, `name`, `geoCoordinate`, `type`, `address`, `hospital`, `pier` und `runway` enthält. Benachrichtigungen bei Änderungen werden über die `requests`-Bibliothek gesendet. Die API folgt den RESTful-Prinzipien und wurde getestet, um sicherzustellen, dass alle Endpunkte korrekt funktionieren."
-      }
-    ]
-  }
-  
+  "applicant_id": 3,
+  "job_id": 3,
+  "Technische Fragen": [
+    {
+      "Frage": "Was ist der Unterschied zwischen relationalen und NoSQL-Datenbanken?",
+      "Antwort": "Relationale Datenbanken wie PostgreSQL verwenden Tabellen mit festen Strukturen, während NoSQL-Datenbanken wie MongoDB flexible Dokumente oder Key-Value-Paare verwenden. Relationale Datenbanken eignen sich für strukturierte Daten und komplexe Beziehungen, während NoSQL besser für unstrukturierte Daten und schnelle Skalierung geeignet ist.",
+      "Bewertung": 4.5
+    },
+    {
+      "Frage": "Warum ist Python eine geeignete Wahl für Data Engineering?",
+      "Antwort": "Python bietet eine Vielzahl von Bibliotheken wie Pandas und PySpark, die ideal für Datenverarbeitung sind. Es ist einfach zu lernen und unterstützt die Integration mit Cloud-Diensten wie AWS, was es vielseitig und effizient macht.",
+      "Bewertung": 4.5
+    },
+    {
+      "Frage": "Wie würden Sie Datenpipelines in einer Cloud-Umgebung effizient gestalten?",
+      "Antwort": "Ich würde Dienste wie AWS Glue oder Google Dataflow verwenden, um ETL-Prozesse zu automatisieren. Durch die Nutzung von Serverless-Technologien kann ich Kosten senken und Skalierbarkeit gewährleisten. Außerdem setze ich Monitoring-Tools wie AWS CloudWatch ein, um die Performance zu überwachen.",
+      "Bewertung": 4
+    },
+    {
+      "Frage": "Beschreiben Sie die grundlegenden Prinzipien von Data Warehousing.",
+      "Antwort": "Ein Data Warehouse ist eine zentrale Speicherung für strukturierte Daten, optimiert für Abfragen und Analysen. Wichtige Prinzipien sind Datenkonsistenz, ETL-Prozesse zur Bereinigung und Integration von Daten sowie die Verwendung von OLAP für Analysen.",
+      "Bewertung": 4.5
+    }
+  ],
+  "Persönliche Eignung": [
+    {
+      "Frage": "Wie würden Sie ein komplexes Data Engineering-Projekt in einem Team strukturieren?",
+      "Antwort": "Ich würde das Projekt in kleinere Aufgaben wie Datenextraktion, -bereinigung und -speicherung unterteilen. Ein gemeinsames Tool wie Jira hilft bei der Organisation, und regelmäßige Stand-ups sorgen für Abstimmung und Fortschrittskontrolle.",
+      "Bewertung": 4.5
+    },
+    {
+      "Frage": "Wie würden Sie mit einem Konflikt im Team umgehen?",
+      "Antwort": "Ich würde die Standpunkte beider Seiten anhören und versuchen, eine Lösung zu finden, die auf Fakten und Daten basiert. Ein offener Dialog und das Aufzeigen gemeinsamer Ziele helfen, Konflikte schnell zu lösen.",
+      "Bewertung": 4.5
+    },
+    {
+      "Frage": "Wie priorisieren Sie Aufgaben in einem zeitkritischen Projekt?",
+      "Antwort": "Ich nutze Methoden wie die Eisenhower-Matrix, um wichtige und dringende Aufgaben zu identifizieren. Zusätzlich achte ich auf Abhängigkeiten und priorisiere diese zuerst, um Blockaden zu vermeiden.",
+      "Bewertung": 4
+    },
+    {
+      "Frage": "Wie gehen Sie mit Herausforderungen in einer Datenpipeline um?",
+      "Antwort": "Ich analysiere zunächst die Fehlerquellen, z. B. durch Logs und Monitoring. Dann optimiere ich Engpässe oder setze Retry-Mechanismen ein. Kommunikation mit dem Team ist dabei essenziell, um schnell Lösungen zu finden.",
+      "Bewertung": 4.5
+    }
+  ],
+  "Codingaufgabe": [
+    {
+      "Aufgabe": "Entwickeln Sie eine Datenpipeline zur Verarbeitung von Logdaten, die die Daten säubert, in ein Data Warehouse lädt und eine wöchentliche Zusammenfassung erstellt.",
+      "Antwort": "Ich habe eine Pipeline mit Apache Airflow implementiert. Die Logdaten wurden mit Pandas bereinigt und anschließend mit AWS Glue in ein Redshift-Data-Warehouse geladen. Die wöchentliche Zusammenfassung wurde automatisiert und per AWS SES an Stakeholder versandt. Die Pipeline wurde modular gestaltet und skalierbar implementiert.",
+      "Bewertung": 4.5
+    }
+  ],
+  "Zusammenfassung": "Der Bewerber zeigt fundierte Kenntnisse in Cloud- und Datenbanktechnologien sowie praktische Erfahrung im Aufbau effizienter Datenpipelines. Die persönlichen Antworten zeigen eine klare Fähigkeit zur Zusammenarbeit und Problemlösung im Team. Die Codingaufgabe wurde technisch einwandfrei umgesetzt und zeigt Verständnis für Cloud-basierte Werkzeuge. Insgesamt ist der Bewerber sehr gut für die Rolle des Cloud Data Engineers geeignet.",
+  "Empfehlung": "Wir empfehlen den Bewerber für die Rolle. Die technischen Antworten sind fundiert und relevant, die persönlichen Fähigkeiten unterstützen effektives Arbeiten im Team, und die Codingaufgabe zeigt exzellente Umsetzungskompetenz für datengetriebene Lösungen."
+}

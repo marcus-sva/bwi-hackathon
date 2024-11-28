@@ -1,44 +1,48 @@
 {
+  "applicant_id": 1,
+  "job_id": 1,
   "Technische Fragen": [
     {
-      "Frage": "Was sind die wichtigsten Unterschiede zwischen GeoJSON und GeoTIFF als Format für die Speicherung von Geo-Daten?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von GeoJSON für die Beschreibung von geometrischen Objekten und die Verwendung von GeoTIFF für die Speicherung von Bildern und Tabellen erklären"
+      "Frage": "Was ist der Unterschied zwischen Scrum und Kanban?",
+      "Bewertung": "Die Antwort sollte die Unterschiede in der Struktur, wie feste Sprints in Scrum und kontinuierlichen Fluss in Kanban, sowie die Rollen und Werkzeuge klar erläutern."
     },
     {
-      "Frage": "Wie wird die Kommunikation zwischen den verschiedenen Komponenten eines Geo-Informationssystems (GIS) durchgeführt?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von Standards wie Web Map Service (WMS) oder Web Feature Service (WFS) erklären"
+      "Frage": "Wie würden Sie einem Team helfen, das mit der Velocity-Reduktion kämpft?",
+      "Bewertung": "Die Antwort sollte auf eine Analyse der Hindernisse, Retrospektiven und praktische Ansätze wie Story-Splitting oder die Beseitigung von Bottlenecks eingehen."
     },
     {
-      "Frage": "Was ist ein Geo-Informationssystem (GIS) und wie wird es in der Praxis verwendet?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Definition eines GIS und seine Anwendungsbereiche in der Landwirtschaft, Urbanistik und Umweltbahn erklären"
+      "Frage": "Wie misst man den Erfolg eines Sprints?",
+      "Bewertung": "Die Antwort sollte die Erreichung der Sprintziele, Qualität der gelieferten Inkremente, Feedback aus Retrospektiven und Stakeholder-Zufriedenheit behandeln."
     },
     {
-      "Frage": "Wie wird die Datenbank für ein Geo-Informationssystem (GIS) konfiguriert und gehandhabt?",
-      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von Datenbank-Management-Systemen wie PostgreSQL oder MySQL erklären"
+      "Frage": "Welche Metriken sind hilfreich, um die Effizienz eines Scrum-Teams zu bewerten?",
+      "Bewertung": "Die Antwort sollte Metriken wie Velocity, Burndown-Charts, Lead Time und Cycle Time erklären und deren Bedeutung für die Bewertung der Team-Effizienz beschreiben."
     }
   ],
   "Persönliche Eignung": [
     {
-      "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Kommunikationsfähigkeiten unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, effektiv mit anderen Teammitgliedern zusammenzuarbeiten und Bedürfnisse zu kommunizieren"
+      "Frage": "Wie würden Sie sicherstellen, dass ein Team selbstorganisiert arbeitet?",
+      "Bewertung": "Die Antwort sollte zeigen, wie der Bewerber klare Ziele setzt, Coaching anbietet und die Teammitglieder ermutigt, Verantwortung zu übernehmen."
     },
     {
-      "Frage": "Wie würdest du als Junior-Entwickler im Bereich Geo-Informationssysteme (GIS) deine Problemlösungsfähigkeiten unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, komplexe Probleme zu analysieren und effektive Lösungen zu finden"
+      "Frage": "Wie gehen Sie mit einem Konflikt zwischen Teammitgliedern um?",
+      "Bewertung": "Die Antwort sollte Strategien wie offene Kommunikation, das Verständnis beider Perspektiven und die Unterstützung bei der Lösungsfindung beschreiben."
     },
     {
-      "Frage": "Wie würdest du als Geo-Informationssystem-Entwickler deine Motivation und Leidenschaft für die Branche unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, die Bedeutung von Geo-Informationssystemen in verschiedenen Branchen zu erkennen und zu motivieren"
+      "Frage": "Beschreiben Sie Ihre Erfahrungen mit der Einführung von Scrum in einem neuen Team.",
+      "Bewertung": "Die Antwort sollte zeigen, wie der Bewerber Scrum-Workshops organisiert, Grundlagen vermittelt und das Team beim Übergang unterstützt hat."
     },
     {
-      "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Fähigkeiten und Erfahrungen unter Beweis stellen?",
-      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, relevante Erfahrungen und Fähigkeiten zu nennen und zu erklären, wie diese für die Rolle als Geo-Informationssystem-Entwickler relevant sind"
+      "Frage": "Wie würden Sie ein Team motivieren, das unter starkem Druck steht?",
+      "Bewertung": "Die Antwort sollte darauf eingehen, wie Arbeitslast fair verteilt wird, Prioritäten gesetzt werden und Erfolge hervorgehoben werden, um die Moral zu stärken."
     }
   ],
   "Codingaufgabe": [
     {
-      "Aufgabe": "Implementieren Sie eine RESTful-API für die Speicherung und Abfrage von Punkten von Interesse (POI) in einer Datenbank. Die API sollte folgende Endpunkte haben: GET /pois, POST /pois, GET /pois/:id. Die Datenbank sollte ein JSON-Format haben. Die API sollte auch Benachrichtigungen an die Entwickler senden, wenn Daten in der Datenbank verändert werden. Sie können eine beliebige Programmiersprache und eine beliebige Datenbank verwenden.",
-      "Bewertungsmaßstab": "Die Lösung sollte korrekt implementiert sein, die API sollte korrekt funktionieren und die Benachrichtigungen korrekt senden. Die Lösung sollte auch die Anforderungen der Aufgabe erfüllen."
+      "Aufgabe": "Erstellen Sie ein Tool, das Scrum-Retrospektiven erleichtert.",
+      "Bewertung": "Die Lösung sollte eine benutzerfreundliche Oberfläche bieten, Funktionen zur Eingabe von Feedback, Priorisierung und Berichtserstellung umfassen und mit Technologien wie React und Node.js umgesetzt werden."
     }
-  ]
+  ],
+  "Zusammenfassung": "Der Bewerber sollte ein fundiertes Verständnis der Prinzipien und Praktiken von Scrum zeigen. Die Antworten auf technische und persönliche Fragen sowie die Codingaufgabe sollten die Fähigkeit zur Kommunikation, Problemlösung und praktischen Umsetzung belegen.",
+  "Empfehlung": "Die Antworten und die Umsetzung der Codingaufgabe sollten die Eignung des Bewerbers für die Rolle als Scrum/Agile Coach bestätigen, indem sie ein starkes Verständnis agiler Praktiken und Werkzeuge zeigen."
 }
