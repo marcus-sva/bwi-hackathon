@@ -140,7 +140,8 @@ with col2:
         st.subheader("Beschreibung der Challenge")
         try:
             # Lade challenge.json
-            challenge_path = f"{selected_id}/challenge.json"
+            job_id = applicant_data.get("job_id")
+            challenge_path = f"{job_id}/challenge.json"
             challenge_obj = minio_client.get_object(bucket_jobs, challenge_path)
             challenge_data = json.loads(challenge_obj.read().decode("utf-8"))
             display_json(challenge_data)  # Dropdown-Darstellung
@@ -180,7 +181,8 @@ with col2:
             not_sent = (st.session_state.time_sent == 0)
             if time.time() > st.session_state.time_sent + wait_time and not not_sent:
                 # Lade solution.json after response received
-                ChallengeSolution_path = f"{selected_id}/challengeSolution.json"
+                job_id = applicant_data.get("job_id")
+                ChallengeSolution_path = f"{job_id}/challengeSolution.json"
                 ChallengeSolution_obj = minio_client.get_object(bucket_jobs, ChallengeSolution_path)
                 ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
                 display_solution_json(ChallengeSolution_data)
