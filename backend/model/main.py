@@ -125,8 +125,9 @@ def challenge():
         job_level = 'senior' #data.get("job_level")
 
         # Validate required fields
-        if not data or not question_count or not job_level:
-            raise ValueError("Missing required fields: 'json', 'question_count', or 'job_level'.")
+        print(data)
+        if not data.get('text') or not question_count or not job_level:
+            raise ValueError("Missing required fields: 'text', 'question_count', or 'job_level'.")
 
         # Process the input (call your functions)
         requirements_json = extract_requirements_and_skills_with_json(data)
