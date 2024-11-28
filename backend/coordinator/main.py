@@ -134,15 +134,34 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
         pdf_json = json.dumps(pdf_dict)
 
         # Upload the file to MinIO
-        json_bytes = BytesIO(pdf_json.encode("utf-8"))
-        object_path = f"{random_applicants_id}/cv.json"
+        id_bytes = BytesIO(id_json.encode("utf-8"))
+        object_path = f"{random_applicants_id}/metadata.json"
 
         minio_client.put_object(
             bucket_name=bucket_name,
             object_name=object_path,
-            data=json_bytes,
-            length=len(pdf_json),
+            data=id_bytes,
+            length=len(id_json),
             content_type="application/json"
+        )
+
+        id_dict = {
+            "job_id": job_id,
+            "file": "metadata.json"
+        }
+        id_json = json.dumps(id_dict)
+
+        # Upload the file to MinIO
+        json_bytes = BytesIO(pdf_json.encode("utf-8"))
+        object_path = f"{random_applicants_id}/cv.json"
+
+        minio_client.put_object(
+            bucket_name,
+            object_path,
+            file.file,  # File-like object
+            length=-1,  # Let MinIO calculate the file size
+            part_size=10 * 1024 * 1024,  # Part size for multipart uploads (10MB)
+            content_type="application/pdf",  # Set content type to PDF
         )
 
         # trigger /assess_applicant/{applicant_id}/{job_id} in backend model
