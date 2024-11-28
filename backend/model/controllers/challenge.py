@@ -269,10 +269,11 @@ def match_offer_application(job_posting, resume):
     {resume}
 
     [BITTE VERGLEICHEN]
-    - Eignung des Kandidaten für die Stelle
-    - Übereinstimmungen der Fähigkeiten und Anforderungen
-    - Fehlende Anforderungen oder Qualifikationen
-    - Bewertung der Gesamtpassung (Skala von 1-10)
+    Gib das Ergebnis immer im JSON-Format zurück mit den folgenden Schlüsseln:
+    - "Eignung": Ein kurzer Text, der die Eignung des Kandidaten beschreibt.
+    - "Übereinstimmungen": Eine Liste der Fähigkeiten und Anforderungen, die übereinstimmen.
+    - "Fehlende Anforderungen": Eine Liste der fehlenden Anforderungen oder Qualifikationen.
+    - "Gesamtpassung": Eine Bewertung der Gesamtpassung auf einer Skala von 1-10.
     """
     
     messages = [{"role": "user", "content": prompt}]
@@ -281,7 +282,13 @@ def match_offer_application(job_posting, resume):
     try:
         response = requests.post(API_URL, json=payload)
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+
+        # Validating and ensuring a JSON structure in the response
+        if isinstance(result, dict):
+            return result
+        else:
+            return {"error": "Die Antwort der API war nicht im erwarteten JSON-Format."}
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
 
