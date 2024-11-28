@@ -142,7 +142,7 @@ with col3:
     wait_time = 5
     not_sent = (st.session_state.time_sent == 0)
     if time.time() > st.session_state.time_sent + wait_time and not not_sent:
-        st.button("You are hired!"):
+        st.button("You are hired!")
 
 # Linke Spalte: Bewerber IDs
 with col1:
