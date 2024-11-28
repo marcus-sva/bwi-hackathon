@@ -11,6 +11,26 @@ minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
 
 bucket_name = "applicants"
+bucket_jobs = "jobs"
+
+def display_json(data):
+    st.title("JSON Data Display")
+
+    for category, questions in data.items():
+        st.header(category)
+        for item in questions:
+            if category == "Codingaufgabe":
+                st.subheader("Aufgabe")
+                st.write(item["Aufgabe"])
+                st.subheader("Bewertungsmaßstab")
+                st.write(item["Bewertungsmaßstab"])
+            else:
+                st.subheader("Frage")
+                st.write(item["Frage"])
+                st.subheader("Bewertungsmaßstab")
+                st.write(item["Bewertungsmaßstab"])
+
+
 
 def load_objects_from_minio(bucket_name):
     # Überprüfen, ob der Bucket existiert
@@ -89,9 +109,10 @@ with col2:
         try:
             # Lade challenge.json
             challenge_path = f"{selected_id}/challenge.json"
-            challenge_obj = minio_client.get_object(bucket_name, challenge_path)
+            challenge_obj = minio_client.get_object(bucket_jobs, challenge_path)
             challenge_data = json.loads(challenge_obj.read().decode("utf-8"))
-            st.write(challenge_data.get("description", "Keine Beschreibung verfügbar."))
+            #st.write(challenge_data.get("description", "Keine Beschreibung verfügbar."))           
+            display_json(challenge_data)
             st.subheader("Aufgabenstellung")
             st.write(challenge_data.get("task", "Keine Aufgabenstellung verfügbar."))
         except Exception as e:
@@ -107,4 +128,7 @@ with col2:
             st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
         except:
             st.error("Bewertung nicht verfügbar.")
+            
+
+
 
