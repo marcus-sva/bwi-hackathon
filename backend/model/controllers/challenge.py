@@ -112,7 +112,7 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     Ihre Aufgaben sind konkret: Implementieren Sie die geeigneten Endpunkte, Persistieren Sie die Daten in einer Datenbank Ihrer Wahl, Versenden Sie Benachrichtigungen bei Datenänderungen, Achten Sie auf eine geeignete Testabdeckung"
     
 
-    Erstelle die hälfte der {question_count} Fragen als Technische Fragen und den Rest als Persönliche Eignung oder Motivationsfragen.
+    Erstelle die hälfte der {question_count} Fragen als Technische Fragen und den Rest als Persönliche Eignung oder Codingaufgabe.
     Formatiere das Ergebnis exakt im folgenden JSON-Format:
     {{
         "Technische Fragen": [
