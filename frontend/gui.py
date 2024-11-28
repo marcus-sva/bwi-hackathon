@@ -137,6 +137,8 @@ with col3:
         st.session_state.button = True
         st.session_state.mail_type = mail_type
         st.session_state.time_sent = time.time()
+    if 'time_sent' not in st.session_state:
+        st.session_state.time_sent = 0
     wait_time = 5
     not_sent = (st.session_state.time_sent == 0)
     if time.time() > st.session_state.time_sent + wait_time and not not_sent:
