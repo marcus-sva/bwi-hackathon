@@ -109,12 +109,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Logo und Titel links oben
-st.markdown("""
-    <div class="logo-container">
-        <img src="https://via.placeholder.com/100" alt="Logo" style="margin-right: 10px;">
-        <h2 style="color: white;">Bewerberverwaltung</h2>
-    </div>
-""", unsafe_allow_html=True)
+
 
 # Spaltenlayout
 col1, col2, col3 = st.columns([1, 2, 1])
@@ -146,6 +141,14 @@ with col3:
 
 # Linke Spalte: Bewerber IDs
 with col1:
+    st.markdown("""
+    <div class="logo-container">
+        <img src="https://qbn.world/wp-content/uploads/2022/06/logo-sq-3.png" 
+             alt="Logo" 
+             style="margin-right: 10px; height: 300px; width: 370px;">
+        <h2 style="color: white;">Bewerberverwaltung</h2>
+    </div>
+""", unsafe_allow_html=True)
     st.header("Bewerber IDs")
     selected_id = st.selectbox("Wähle eine Bewerber ID:", list(applicants.keys()), key="selected_id")
 
