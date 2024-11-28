@@ -22,6 +22,7 @@ services:
       MINIO_ADDRESS: "application-minio:9000"
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
+      MODEL_ADDRESS: "backend-model:8001"
     build:
       context: ./backend/coordinator
     ports:

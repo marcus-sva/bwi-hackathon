@@ -5,6 +5,7 @@ import random
 import shutil
 import tempfile
 from io import BytesIO
+import requests
 
 from PyPDF2 import PdfReader
 from fastapi import FastAPI, UploadFile, File, HTTPException
@@ -16,6 +17,8 @@ minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
 minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
+
+model_address = os.getenv("MODEL_ADDRESS", "http://localhost:8001")
 app = FastAPI()
 
 
@@ -142,6 +145,14 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
             content_type="application/json"
         )
 
+        # trigger /assess_applicant/{applicant_id}/{job_id} in backend model
+        url = f"{model_address}/assess_applicant/{random_applicants_id}/{job_id}"
+        try:
+            response = requests.post(url)
+            print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+        except Exception as e:
+            raise Exception(f"Failed to call model backend {url}: {str(e)}")
+
         # Return success response
         return {
             "message": f"File uploaded successfully.",
@@ -253,6 +264,14 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
             content_type="application/json"  # Content type is JSON
         )
 
+        # trigger generate_evaluation in backend model
+        url = f"{model_address}/generate_evaluation"
+        try:
+            response = requests.post(url, json=file_content)
+            print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+        except Exception as e:
+            raise Exception(f"Failed to call model backend {url}: {str(e)}")
+
         # Return a success message
         return {
             "message": "challenge_solution.json uploaded successfully.",
@@ -339,6 +358,22 @@ async def upload_job_description(job_id: int, file: UploadFile = File(...)):
             length=len(pdf_json),
             content_type="application/json"
         )
+
+        # trigger generate_challenge in backend model
+        url = f"{model_address}/generate_challenge"
+        try:
+            response = requests.post(url, json=pdf_dict)
+            print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+        except Exception as e:
+            raise Exception(f"Failed to call model backend {url}: {str(e)}")
+
+        # trigger assess_job in backend model
+        url = f"{model_address}/assess_job"
+        try:
+            response = requests.post(url, json=pdf_dict)
+            print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+        except Exception as e:
+            raise Exception(f"Failed to call model backend {url}: {str(e)}")
 
         # Return success response
         return {
