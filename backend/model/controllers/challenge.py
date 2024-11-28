@@ -88,6 +88,31 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     Basierend auf den oben genannten Fähigkeiten und Technologien unter Berücksichtigung, dass die Stelle für ein {job_level}-Level ausgeschrieben ist, 
     generiere eine Liste von {question_count} Interviewfragen. Die Fragen sollten eine breite Palette abdecken, von grundlegenden bis zu komplexen Fragestellungen.
     
+    Beispiel:
+    "Frage": "Eine klassische Retrospektive wird im Team regelmäßig durchgeführt. Ein Post Mortem allerdings nur bei Bedarf. Bitte gehe auf folgende Fragen näher ein: Was ist der Unterschied zwischen einer Retro und einem Post Mortem? Wann und warum wird ein Post Mortem hauptsächlich durchgeführt? Nenne das Ziel eines Post Mortems und gehe darauf ein, was muss alles beachtet werden sollte."
+    
+    "Frage": "Die Bundesregierung muss im Notfall eigene Staatsbürger im Ausland aus Gefahr für Leib und Leben retten können. 
+    Durch ein gemeinsames Lagebild aller beteiligten Bundesressorts soll eine schnelle, flexible und mobile Krisenbewältigung gefördert werden. 
+    KVInfoSysBund wird im Kern ein von der BWI betriebenes webbasiertes Geo-
+    Informationssystem zur individuellen Lagebilddarstellung und ressortübergreifenden
+    Zusammenarbeit sein und als Datendrehscheibe zwischen verschiedenen internen und
+    externen Datenquellen dienen.
+    Ihre Aufgabe ist nun einen Backend Service zu entwickeln, der Schnittstellen zur Verfügung
+    stellt, um Points of Interest zu speichern und abzurufen. Ein vorhandener, imaginärer Service
+    erwartet Benachrichtigungen bei Datenänderungen.
+    Ein Point of Interest besteht aus den folgenden Informationen: 
+    Name, Geo-Koordinate, Art des POI (Hafen, Flughafen, Krankenhaus…), Anschrift ,Spezielle Felder je nach Art des POI:, Hafen: 0-n Piers mit Name und Geo-Koordinate, Flughafen: 0-n Landebahnen mit Himmelsrichtung und Länge, Krankenhaus: Anzahl Betten auf Intensivstation und Pflegestation. 
+    Ihre Aufgaben sind konkret: Implementieren Sie die geeigneten Endpunkte, Persistieren Sie die Daten in einer Datenbank Ihrer Wahl, Versenden Sie Benachrichtigungen bei Datenänderungen, Achten Sie auf eine geeignete Testabdeckung"
+    
+
+    "Frage": "Im Projekt wurde eine Web-Schnittstelle geschaffen auf der die Lieferanten ihre Daten anliefern. In der
+    Gesamtarchitektur existiert eine VS (Verschlusssache)-Registratur, die den Zugriff auf Daten und
+    deren Veränderung im System autorisiert und protokolliert. Diese leitet die vereinnahmten Dateien an
+    das Backend weiter, wo diese dann verarbeitet werden und letztendlich in die Datenbank geladen werden.
+    Aufgabe:
+    Erstellen Sie eine Gesamtskizze des Systems, das aus Frontend, Backend und Datenhaltungsschicht besteht.
+    Es soll eine neue Datenquelle (beiliegende Datei) angebunden werden. Tragen Sie die
+    Anpassungen in die Skizze ein. Entwerfen Sie einen ETL-Job, der nun die Daten (beiliegende Datei) verarbeitet, nach dem diese vereinnahmt wurden.
 
     Unterteile die Fragen in die folgenden Kategorien:
     1. Technische Fragen: Überprüfung des Wissens ausschließlich zu den genannten Technologien oder Tools (z. B. Programmiersprachen, Software, Frameworks) der Stellenbeschreibung. 
@@ -222,6 +247,48 @@ def evaluate_candidate_responses(response_json):
         response = requests.post(API_URL, json=payload)
         response.raise_for_status()
         return response.json()
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
+    
+def match_offer_application(job_posting, resume):
+    """
+    Sendet eine Anfrage an die Flask-API, um einen Vergleich zwischen Stellenanzeige und Lebenslauf durchzuführen.
+
+    Args:
+        job_posting (str): Der Text der Stellenanzeige.
+        resume (str): Der Text des Lebenslaufs.
+
+    Returns:
+        dict: Die Antwort des Modells als JSON mit Key-Value-Paaren.
+    """
+    prompt = f"""
+    [STELLENANZEIGE]
+    {job_posting}
+
+    [LEBENSLAUF]
+    {resume}
+
+    [BITTE VERGLEICHEN]
+    Gib das Ergebnis immer im JSON-Format zurück mit den folgenden Schlüsseln:
+    - "Eignung": Ein kurzer Text, der die Eignung des Kandidaten beschreibt.
+    - "Übereinstimmungen": Eine Liste der Fähigkeiten und Anforderungen, die übereinstimmen.
+    - "Fehlende Anforderungen": Eine Liste der fehlenden Anforderungen oder Qualifikationen.
+    - "Gesamtpassung": Eine Bewertung der Gesamtpassung auf einer Skala von 1-10.
+    """
+    
+    messages = [{"role": "user", "content": prompt}]
+    payload = {"messages": messages}
+
+    try:
+        response = requests.post(API_URL, json=payload)
+        response.raise_for_status()
+        result = response.json()
+
+        # Validating and ensuring a JSON structure in the response
+        if isinstance(result, dict):
+            return result
+        else:
+            return {"error": "Die Antwort der API war nicht im erwarteten JSON-Format."}
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
 
