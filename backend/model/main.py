@@ -7,7 +7,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from flask import Flask, request, jsonify
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from controllers.challenge import extract_requirements_and_skills_with_json, generate_questions_from_requirements,evaluate_candidate_responses
+from controllers.challenge import extract_requirements_and_skills_with_json, generate_questions_from_requirements,evaluate_candidate_responses,match_offer_application
  
 app = Flask(__name__)
  
@@ -130,7 +130,8 @@ def assess_job():
 
 @app.route("/assess_applicant", methods=["POST"])
 def assess_job():
-    pass
+
+    match_offer_application(job_posting, resume)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8001)
