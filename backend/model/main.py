@@ -25,16 +25,23 @@ minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
 
-def upload_file(bucket: str, id: int, name:str, response):       
-    # Upload the file to MinIO
-    json_bytes = BytesIO(response.encode("utf-8"))
-    object_path = f"{id}/" + name
-    minio_client.put_object(bucket_name=bucket, 
-                            object_name=object_path,            
-                            data=json_bytes,            
-                            length=len(response),            
-                            content_type="application/json"        
-                            ) 
+def upload_file(bucket: str, id: int, name: str, response):       
+    try:
+        # Upload the file to MinIO
+        json_bytes = BytesIO(response.encode("utf-8"))
+        object_path = f"{id}/" + name
+        minio_client.put_object(
+            bucket_name=bucket, 
+            object_name=object_path,            
+            data=json_bytes,            
+            length=len(response),            
+            content_type="application/json"
+        ) 
+        print("File uploaded successfully")
+    except Exception as e:
+        print(f"Error uploading file: {e}")
+        raise
+
     return
 
 def download_file(bucket: str, object_name: str):
