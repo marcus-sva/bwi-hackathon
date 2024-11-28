@@ -151,11 +151,14 @@ with col2:
 
         st.subheader("Beurteilung der Lösung")
         try:
-            # Lade solution.json
-            ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
-            ChallengeSolution_obj = minio_client.get_object(bucket_name, ChallengeSolution_path)
-            ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
-            st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
+            if time.time() > st.session_state.time_sent + wait_time:
+                # Lade solution.json after response received
+                ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
+                ChallengeSolution_obj = minio_client.get_object(bucket_jobs, ChallengeSolution_path)
+                ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
+                st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
+            else:
+                st.write("Bewertung noch nicht verfügbar.")
         except:
             st.error("Bewertung nicht verfügbar.")
 
