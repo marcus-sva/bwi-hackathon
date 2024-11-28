@@ -146,6 +146,15 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
         )
 
         id_dict = {
+            "applicant_id": "ID002",
+            "personal_data": {
+                "Name": "Martha Musterfrau",
+                "Alter": 64,
+                "Wohnort": "Köpenik"
+                },
+            "summary": "Erfahrene Softwareentwicklerin mit Schwerpunkt auf Datenbanken.",
+            "documents": [],
+            "evaluation": "Die KI ordnet die Bewerberin als 'sehr geeignet' für die Stelle ein.",
             "job_id": job_id
         }
         id_json = json.dumps(id_dict)
@@ -161,6 +170,8 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
             length=len(id_json),
             content_type="application/json"
         )
+
+        
 
         # trigger /assess_applicant/{applicant_id}/{job_id} in backend model
         url = f"{model_address}/assess_applicant/{random_applicants_id}/{job_id}"
