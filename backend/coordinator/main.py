@@ -304,6 +304,42 @@ async def upload_job_description(job_id: int, file: UploadFile = File(...)):
             content_type="application/pdf",  # Set content type to PDF
         )
 
+        # Write PDF to temporary file, convert it and delete the temporary file
+        pdf_filename = None
+        try:
+            pdf_filename = write_file_to_tempfile(file)
+            print(f"Wrote PDF to TempFile {pdf_filename}")
+
+            pdf_content = pdf_to_json(pdf_filename)
+            # quick and dirty for scrum master position
+            pdf_content = pdf_content.replace("Jetzt online bewerben\nJetzt online bewerben", "", 1)
+            # extract the job title
+            title = pdf_content.split(" \n", 1)[0]
+        finally:
+            if 'pdf_filename' in locals() and os.path.exists(pdf_filename):
+                os.remove(pdf_filename)
+                print(f"TempFile {pdf_filename} removed successfully.")
+
+        pdf_dict = {
+            "job_id": job_id,
+            "file": "job_description.json",
+            "title": title,
+            "text": pdf_content
+        }
+        pdf_json = json.dumps(pdf_dict)
+
+        # Upload the file to MinIO
+        json_bytes = BytesIO(pdf_json.encode("utf-8"))
+        object_path = f"{job_id}/job_description.json"
+
+        minio_client.put_object(
+            bucket_name=bucket_name,
+            object_name=object_path,
+            data=json_bytes,
+            length=len(pdf_json),
+            content_type="application/json"
+        )
+
         # Return success response
         return {
             "message": f"File uploaded successfully.",
