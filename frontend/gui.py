@@ -134,6 +134,8 @@ with col2:
             st.session_state.mail_type = ""
         if 'time_sent' not in st.session_state:
             st.session_state.time_sent = 0
+        if 'spinner_finished' not in st.session_state:
+            st.session_state.spinner_finished = False
 
         st.subheader("Challengeübersicht")
         if st.session_state.button and st.session_state.mail_type == "Aufgabe senden":
@@ -143,9 +145,11 @@ with col2:
             #else:
             #    st.write("Warte auf Antwort")
             #    st.spinner("Warte auf Antwort")
-            with st.spinner('Wait for it...'):
-                time.sleep(5)
-            st.experimental_rerun()
+            if not st.session_state.spinner_finished:
+                with st.spinner('Wait for it...'):
+                    time.sleep(5)
+                    st.session_state.spinner_finished = True
+                    st.experimental_rerun()
             st.success("Antwort ist da")
         else:
             st.write("Keine Challenge an Bewerber gesendet")
@@ -156,7 +160,7 @@ with col2:
             not_sent = (st.session_state.time_sent == 0)
             if time.time() > st.session_state.time_sent + wait_time and not not_sent:
                 # Lade solution.json after response received
-                ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
+                ChallengeSolution_path = f"{selected_id}/challengeSolution.json"
                 ChallengeSolution_obj = minio_client.get_object(bucket_jobs, ChallengeSolution_path)
                 ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
                 st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
