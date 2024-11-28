@@ -119,7 +119,9 @@ def generate():
 def challenge():
     try:
         # Extract the data from the JSON payload
+
         data = request.get_json()
+        '''
         if not data:
             raise ValueError("No JSON payload found in the request.")
 
@@ -141,10 +143,13 @@ def challenge():
         #upload_file('jobs', data.get('job_id'), 'challenge.json', questions_json)
         #return jsonify(requirements_json)
         return jsonify([requirements_json, questions_json])
+        '''
+        return data
 
     except Exception as e:
         print(f"Error occurred: {e}")  # Log the error
         return jsonify({"error": str(e)}), 500
+        
 
 @app.route("/generate_evaluation", methods=["POST"])
 def evaluation():
