@@ -1,5 +1,46 @@
 {
   "applicant_id": 1,
   "job_id": 1,
-  "challenge": "Deine Scrum Master Challenge\nWir haben uns drei verschiedene Szenarien überlegt und möchten Dich bitten, diese zu bearbeiten.\nWie Du dabei vorgehst, ist ganz Dir überlassen. Gerne kannst Du Deine Ausarbeitungen auch visuell darstellen. Dies ist aber kein Muss. Plane bitte für jeden Fall ca. 20 Minuten, inklusive Fragen, ein.\nFall 1\nEine klassische Retrospektive wird im Team regelmäßig durchgeführt. Ein Post Mortem allerdings nur bei Bedarf. Bitte gehe auf folgende Fragen näher ein:\n• Was ist der Unterschied zwischen einer Retro und einem Post Mortem?\n• Wann und warum wird ein Post Mortem hauptsächlich durchgeführt?\n• Nenne das Ziel eines Post Mortems und gehe darauf ein, was muss alles beachtet werden sollte.\nFall 2\nDu bist Scrum Master in einem Unternehmen, das sich in einer agilen Transformation befindet, die top down durchgesetzt wurde. Viele Entwickler freuen sich über die Veränderung, allerdings ist die Freude im mittleren Management eher gering. Hier fürchtet man um seinen Job und den damit verbundenen Machtverlust.\nDein Vorgesetzter hat eigene Vorstellungen vom agilen Arbeiten und bittet Dich darum, Leistungskennzahlen für jedes Teammitglied zu erstellen. Für den Chef ist außerdem klar, dass die Leistung der Entwickler abhängig von den erledigten Story Points im Sprint ist und Schätzungen sieht er grundsätzlich als verbindliche Zusage an. Zur Krönung fordert er Dich auf, Deinen eigenen Wert anhand einer Metrik zu belegen.\nDie Teammitglieder kommen auf Dich zu und bitten Dich um Hilfe. Du suchst das Gespräch mit Deinem Chef.\n• Wie gehst Du dabei vor?\nFall 3\nDer Produkt Owner aus Deinem Team ist noch relativ unerfahren in seiner Rolle. Ihm ist der Nutzen des Produktes nicht ganz klar. Auch die Teammitglieder können ihm nur oberflächlich weiterhelfen.\nEr möchte nun gerne mit dem Team eine gemeinsame Produktvision erstellen und bittet Dich um Hilfe bei der Durchführung eines Workshops.\n• Welche Methoden zur Erstellung einer Produktvision kennst Du und welche würdest Du anwenden? Bitte begründe Deine Wahl."
-}
+    "Technische Fragen": [
+      {
+        "Frage": "Was ist der Unterschied zwischen einer Retro und einem Post Mortem?",
+        "Bewertungsmaßstab": "Korrekte Beschreibung der Unterschiede zwischen Retro und Post Mortem"
+      },
+      {
+        "Frage": "Erklären Sie, warum Sie die Programmiersprache Python für diese Aufgabe gewählt haben.",
+        "Bewertungsmaßstab": "Plausibilität und Rechtfertigung der Programmiersprachewahl"
+      },
+      {
+        "Frage": "Was sind die Vorteile einer Datenbanken-Verwendung im KVInfoSysBund?",
+        "Bewertungsmaßstab": "Korrekte und umfassende Darstellung der Vorteile einer Datenbanken-Verwendung"
+      },
+      {
+        "Frage": "Beschreiben Sie die grundlegenden Eigenschaften eines Points of Interest (POI).",
+        "Bewertungsmaßstab": "Korrekte und umfassende Darstellung der POI-Eigenschaften"
+      }
+    ],
+    "Persönliche Eignung": [
+      {
+        "Frage": "Wie würden Sie in einem Team eine komplexe Aufgabe unternehmen? Beschreiben Sie Ihre Arbeitsabläufe und Ihre Kommunikationsstrategien.",
+        "Bewertungsmaßstab": "Klare und überzeugende Beschreibung der Arbeitsabläufe und Kommunikationsstrategien"
+      },
+      {
+        "Frage": "Wie würden Sie mit einem Kollegen oder einer Kollegin an einem Projekt arbeiten, wenn Sie unterschiedliche Ansichten oder Meinungen haben?",
+        "Bewertungsmaßstab": "Klare und konstruktive Beschreibung der Kommunikationsstrategie und der Lösungsmöglichkeiten"
+      },
+      {
+        "Frage": "Beschreiben Sie Ihre Erfahrungen mit Zeitmanagement und Priorisierung in einem Projekt. Wie würden Sie in einem Projekt priorisieren?",
+        "Bewertungsmaßstab": "Korrekte und umfassende Darstellung der Erfahrungen mit Zeitmanagement und Priorisierung"
+      },
+      {
+        "Frage": "Wie würden Sie mit einem Problem oder einer Herausforderung in einem Projekt umgehen? Beschreiben Sie Ihre Denkprozesse und Ihre Lösungsmöglichkeiten.",
+        "Bewertungsmaßstab": "Klare und überzeugende Beschreibung der Denkprozesse und der Lösungsmöglichkeiten"
+      }
+    ],
+    "Codingaufgabe": [
+      {
+        "Aufgabe": "Entwickeln Sie eine API für die Speicherung und Abfrage von Points of Interest (POI). Die API sollte die folgenden Endpunkte enthalten:\n*   GET /pois: Liest alle POI-Daten aus der Datenbank und gibt sie zurück.\n*   POST /pois: Fügt ein neues POI hinzu.\n*   GET /pois/:id: Liest die POI-Daten eines spezifischen POI aus der Datenbank und gibt sie zurück.\n*   PUT /pois/:id: Aktualisiert die POI-Daten eines spezifischen POI in der Datenbank.\n*   DELETE /pois/:id: Löscht ein POI aus der Datenbank.\n\nDie API sollte die folgenden Felder enthalten:\n*   id (Primärschlüssel): ein eindeutiger Schlüssel für das POI.\n*   name: der Name des POI.\n*   geoCoordinate: die Geo-Koordinate des POI.\n*   type: die Art des POI.\n*   address: die Adresse des POI.\n*   hospital: die Anzahl der Betten auf der Intensivstation und der Pflegestation des POI.\n*   pier: die Anzahl der Piers mit Name und Geo-Koordinate des POI.\n*   runway: die Himmelsrichtung und Länge der Landebahn des POI.\n\nSie können eine Datenbank verwenden, die Sie selbst erstellen oder eine bereits existierende verwenden. Die Implementierung sollte in Python sein. Sie sollten die Benachrichtigungen bei Datenänderungen senden, indem Sie die `requests`-Bibliothek verwenden. Benachrichtigungen werden bei folgenden Ereignissen gesendet:\n*   Aktualisierung eines POI.\n*   Löschen eines POI.\n*   Hinzufügen eines neuen POI."
+      }
+    ]
+  }
+  
