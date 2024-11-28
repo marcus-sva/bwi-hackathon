@@ -160,7 +160,7 @@ with col2:
             not_sent = (st.session_state.time_sent == 0)
             if time.time() > st.session_state.time_sent + wait_time and not not_sent:
                 # Lade solution.json after response received
-                ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
+                ChallengeSolution_path = f"{selected_id}/challengeSolution.json"
                 ChallengeSolution_obj = minio_client.get_object(bucket_jobs, ChallengeSolution_path)
                 ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
                 st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
