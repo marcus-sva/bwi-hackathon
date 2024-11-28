@@ -23,12 +23,12 @@ def display_json(data):
                 if category == "Codingaufgabe":
                     st.subheader("Aufgabe")
                     st.write(item.get("Aufgabe", "Keine Aufgabe verfügbar."))
-                    st.subheader("Bewertungsmaßstab")
-                    st.write(item.get("Bewertungsmaßstab", "Kein Bewertungsmaßstab verfügbar."))
+                    st.subheader("Bewertung")
+                    st.write(item.get("Bewertungs", "Kein Bewertungsmaßstab verfügbar."))
                 else:
                     st.subheader("Frage")
                     st.write(item.get("Frage", "Keine Frage verfügbar."))
-                    st.subheader("Bewertungsmaßstab")
+                    st.subheader("Bewertung")
                     st.write(item.get("Bewertungsmaßstab", "Kein Bewertungsmaßstab verfügbar."))
 
 def display_solution_json(data):
@@ -38,18 +38,25 @@ def display_solution_json(data):
         with st.expander(category, expanded=False):  # Dropdown-Menü für jede Kategorie
             for item in questions:
                 if category == "Codingaufgabe":
-                    st.subheader("Aufgabe")
-                    st.write(item.get("Aufgabe", "Keine Aufgabe verfügbar."))
-                    antwort = item.get("Antwort")
-                    st.subheader("Antwort - Code")
-                    st.write(antwort.get("Code", "Kein Bewertungsmaßstab verfügbar."))
-                    st.subheader("Antwort - Erklärung")
-                    st.write(antwort.get("Erklärung", "Kein Bewertungsmaßstab verfügbar."))
+                    st.subheader("Frage")
+                    st.write(item.get("Frage", "Keine Frage verfügbar."))
+                    st.subheader("Antwort")
+                    st.write(item.get("Antwort", "Kein Bewertungsmaßstab verfügbar."))
+                    st.subheader("Bewertung")
+                    st.write(item.get("Bewertung", "Kein Bewertungsmaßstab verfügbar."))
                 else:
                     st.subheader("Frage")
                     st.write(item.get("Frage", "Keine Frage verfügbar."))
                     st.subheader("Antwort")
                     st.write(item.get("Antwort", "Kein Bewertungsmaßstab verfügbar."))
+                    st.subheader("Bewertung")
+                    st.write(item.get("Bewertung", "Kein Bewertungsmaßstab verfügbar."))
+        if category == "Zusammenfassung":
+            st.subheader("Zusammenfassung")
+            st.write(questions)
+        if category == "Empfehlung":
+            st.subheader("Empfehlung")
+            st.write(questions)
 
 def load_objects_from_minio(bucket_name):
     # Überprüfen, ob der Bucket existiert
