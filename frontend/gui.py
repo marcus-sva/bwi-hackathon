@@ -145,6 +145,7 @@ with col2:
             #    st.spinner("Warte auf Antwort")
             with st.spinner('Wait for it...'):
                 time.sleep(5)
+            st.experimental_rerun()
             st.success("Antwort ist da")
         else:
             st.write("Keine Challenge an Bewerber gesendet")
@@ -152,7 +153,8 @@ with col2:
         st.subheader("Beurteilung der Lösung")
         try:
             wait_time = 5
-            if time.time() > st.session_state.time_sent + wait_time:
+            not_sent = (st.session_state.time_sent == 0)
+            if time.time() > st.session_state.time_sent + wait_time and not not_sent:
                 # Lade solution.json after response received
                 ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
                 ChallengeSolution_obj = minio_client.get_object(bucket_jobs, ChallengeSolution_path)
