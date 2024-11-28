@@ -125,7 +125,7 @@ def challenge():
         if not data:
             raise ValueError("No JSON payload found in the request.")
 
-        question_count = 10 #data.get("question_count")
+        question_count = 4 #data.get("question_count")
         job_level = 'senior' #data.get("job_level")
 
         # Validate required fields
