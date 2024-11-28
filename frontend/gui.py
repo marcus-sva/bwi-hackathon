@@ -146,7 +146,6 @@ with col1:
         <img src="https://qbn.world/wp-content/uploads/2022/06/logo-sq-3.png" 
              alt="Logo" 
              style="margin-right: 10px; height: 300px; width: 370px;">
-        <h2 style="color: white;">Bewerberverwaltung</h2>
     </div>
 """, unsafe_allow_html=True)
     st.header("Bewerber IDs")
