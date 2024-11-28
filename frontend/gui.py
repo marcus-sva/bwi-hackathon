@@ -31,6 +31,8 @@ def display_json(data):
 
 def display_solution_json(data):
     for category, questions in data.items():
+        if not isinstance(questions, list):
+            continue
         with st.expander(category, expanded=False):  # Dropdown-Menü für jede Kategorie
             for item in questions:
                 if category == "Codingaufgabe":
