@@ -3,6 +3,7 @@ import os
 import json
 from minio import Minio
 from fastapi import HTTPException
+import time
 
 # MinIO-Konfiguration
 minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
@@ -27,6 +28,26 @@ def display_json(data):
                     st.write(item.get("Frage", "Keine Frage verfügbar."))
                     st.subheader("Bewertungsmaßstab")
                     st.write(item.get("Bewertungsmaßstab", "Kein Bewertungsmaßstab verfügbar."))
+
+def display_solution_json(data):
+    for category, questions in data.items():
+        if not isinstance(questions, list):
+            continue
+        with st.expander(category, expanded=False):  # Dropdown-Menü für jede Kategorie
+            for item in questions:
+                if category == "Codingaufgabe":
+                    st.subheader("Aufgabe")
+                    st.write(item.get("Aufgabe", "Keine Aufgabe verfügbar."))
+                    antwort = item.get("Antwort")
+                    st.subheader("Antwort - Code")
+                    st.write(antwort.get("Code", "Kein Bewertungsmaßstab verfügbar."))
+                    st.subheader("Antwort - Erklärung")
+                    st.write(antwort.get("Erklärung", "Kein Bewertungsmaßstab verfügbar."))
+                else:
+                    st.subheader("Frage")
+                    st.write(item.get("Frage", "Keine Frage verfügbar."))
+                    st.subheader("Antwort")
+                    st.write(item.get("Antwort", "Kein Bewertungsmaßstab verfügbar."))
 
 def load_objects_from_minio(bucket_name):
     # Überprüfen, ob der Bucket existiert
@@ -98,24 +119,13 @@ with col3:
         personal_data = selected_applicant.get("personal_data", {})
         st.write({k: v for k, v in personal_data.items() if k != "Name"})
 
-    # set session data if not exists
-    if 'button' not in st.session_state:
-        st.session_state.button = False
-    if 'mail_type' not in st.session_state:
-        st.session_state.mail_type = ""
-
-    st.subheader("Challengeübersicht")
-    if st.session_state.button and st.session_state.mail_type == "Aufgabe senden":
-        st.spinner("Warte auf Antwort")
-    else:
-        st.write("Keine Challenge an Bewerber gesendet")
-
     st.subheader("Mailvorlage")
     mail_type = st.selectbox("Wähle eine Aktion:", ["Absage", "Einladung", "Aufgabe senden", "Sonstiges"])
     if st.button("Mail generieren"):
         st.success(f"Mail für {mail_type} generiert!")
         st.session_state.button = True
         st.session_state.mail_type = mail_type
+        st.session_state.time_sent = time.time()
 
 # Linke Spalte: Bewerber IDs
 with col1:
@@ -137,13 +147,46 @@ with col2:
         except Exception as e:
             st.error(e)
 
+        # set session data if not exists
+        if 'button' not in st.session_state:
+            st.session_state.button = False
+        if 'mail_type' not in st.session_state:
+            st.session_state.mail_type = ""
+        if 'time_sent' not in st.session_state:
+            st.session_state.time_sent = 0
+        if 'spinner_finished' not in st.session_state:
+            st.session_state.spinner_finished = False
+
+        st.subheader("Challengeübersicht")
+        if st.session_state.button and st.session_state.mail_type == "Aufgabe senden":
+            #wait_time = 5
+            #if time.time() > st.session_state.time_sent + wait_time:
+            #    st.write("Antwort ist da")
+            #else:
+            #    st.write("Warte auf Antwort")
+            #    st.spinner("Warte auf Antwort")
+            if not st.session_state.spinner_finished:
+                with st.spinner('Wait for it...'):
+                    time.sleep(5)
+                    st.session_state.spinner_finished = True
+                    st.experimental_rerun()
+            st.success("Antwort ist da")
+        else:
+            st.write("Keine Challenge an Bewerber gesendet")
+
         st.subheader("Beurteilung der Lösung")
         try:
-            # Lade solution.json
-            ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
-            ChallengeSolution_obj = minio_client.get_object(bucket_name, ChallengeSolution_path)
-            ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
-            st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
-        except:
+            wait_time = 5
+            not_sent = (st.session_state.time_sent == 0)
+            if time.time() > st.session_state.time_sent + wait_time and not not_sent:
+                # Lade solution.json after response received
+                ChallengeSolution_path = f"{selected_id}/challengeSolution.json"
+                ChallengeSolution_obj = minio_client.get_object(bucket_jobs, ChallengeSolution_path)
+                ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
+                display_solution_json(ChallengeSolution_data)
+            else:
+                st.write("Bewertung noch nicht verfügbar.")
+        except Exception as e:
             st.error("Bewertung nicht verfügbar.")
+            st.error(e)
 
