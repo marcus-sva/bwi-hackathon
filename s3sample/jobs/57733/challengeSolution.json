@@ -47,7 +47,7 @@
   ],
   "Codingaufgabe": [
     {
-      "Aufgabe": "Entwickeln Sie eine Datenpipeline zur Verarbeitung von Logdaten, die die Daten säubert, in ein Data Warehouse lädt und eine wöchentliche Zusammenfassung erstellt.",
+      "Frage": "Entwickeln Sie eine Datenpipeline zur Verarbeitung von Logdaten, die die Daten säubert, in ein Data Warehouse lädt und eine wöchentliche Zusammenfassung erstellt.",
       "Antwort": "Ich habe eine Pipeline mit Apache Airflow implementiert. Die Logdaten wurden mit Pandas bereinigt und anschließend mit AWS Glue in ein Redshift-Data-Warehouse geladen. Die wöchentliche Zusammenfassung wurde automatisiert und per AWS SES an Stakeholder versandt. Die Pipeline wurde modular gestaltet und skalierbar implementiert.",
       "Bewertung": 4.5
     }

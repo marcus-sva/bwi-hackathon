@@ -47,7 +47,7 @@
   ],
   "Codingaufgabe": [
     {
-      "Aufgabe": "Erstellen Sie eine einfache React-Anwendung zur Verwaltung von Aufgaben. Die Anwendung sollte folgende Funktionen bieten: Hinzufügen, Löschen und Bearbeiten von Aufgaben. Die Daten sollten lokal gespeichert werden.",
+      "Frage": "Erstellen Sie eine einfache React-Anwendung zur Verwaltung von Aufgaben. Die Anwendung sollte folgende Funktionen bieten: Hinzufügen, Löschen und Bearbeiten von Aufgaben. Die Daten sollten lokal gespeichert werden.",
       "Antwort": "Ich habe eine React-Anwendung entwickelt, die die lokale Speicherung mit `localStorage` nutzt. Die Anwendung bietet eine übersichtliche Oberfläche mit einem Formular zum Hinzufügen von Aufgaben, einem Bearbeitungsmodus und einer Schaltfläche zum Löschen von Aufgaben. Ich habe React Hooks wie `useState` und `useEffect` verwendet, um den Zustand zu verwalten und Daten zu speichern.",
       "Bewertung": 4.5
     }

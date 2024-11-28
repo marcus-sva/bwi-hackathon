@@ -47,7 +47,7 @@
   ],
   "Codingaufgabe": [
     {
-      "Aufgabe": "Erstellen Sie ein Tool, das Scrum-Retrospektiven erleichtert.",
+      "Frage": "Erstellen Sie ein Tool, das Scrum-Retrospektiven erleichtert.",
       "Antwort": "Das Tool wurde als webbasierte Anwendung entwickelt, mit einer interaktiven Oberfläche für die Eingabe von Feedback und automatischer Priorisierung der wichtigsten Punkte. Es enthält Funktionen wie Timer für Timeboxed-Diskussionen und generiert automatisch Berichte. Die Implementierung wurde in React und Node.js realisiert.",
       "Bewertung": 4.5
     }
