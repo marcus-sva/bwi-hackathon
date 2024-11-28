@@ -151,6 +151,7 @@ with col2:
 
         st.subheader("Beurteilung der Lösung")
         try:
+            wait_time = 5
             if time.time() > st.session_state.time_sent + wait_time:
                 # Lade solution.json after response received
                 ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
@@ -159,6 +160,7 @@ with col2:
                 st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
             else:
                 st.write("Bewertung noch nicht verfügbar.")
-        except:
+        except Exception as e:
             st.error("Bewertung nicht verfügbar.")
+            st.error(e)
 
