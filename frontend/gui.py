@@ -29,6 +29,24 @@ def display_json(data):
                     st.subheader("Bewertungsmaßstab")
                     st.write(item.get("Bewertungsmaßstab", "Kein Bewertungsmaßstab verfügbar."))
 
+def display_solution_json(data):
+    for category, questions in data.items():
+        with st.expander(category, expanded=False):  # Dropdown-Menü für jede Kategorie
+            for item in questions:
+                if category == "Codingaufgabe":
+                    st.subheader("Aufgabe")
+                    st.write(item.get("Aufgabe", "Keine Aufgabe verfügbar."))
+                    antwort = item.get("Antwort")
+                    st.subheader("Antwort - Code")
+                    st.write(antwort.get("Code", "Kein Bewertungsmaßstab verfügbar."))
+                    st.subheader("Antwort - Erklärung")
+                    st.write(antwort.get("Erklärung", "Kein Bewertungsmaßstab verfügbar."))
+                else:
+                    st.subheader("Frage")
+                    st.write(item.get("Frage", "Keine Frage verfügbar."))
+                    st.subheader("Antwort")
+                    st.write(item.get("Antwort", "Kein Bewertungsmaßstab verfügbar."))
+
 def load_objects_from_minio(bucket_name):
     # Überprüfen, ob der Bucket existiert
     if not minio_client.bucket_exists(bucket_name):
@@ -163,7 +181,7 @@ with col2:
                 ChallengeSolution_path = f"{selected_id}/challengeSolution.json"
                 ChallengeSolution_obj = minio_client.get_object(bucket_jobs, ChallengeSolution_path)
                 ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
-                st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
+                display_solution_json(ChallengeSolution_data)
             else:
                 st.write("Bewertung noch nicht verfügbar.")
         except Exception as e:
