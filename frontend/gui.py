@@ -117,7 +117,9 @@ with col3:
     if st.session_state.get("selected_id"):
         selected_applicant = applicants[st.session_state["selected_id"]]
         personal_data = selected_applicant.get("personal_data", {})
-        st.write({k: v for k, v in personal_data.items() if k != "Name"})
+        #st.write({k: v for k, v in personal_data.items() if k != "Name"})
+        st.write("Alter: "+personal_data.get("Alter", 40))
+        st.write("Wohnort: "+personal_data.get("Wohnort", "Augsburg"))
 
     st.subheader("Mailvorlage")
     mail_type = st.selectbox("Wähle eine Aktion:", ["Absage", "Einladung", "Aufgabe senden", "Sonstiges"])
