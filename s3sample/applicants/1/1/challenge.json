@@ -1,5 +1,44 @@
 {
-  "applicant_id": 1,
-  "job_id": 1,
-  "challenge": "Deine Scrum Master Challenge\nWir haben uns drei verschiedene Szenarien überlegt und möchten Dich bitten, diese zu bearbeiten.\nWie Du dabei vorgehst, ist ganz Dir überlassen. Gerne kannst Du Deine Ausarbeitungen auch visuell darstellen. Dies ist aber kein Muss. Plane bitte für jeden Fall ca. 20 Minuten, inklusive Fragen, ein.\nFall 1\nEine klassische Retrospektive wird im Team regelmäßig durchgeführt. Ein Post Mortem allerdings nur bei Bedarf. Bitte gehe auf folgende Fragen näher ein:\n• Was ist der Unterschied zwischen einer Retro und einem Post Mortem?\n• Wann und warum wird ein Post Mortem hauptsächlich durchgeführt?\n• Nenne das Ziel eines Post Mortems und gehe darauf ein, was muss alles beachtet werden sollte.\nFall 2\nDu bist Scrum Master in einem Unternehmen, das sich in einer agilen Transformation befindet, die top down durchgesetzt wurde. Viele Entwickler freuen sich über die Veränderung, allerdings ist die Freude im mittleren Management eher gering. Hier fürchtet man um seinen Job und den damit verbundenen Machtverlust.\nDein Vorgesetzter hat eigene Vorstellungen vom agilen Arbeiten und bittet Dich darum, Leistungskennzahlen für jedes Teammitglied zu erstellen. Für den Chef ist außerdem klar, dass die Leistung der Entwickler abhängig von den erledigten Story Points im Sprint ist und Schätzungen sieht er grundsätzlich als verbindliche Zusage an. Zur Krönung fordert er Dich auf, Deinen eigenen Wert anhand einer Metrik zu belegen.\nDie Teammitglieder kommen auf Dich zu und bitten Dich um Hilfe. Du suchst das Gespräch mit Deinem Chef.\n• Wie gehst Du dabei vor?\nFall 3\nDer Produkt Owner aus Deinem Team ist noch relativ unerfahren in seiner Rolle. Ihm ist der Nutzen des Produktes nicht ganz klar. Auch die Teammitglieder können ihm nur oberflächlich weiterhelfen.\nEr möchte nun gerne mit dem Team eine gemeinsame Produktvision erstellen und bittet Dich um Hilfe bei der Durchführung eines Workshops.\n• Welche Methoden zur Erstellung einer Produktvision kennst Du und welche würdest Du anwenden? Bitte begründe Deine Wahl."
+  "Technische Fragen": [
+    {
+      "Frage": "Was sind die wichtigsten Unterschiede zwischen GeoJSON und GeoTIFF als Format für die Speicherung von Geo-Daten?",
+      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von GeoJSON für die Beschreibung von geometrischen Objekten und die Verwendung von GeoTIFF für die Speicherung von Bildern und Tabellen erklären"
+    },
+    {
+      "Frage": "Wie wird die Kommunikation zwischen den verschiedenen Komponenten eines Geo-Informationssystems (GIS) durchgeführt?",
+      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von Standards wie Web Map Service (WMS) oder Web Feature Service (WFS) erklären"
+    },
+    {
+      "Frage": "Was ist ein Geo-Informationssystem (GIS) und wie wird es in der Praxis verwendet?",
+      "Bewertungsmaßstab": "Die richtige Antwort muss die Definition eines GIS und seine Anwendungsbereiche in der Landwirtschaft, Urbanistik und Umweltbahn erklären"
+    },
+    {
+      "Frage": "Wie wird die Datenbank für ein Geo-Informationssystem (GIS) konfiguriert und gehandhabt?",
+      "Bewertungsmaßstab": "Die richtige Antwort muss die Verwendung von Datenbank-Management-Systemen wie PostgreSQL oder MySQL erklären"
+    }
+  ],
+  "Persönliche Eignung": [
+    {
+      "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Kommunikationsfähigkeiten unter Beweis stellen?",
+      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, effektiv mit anderen Teammitgliedern zusammenzuarbeiten und Bedürfnisse zu kommunizieren"
+    },
+    {
+      "Frage": "Wie würdest du als Junior-Entwickler im Bereich Geo-Informationssysteme (GIS) deine Problemlösungsfähigkeiten unter Beweis stellen?",
+      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, komplexe Probleme zu analysieren und effektive Lösungen zu finden"
+    },
+    {
+      "Frage": "Wie würdest du als Geo-Informationssystem-Entwickler deine Motivation und Leidenschaft für die Branche unter Beweis stellen?",
+      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, die Bedeutung von Geo-Informationssystemen in verschiedenen Branchen zu erkennen und zu motivieren"
+    },
+    {
+      "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Fähigkeiten und Erfahrungen unter Beweis stellen?",
+      "Bewertungsmaßstab": "Die Antwort muss die Fähigkeit zu erklären, relevante Erfahrungen und Fähigkeiten zu nennen und zu erklären, wie diese für die Rolle als Geo-Informationssystem-Entwickler relevant sind"
+    }
+  ],
+  "Codingaufgabe": [
+    {
+      "Aufgabe": "Implementieren Sie eine RESTful-API für die Speicherung und Abfrage von Punkten von Interesse (POI) in einer Datenbank. Die API sollte folgende Endpunkte haben: GET /pois, POST /pois, GET /pois/:id. Die Datenbank sollte ein JSON-Format haben. Die API sollte auch Benachrichtigungen an die Entwickler senden, wenn Daten in der Datenbank verändert werden. Sie können eine beliebige Programmiersprache und eine beliebige Datenbank verwenden.",
+      "Bewertungsmaßstab": "Die Lösung sollte korrekt implementiert sein, die API sollte korrekt funktionieren und die Benachrichtigungen korrekt senden. Die Lösung sollte auch die Anforderungen der Aufgabe erfüllen."
+    }
+  ]
 }

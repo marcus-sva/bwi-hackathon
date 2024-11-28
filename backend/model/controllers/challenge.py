@@ -156,3 +156,75 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
         return response.json()
     except requests.exceptions.RequestException as e:
         return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
+    
+
+
+def evaluate_candidate_responses(response_json):
+    """
+    Funktion zur Bewertung von Bewerberantworten anhand eines JSON-Formats.
+    
+    :param response_json: JSON-Daten mit Fragen und Antworten
+    :return: Bewertung der Eignung des Bewerbers als Text
+    """
+    
+    # Prompt für das LLM-Modell erstellen
+    prompt = """
+    Du bist ein intelligentes Bewertungsmodell. Analysiere die folgenden Fragen und Antworten eines Bewerbers
+    auf technische, persönliche und motivationale Aspekte. Bewerte die Antworten hinsichtlich ihrer Klarheit,
+    Relevanz und Tiefe. Am Ende gib eine kurze, wertschätzende Zusammenfassung, ob der Bewerber für die Rolle
+    geeignet oder ungeeignet ist. Falls ungeeignet, schlage höflich Verbesserungsmöglichkeiten vor.
+
+    Hier ist der Input (JSON-Format):
+    """
+    prompt += "\n\n" + json.dumps(response_json, indent=4)
+
+    prompt += """
+    
+    Gib folgende Informationen aus:
+    1. Bewertung für jede Antwort (Skala: 1-5, 5 ist die beste Bewertung).
+    2. Eine kurze Zusammenfassung mit einer finalen Empfehlung für die Eignung des Bewerbers.
+
+    Formatiere das Ergebnis exakt im folgenden JSON-Format:
+    {{
+        "Technische Fragen": [
+            {{
+                "Frage": "<Text der technischen Frage>",
+                "Antwort": "<Antwort des Bewerbers>",
+                "Bewertung: "<Bewertung des Modells>"
+            }},
+            ...
+        ],
+        "Persönliche Eignung": [
+            {{
+                "Frage": "<Text der Frage zur persönlichen Eignung>",
+                "Antwort": "<Antwort des Bewerbers>",
+                "Bewertung: "<Bewertung des Modells>"
+            }},
+            ...
+        ],
+        "Codingaufgabe": [
+            {{
+                "Aufgabe": "<Text der Codingaufgabe>",
+                "Antwort": "<Antwort des Bewerbers>",
+                "Bewertung: "<Bewertung des Modells>"
+            }},
+            ...
+        ],
+        "Zusammenfassung": "<kurze, wertschätzende Zusammenfassung>"
+    }}
+    """
+
+    # Nachricht an das Modell senden
+    messages = [{"role": "user", "content": prompt}]
+    payload = {"messages": messages}
+
+    try:
+        response = requests.post(API_URL, json=payload)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Fehler bei der Kommunikation mit der API: {e}"}
+
+
+
+

@@ -1,8 +1,13 @@
 import os
+import json
+from io import BytesIO
+from minio import Minio
+from minio.error import S3Error
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from flask import Flask, request, jsonify
-from controllers.challenge import extract_requirements_and_skills_with_json, generate_questions_from_requirements
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from controllers.challenge import extract_requirements_and_skills_with_json, generate_questions_from_requirements,evaluate_candidate_responses
  
 app = Flask(__name__)
  
@@ -12,6 +17,27 @@ hf_token = os.getenv("HUGGINGFACE_TOKEN")
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=hf_token)
 model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=hf_token, torch_dtype=torch.float16)
 model.to("cuda")
+
+# MinIO Configuration
+minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
+minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
+minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
+minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
+
+async def upload_file(bucket: str, id: int, response: str, name:str):
+    response_dict = {"file": name,          
+                     "text": response}        
+    pdf_json = json.dumps(response_dict)        
+    # Upload the file to MinIO        
+    json_bytes = BytesIO(pdf_json.encode("utf-8"))
+    object_path = f"{id}/" + name
+    minio_client.put_object(bucket_name=bucket, 
+                            object_name=object_path,            
+                            data=json_bytes,            
+                            length=len(pdf_json),            
+                            content_type="application/json"        
+                            ) 
+    return
  
 def format_messages(messages):
     """
@@ -89,6 +115,23 @@ def challenge():
     except Exception as e:
         print(f"Error occurred: {e}")  # Log the error
         return jsonify({"error": str(e)}), 500
+
+@app.route("/generate_evaluation", methods=["POST"])
+def evaluation():
+    try:    
+        # Extract the data from the JSON payload
+        data = request.get_json()
+        if not data:
+            raise ValueError("No JSON payload found in the request.")
+
+        # Bewertungen erstellen
+        result = evaluate_candidate_responses(data)
+        return jsonify(result)
+
+    except Exception as e:
+        print(f"Error occurred: {e}") # Log the error
+        return jsonify({"error": str(e)}), 500
+
 
 
 if __name__ == "__main__":

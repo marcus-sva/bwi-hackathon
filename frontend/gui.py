@@ -94,8 +94,9 @@ with col2:
             st.write(challenge_data.get("description", "Keine Beschreibung verfügbar."))
             st.subheader("Aufgabenstellung")
             st.write(challenge_data.get("task", "Keine Aufgabenstellung verfügbar."))
-        except:
-            st.error("Challenge-Daten nicht verfügbar.")
+        except Exception as e:
+            #st.error("Challenge-Daten nicht verfügbar.")
+            st.error(e)
 
         st.subheader("Beurteilung der Lösung")
         try:
