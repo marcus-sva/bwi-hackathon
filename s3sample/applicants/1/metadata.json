@@ -1,0 +1,12 @@
+{
+    "applicant_id": "ID002",
+    "personal_data": {
+        "Name": "Martha Musterfrau",
+        "Alter": 64,
+        "Wohnort": "Köpenik"
+    },
+    "summary": "Erfahrene Softwareentwicklerin mit Schwerpunkt auf Datenbanken.",
+    "documents": [],
+    "evaluation": "Die KI ordnet die Bewerberin als 'sehr geeignet' für die Stelle ein."
+}
+
