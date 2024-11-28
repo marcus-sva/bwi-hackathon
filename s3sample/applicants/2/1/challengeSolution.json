@@ -1,0 +1,47 @@
+{
+  "applicant_id": 1,
+  "job_id": 1,
+    "Technische Fragen": [
+      {
+        "Frage": "Was ist der Unterschied zwischen einer Retro und einem Post Mortem?",
+        "Antwort": "Eine Retro (Retrospektive) findet während eines Projekts oder nach einem Sprint statt und dient dazu, kontinuierlich Verbesserungen umzusetzen. Ein Post Mortem wird nach Abschluss eines Projekts durchgeführt und fokussiert sich auf eine tiefere Analyse, um Lehren für zukünftige Projekte zu ziehen."
+      },
+      {
+        "Frage": "Erklären Sie, warum Sie die Programmiersprache Python für diese Aufgabe gewählt haben.",
+        "Antwort": "Python wurde gewählt, weil es leicht zu lernen ist, eine große Anzahl von Bibliotheken bietet und eine starke Community hat. Es ist besonders nützlich für API-Entwicklung und schnelle Prototypenerstellung, was bei dieser Aufgabe wichtig ist."
+      },
+      {
+        "Frage": "Was sind die Vorteile einer Datenbanken-Verwendung im KVInfoSysBund?",
+        "Antwort": "Datenbanken ermöglichen eine strukturierte Speicherung und Abfrage großer Datenmengen. Im KVInfoSysBund kann dies verwendet werden, um Daten effizient zu speichern, zu analysieren und zugänglich zu machen, was eine verbesserte Entscheidungsfindung und Datensicherheit gewährleistet."
+      },
+      {
+        "Frage": "Beschreiben Sie die grundlegenden Eigenschaften eines Points of Interest (POI).",
+        "Antwort": "Ein POI ist ein definierter Ort mit spezifischem Interesse. Grundlegende Eigenschaften umfassen einen Namen, eine geografische Position (Koordinaten), eine Beschreibung des Typs (z. B. Restaurant, Krankenhaus) und möglicherweise zusätzliche Metadaten wie Adresse oder spezifische Attribute wie Kapazität."
+      }
+    ],
+    "Persönliche Eignung": [
+      {
+        "Frage": "Wie würden Sie in einem Team eine komplexe Aufgabe unternehmen? Beschreiben Sie Ihre Arbeitsabläufe und Ihre Kommunikationsstrategien.",
+        "Antwort": "Ich würde zunächst gemeinsam mit dem Team die Aufgabe in kleinere Teilaufgaben zerlegen und klare Verantwortlichkeiten festlegen. Regelmäßige Meetings und Tools wie Slack oder Trello helfen, den Fortschritt zu verfolgen und Hindernisse zu besprechen."
+      },
+      {
+        "Frage": "Wie würden Sie mit einem Kollegen oder einer Kollegin an einem Projekt arbeiten, wenn Sie unterschiedliche Ansichten oder Meinungen haben?",
+        "Antwort": "Ich würde offen und respektvoll die Ansichten diskutieren, die Perspektiven des anderen verstehen wollen und versuchen, einen Kompromiss oder eine datengetriebene Entscheidung zu finden. Wenn nötig, würde ich eine dritte Meinung hinzuziehen."
+      },
+      {
+        "Frage": "Beschreiben Sie Ihre Erfahrungen mit Zeitmanagement und Priorisierung in einem Projekt. Wie würden Sie in einem Projekt priorisieren?",
+        "Antwort": "Ich verwende oft Methoden wie Eisenhower-Matrix oder Kanban-Boards, um Aufgaben nach Dringlichkeit und Wichtigkeit zu priorisieren. Ich plane zuerst die wichtigsten Aufgaben und lasse genügend Puffer für unerwartete Herausforderungen."
+      },
+      {
+        "Frage": "Wie würden Sie mit einem Problem oder einer Herausforderung in einem Projekt umgehen? Beschreiben Sie Ihre Denkprozesse und Ihre Lösungsmöglichkeiten.",
+        "Antwort": "Ich analysiere das Problem, um die Hauptursache zu identifizieren, recherchiere mögliche Lösungen und bespreche sie mit dem Team. Anschließend implementiere ich die beste Lösung und überwache die Ergebnisse, um sicherzustellen, dass das Problem behoben ist."
+      }
+    ],
+    "Codingaufgabe": [
+      {
+        "Aufgabe": "Entwickeln Sie eine API für die Speicherung und Abfrage von Points of Interest (POI).",
+        "Antwort": "Die API wurde mit Python entwickelt und umfasst die Endpunkte GET, POST, PUT, DELETE und spezifische GET-Anfragen. Die Datenbank wurde so gestaltet, dass sie alle benötigten Felder wie `id`, `name`, `geoCoordinate`, `type`, `address`, `hospital`, `pier` und `runway` enthält. Benachrichtigungen bei Änderungen werden über die `requests`-Bibliothek gesendet. Die API folgt den RESTful-Prinzipien und wurde getestet, um sicherzustellen, dass alle Endpunkte korrekt funktionieren."
+      }
+    ]
+  }
+  
