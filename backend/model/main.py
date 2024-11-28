@@ -25,7 +25,7 @@ minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
 
-def upload_file(bucket: str, id: int, name: str, response):       
+def upload_file(bucket: str, id: int, name: str, response: dict):       
     try:
         # Upload the file to MinIO
         json_bytes = BytesIO(response.encode("utf-8"))
@@ -133,6 +133,7 @@ def challenge():
         requirements_json = extract_requirements_and_skills_with_json(data)
 
         questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
+
         print("Generated Questions:", questions_json)
         upload_file('jobs', data.get('job_id'), 'challenge.json', questions_json)
         #return jsonify(requirements_json)
