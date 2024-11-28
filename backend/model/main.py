@@ -24,17 +24,14 @@ minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
 
-async def upload_file(bucket: str, id: int, response: str, name:str):
-    response_dict = {"file": name,          
-                     "text": response}        
-    pdf_json = json.dumps(response_dict)        
-    # Upload the file to MinIO        
-    json_bytes = BytesIO(pdf_json.encode("utf-8"))
+async def upload_file(bucket: str, id: int, name:str, response):       
+    # Upload the file to MinIO
+    json_bytes = BytesIO(response.encode("utf-8"))
     object_path = f"{id}/" + name
     minio_client.put_object(bucket_name=bucket, 
                             object_name=object_path,            
                             data=json_bytes,            
-                            length=len(pdf_json),            
+                            length=len(response),            
                             content_type="application/json"        
                             ) 
     return
@@ -92,20 +89,16 @@ def challenge():
             raise ValueError("No JSON payload found in the request.")
 
         job_posting_json = data.get("job_posting_json")
-        question_count = data.get("question_count")
-        job_level = data.get("job_level")
-        print(job_posting_json)
+        question_count = 10 #data.get("question_count")
+        job_level = 'senior' #data.get("job_level")
+        #print(job_posting_json)
         # Validate required fields
         if not job_posting_json or not question_count or not job_level:
             raise ValueError("Missing required fields: 'job_posting_json', 'question_count', or 'job_level'.")
 
-        #print("Job Posting Data:", job_posting_json)
-        #print("Question Count:", question_count)
-        #print("Job Level:", job_level)
-
         # Process the input (call your functions)
-        requirements_json = extract_requirements_and_skills_with_json(job_posting_json)
-        print("Requirements JSON:", jsonify(requirements_json))
+        requirements_json = extract_requirements_and_skills_with_json(data)
+        #print("Requirements JSON:", jsonify(requirements_json))
 
         questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
         #print("Generated Questions:", questions_json)
@@ -132,7 +125,14 @@ def evaluation():
         print(f"Error occurred: {e}") # Log the error
         return jsonify({"error": str(e)}), 500
 
+@app.route("/assess_job", methods=["POST"])
+def assess_job():
+    pass
 
+
+@app.route("/assess_applicant", methods=["POST"])
+def assess_job():
+    pass
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8001)
