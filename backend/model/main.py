@@ -7,7 +7,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from flask import Flask, request, jsonify
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from controllers.challenge import extract_requirements_and_skills_with_json, generate_questions_from_requirements
+from controllers.challenge import extract_requirements_and_skills_with_json, generate_questions_from_requirements,evaluate_candidate_responses
  
 app = Flask(__name__)
  
@@ -115,6 +115,23 @@ def challenge():
     except Exception as e:
         print(f"Error occurred: {e}")  # Log the error
         return jsonify({"error": str(e)}), 500
+
+@app.route("/generate_evaluation", methods=["POST"])
+def challenge():
+    try:    
+        # Extract the data from the JSON payload
+        data = request.get_json()
+        if not data:
+            raise ValueError("No JSON payload found in the request.")
+
+        # Bewertungen erstellen
+        result = evaluate_candidate_responses(data)
+        return jsonify(result)
+
+    except Exception as e:
+        print(f"Error occurred: {e}") # Log the error
+        return jsonify({"error": str(e)}), 500
+
 
 
 if __name__ == "__main__":
