@@ -145,7 +145,7 @@ with col2:
             #    st.spinner("Warte auf Antwort")
             with st.spinner('Wait for it...'):
                 time.sleep(5)
-            st.experimental_rerun()
+                st.experimental_rerun()
             st.success("Antwort ist da")
         else:
             st.write("Keine Challenge an Bewerber gesendet")
