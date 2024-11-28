@@ -24,12 +24,12 @@ def display_json(data):
                     st.subheader("Aufgabe")
                     st.write(item.get("Aufgabe", "Keine Aufgabe verfügbar."))
                     st.subheader("Bewertung")
-                    st.write(item.get("Bewertungs", "Kein Bewertungsmaßstab verfügbar."))
+                    st.write(item.get("Bewertung", "Kein Bewertungsmaßstab verfügbar."))
                 else:
                     st.subheader("Frage")
                     st.write(item.get("Frage", "Keine Frage verfügbar."))
                     st.subheader("Bewertung")
-                    st.write(item.get("Bewertungsmaßstab", "Kein Bewertungsmaßstab verfügbar."))
+                    st.write(item.get("Bewertung", "Kein Bewertungsmaßstab verfügbar."))
 
 def display_solution_json(data):
     for category, questions in data.items():
