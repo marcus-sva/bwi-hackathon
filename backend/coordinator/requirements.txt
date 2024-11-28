@@ -4,3 +4,4 @@ requests
 minio
 python-multipart
 pydantic
+PyPDF2

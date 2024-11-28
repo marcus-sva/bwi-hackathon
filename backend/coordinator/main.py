@@ -1,9 +1,12 @@
-import asyncio
 import io
 import json
 import os
 import random
+import shutil
+import tempfile
+from io import BytesIO
 
+from PyPDF2 import PdfReader
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from minio import Minio
 from minio.error import S3Error
@@ -20,17 +23,63 @@ def random_id():
     return random.randint(1, 1000)
 
 
-async def cv_pdf_to_json(applicant_id: int, job_id: int):
-    print(f"Started processing cv.pdf to cv.json for applicant {applicant_id} and job {job_id}...")
-    await asyncio.sleep(5)  # Simulate a time-consuming task
-    print(f"Completed processing cv.pdf to cv.json for applicant {applicant_id} and job {job_id}...")
-    return ""
+def write_file_to_tempfile(file: UploadFile) -> str:
+    """
+    Writes an UploadFile to a temporary file without deleting it afterward.
+
+    Args:
+        file (UploadFile): The uploaded file to save.
+
+    Returns:
+        str: The path to the temporary file.
+    """
+    # Create a named temporary file
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    temp_filename = temp_file.name  # Save the path for later use
+
+    try:
+        # Reset file pointer to the start
+        file.file.seek(0)
+
+        # Write the uploaded file to the temporary file
+        with open(temp_filename, "wb") as f:
+            shutil.copyfileobj(file.file, f)
+
+        return temp_filename
+    finally:
+        # Make sure to leave the UploadFile file open
+        file.file.seek(0)
+
+
+def pdf_to_json(pdf_filename: str) -> str:
+    """
+    Processes a PDF file and extracts its text content.
+
+    This function reads the content of a PDF file, extracting text from all pages,
+    and returns it as a single concatenated string. It is specifically designed
+    to handle applicant and job data, enabling PDF-to-text processing.
+
+    Args:
+        pdf_filename (str):
+            The path to the PDF file to process.
+
+    Returns:
+        str:
+            The extracted text content from the PDF, concatenated from all pages.
+    """
+    reader = PdfReader(pdf_filename)
+    content = ""
+    for page in reader.pages:
+        content += page.extract_text()
+
+    return content
 
 
 @app.post("/cv/{job_id}/pdf")
 async def upload_cv(job_id: int, file: UploadFile = File(...)):
     """
     Endpoint to upload a PDF as 'cv.pdf' to MinIO under the path applicants/RANDOM_APPLICANT_ID/cv.pdf.
+    The PDF file will be converted to json and uploaded to applicants/RANDOM_APPLICANT_ID/cv.json.
     """
     try:
         # Ensure the uploaded file is a PDF
@@ -62,8 +111,36 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
             content_type="application/pdf",  # Set content type to PDF
         )
 
-        # @TODO TRIGGER pdf to json generation via other service
-        asyncio.create_task(cv_pdf_to_json(random_applicants_id, job_id))
+        # Write PDF to temporary file, convert it and delete the temporary file
+        pdf_filename = None
+        try:
+            pdf_filename = write_file_to_tempfile(file)
+            print(f"Wrote PDF to TempFile {pdf_filename}")
+
+            pdf_content = pdf_to_json(pdf_filename)
+        finally:
+            if 'pdf_filename' in locals() and os.path.exists(pdf_filename):
+                os.remove(pdf_filename)
+                print(f"TempFile {pdf_filename} removed successfully.")
+
+        pdf_dict = {
+            "job_id": job_id,
+            "file": "cv.pdf",
+            "text": pdf_content
+        }
+        pdf_json = json.dumps(pdf_dict)
+
+        # Upload the file to MinIO
+        json_bytes = BytesIO(pdf_json.encode("utf-8"))
+        object_path = f"{random_applicants_id}/cv.json"
+
+        minio_client.put_object(
+            bucket_name=bucket_name,
+            object_name=object_path,
+            data=json_bytes,
+            length=len(pdf_json),
+            content_type="application/json"
+        )
 
         # Return success response
         return {
