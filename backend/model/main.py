@@ -1,7 +1,4 @@
 import os
-import json
-from io import BytesIO
-import requests
 from minio import Minio
 from minio.error import S3Error
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -19,12 +16,13 @@ tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=hf_token)
 model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=hf_token, torch_dtype=torch.float16)
 model.to("cuda")
 
+
 # MinIO Configuration
 minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
 minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
-
+'''
 def upload_file(bucket: str, id: int, name: str, response: dict):       
     try:
         # Upload the file to MinIO
@@ -46,6 +44,7 @@ def upload_file(bucket: str, id: int, name: str, response: dict):
         raise
 
     return
+'''
 
 def download_file(bucket: str, object_name: str):
     """
@@ -128,6 +127,7 @@ def challenge():
         job_level = 'senior' #data.get("job_level")
 
         # Validate required fields
+        print('JSON=')
         print(data)
         if not data.get('text') or not question_count or not job_level:
             raise ValueError("Missing required fields: 'text', 'question_count', or 'job_level'.")
@@ -138,7 +138,7 @@ def challenge():
         questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
 
         print("Generated Questions:", questions_json)
-        upload_file('jobs', data.get('job_id'), 'challenge.json', questions_json)
+        #upload_file('jobs', data.get('job_id'), 'challenge.json', questions_json)
         #return jsonify(requirements_json)
         return jsonify([requirements_json, questions_json])
 
@@ -156,8 +156,8 @@ def evaluation():
 
         # Bewertungen erstellen
         result = evaluate_candidate_responses(data)
-        upload_file('applicants', data.get('applicant_id'), 'ChallengeSolution.json', result)
-        return jsonify(result)
+        #upload_file('applicants', data.get('applicant_id'), 'ChallengeSolution.json', result)
+        return jsonify([result])
 
     except Exception as e:
         print(f"Error occurred: {e}") # Log the error
@@ -177,7 +177,7 @@ def assess_job():
 
         # Process the input (call your functions)
         requirements_json = extract_requirements_and_skills_with_json(data)
-        upload_file('jobs', data.get('job_id'), 'anforderung.json', requirements_json)
+        #upload_file('jobs', data.get('job_id'), 'anforderung.json', requirements_json)
         return jsonify([requirements_json])
 
     except Exception as e:
@@ -195,7 +195,8 @@ def assess_applicant(applicant_id: int, job_id: int):
 
     try:    
         result = match_offer_application(job_posting, resume)
-        upload_file(bucket='applicants', id=applicant_id, name='applicant_eval.json', response=result)
+        #upload_file(bucket='applicants', id=applicant_id, name='applicant_eval.json', response=result)
+        return jsonify([result])
 
     except Exception as e:
         print(f"Error occurred: {e}")  # Log the error
