@@ -25,7 +25,7 @@ minio_access_key = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
 
-async def upload_file(bucket: str, id: int, name:str, response):       
+def upload_file(bucket: str, id: int, name:str, response):       
     # Upload the file to MinIO
     json_bytes = BytesIO(response.encode("utf-8"))
     object_path = f"{id}/" + name
