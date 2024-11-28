@@ -3,6 +3,7 @@ import os
 import json
 from minio import Minio
 from fastapi import HTTPException
+import time
 
 # MinIO-Konfiguration
 minio_address = os.getenv("MINIO_ADDRESS", "localhost:9000")
@@ -104,6 +105,7 @@ with col3:
         st.success(f"Mail für {mail_type} generiert!")
         st.session_state.button = True
         st.session_state.mail_type = mail_type
+        st.session_state.time_sent = time.time()
 
 # Linke Spalte: Bewerber IDs
 with col1:
@@ -130,11 +132,20 @@ with col2:
             st.session_state.button = False
         if 'mail_type' not in st.session_state:
             st.session_state.mail_type = ""
+        if 'time_sent' not in st.session_state:
+            st.session_state.time_sent = 0
 
         st.subheader("Challengeübersicht")
         if st.session_state.button and st.session_state.mail_type == "Aufgabe senden":
-            st.write("Warte auf Antwort")
-            st.spinner("Warte auf Antwort")
+            #wait_time = 5
+            #if time.time() > st.session_state.time_sent + wait_time:
+            #    st.write("Antwort ist da")
+            #else:
+            #    st.write("Warte auf Antwort")
+            #    st.spinner("Warte auf Antwort")
+            with st.spinner('Wait for it...'):
+                time.sleep(5)
+            st.success("Antwort ist da")
         else:
             st.write("Keine Challenge an Bewerber gesendet")
 
