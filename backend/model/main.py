@@ -173,7 +173,7 @@ def assess_job():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/assess_applicant/{applicant_id}/{job_id}", methods=["POST"])
+@app.route("/assess_applicant/<int:applicant_id>/<int:job_id>", methods=["POST"])
 def assess_applicant(applicant_id: int, job_id: int):
     
     cv = download_file(bucket='applicants', object_name=f"{applicant_id}/" + 'cv.json')
