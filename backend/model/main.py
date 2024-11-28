@@ -117,7 +117,7 @@ def challenge():
         return jsonify({"error": str(e)}), 500
 
 @app.route("/generate_evaluation", methods=["POST"])
-def challenge():
+def evaluation():
     try:    
         # Extract the data from the JSON payload
         data = request.get_json()
