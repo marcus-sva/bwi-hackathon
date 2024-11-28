@@ -14,23 +14,19 @@ bucket_name = "applicants"
 bucket_jobs = "jobs"
 
 def display_json(data):
-    st.title("JSON Data Display")
-
     for category, questions in data.items():
-        st.header(category)
-        for item in questions:
-            if category == "Codingaufgabe":
-                st.subheader("Aufgabe")
-                st.write(item["Aufgabe"])
-                st.subheader("Bewertungsmaßstab")
-                st.write(item["Bewertungsmaßstab"])
-            else:
-                st.subheader("Frage")
-                st.write(item["Frage"])
-                st.subheader("Bewertungsmaßstab")
-                st.write(item["Bewertungsmaßstab"])
-
-
+        with st.expander(category, expanded=False):  # Dropdown-Menü für jede Kategorie
+            for item in questions:
+                if category == "Codingaufgabe":
+                    st.subheader("Aufgabe")
+                    st.write(item.get("Aufgabe", "Keine Aufgabe verfügbar."))
+                    st.subheader("Bewertungsmaßstab")
+                    st.write(item.get("Bewertungsmaßstab", "Kein Bewertungsmaßstab verfügbar."))
+                else:
+                    st.subheader("Frage")
+                    st.write(item.get("Frage", "Keine Frage verfügbar."))
+                    st.subheader("Bewertungsmaßstab")
+                    st.write(item.get("Bewertungsmaßstab", "Kein Bewertungsmaßstab verfügbar."))
 
 def load_objects_from_minio(bucket_name):
     # Überprüfen, ob der Bucket existiert
@@ -66,6 +62,18 @@ st.markdown("""
             justify-content: left;
             align-items: center;
             margin-bottom: 20px;
+        }
+        .stButton > button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .stButton > button:hover {
+            background-color: #45a049;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -111,12 +119,8 @@ with col2:
             challenge_path = f"{selected_id}/challenge.json"
             challenge_obj = minio_client.get_object(bucket_jobs, challenge_path)
             challenge_data = json.loads(challenge_obj.read().decode("utf-8"))
-            #st.write(challenge_data.get("description", "Keine Beschreibung verfügbar."))           
-            display_json(challenge_data)
-            st.subheader("Aufgabenstellung")
-            st.write(challenge_data.get("task", "Keine Aufgabenstellung verfügbar."))
+            display_json(challenge_data)  # Dropdown-Darstellung
         except Exception as e:
-            #st.error("Challenge-Daten nicht verfügbar.")
             st.error(e)
 
         st.subheader("Beurteilung der Lösung")
@@ -128,7 +132,4 @@ with col2:
             st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
         except:
             st.error("Bewertung nicht verfügbar.")
-            
-
-
 

@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import json
 from minio import Minio
-#from minio.error import ResponseError
 from fastapi import HTTPException
 
 # MinIO-Konfiguration
@@ -12,6 +11,26 @@ minio_secret_key = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=minio_secret_key, secure=False)
 
 bucket_name = "applicants"
+bucket_jobs = "jobs"
+
+def display_json(data):
+    st.title("JSON Data Display")
+
+    for category, questions in data.items():
+        st.header(category)
+        for item in questions:
+            if category == "Codingaufgabe":
+                st.subheader("Aufgabe")
+                st.write(item["Aufgabe"])
+                st.subheader("Bewertungsmaßstab")
+                st.write(item["Bewertungsmaßstab"])
+            else:
+                st.subheader("Frage")
+                st.write(item["Frage"])
+                st.subheader("Bewertungsmaßstab")
+                st.write(item["Bewertungsmaßstab"])
+
+
 
 def load_objects_from_minio(bucket_name):
     # Überprüfen, ob der Bucket existiert
@@ -19,75 +38,97 @@ def load_objects_from_minio(bucket_name):
         raise HTTPException(status_code=404, detail="Bucket does not exist.")
     
     applicants = {}
-
-    # Alle Objekte im Bucket durchlaufen
     objects = minio_client.list_objects(bucket_name, recursive=True)
     
     for obj in objects:
-        # Extrahiere den Ordnernamen (Bewerber-ID) und lade die 'metadata.json'
         parts = obj.object_name.split("/")
-        
-        if len(parts) > 1 and parts[-1] == "metadata.json":  # Sicherstellen, dass es die 'metadata.json' ist
-            applicant_id = parts[0]  # Der erste Teil des Objektnamens ist die Bewerber-ID
-#            try:
-                # Lade das 'metadata.json' Objekt aus MinIO
+        if len(parts) > 1 and parts[-1] == "metadata.json":
+            applicant_id = parts[0]
             response = minio_client.get_object(bucket_name, obj.object_name)
             content = response.read().decode("utf-8")
             data = json.loads(content)
-                
-                # Bewerberdaten speichern
             applicants[applicant_id] = data
-                
-#            except ResponseError as e:
-#                print(f"Fehler beim Laden der Datei {obj.object_name}: {e}")
-#    
     return applicants
 
 # Bewerberdaten aus MinIO laden
 applicants = load_objects_from_minio(bucket_name)
 
 # Streamlit Layout
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="Bewerberportal")
+st.markdown("""
+    <style>
+        body {
+            background-color: #2e2e2e;  /* Mattgrauer Hintergrund */
+            color: white;  /* Weiße Schrift */
+        }
+        .logo-container {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Logo und Titel links oben
+st.markdown("""
+    <div class="logo-container">
+        <img src="https://via.placeholder.com/100" alt="Logo" style="margin-right: 10px;">
+        <h2 style="color: white;">Bewerberverwaltung</h2>
+    </div>
+""", unsafe_allow_html=True)
 
 # Spaltenlayout
 col1, col2, col3 = st.columns([1, 2, 1])
 
+# Rechte Spalte: "Mailvorlage" und "Persönliche Daten"
+with col3:
+    st.header("Optionen")
+    st.subheader("Persönliche Daten")
+    if st.session_state.get("selected_id"):
+        selected_applicant = applicants[st.session_state["selected_id"]]
+        personal_data = selected_applicant.get("personal_data", {})
+        st.write({k: v for k, v in personal_data.items() if k != "Name"})
+
+    st.subheader("Mailvorlage")
+    mail_type = st.selectbox("Wähle eine Aktion:", ["Absage", "Einladung", "Sonstiges"])
+    if st.button("Mail generieren"):
+        st.success(f"Mail für {mail_type} generiert!")
+
 # Linke Spalte: Bewerber IDs
 with col1:
     st.header("Bewerber IDs")
-    selected_id = st.selectbox("Wähle eine Bewerber ID:", list(applicants.keys()))
+    selected_id = st.selectbox("Wähle eine Bewerber ID:", list(applicants.keys()), key="selected_id")
 
-# Mittlere Spalte: Zusammenfassung des Bewerbers
+# Mittlere Spalte: Challenge-Daten
 with col2:
-    st.header("Bewerber Details")
-    
+    st.header("Challenge Übersicht")
     if selected_id:
-        # Bewerberdaten laden
         applicant_data = applicants[selected_id]
-        
-        # Persönliche Daten (Anonymisiert)
-        st.subheader("Persönliche Daten (Anonymisiert)")
-        personal_data = applicant_data.get("personal_data", {})
-        anonymized_data = {k: v for k, v in personal_data.items() if k != "Name"}
-        st.write(anonymized_data)
-        
-        # KI-Bewertung
-        st.subheader("KI-Einordnung")
-        st.write(applicant_data.get("evaluation", "Keine Bewertung verfügbar."))
-        
-        # Mailvorlagen
-        st.subheader("Mailvorlage")
-        mail_type = st.selectbox("Wähle eine Aktion:", ["Absage", "Einladung", "Sonstiges"])
-        if st.button("Mail generieren"):
-            st.success(f"Mail für {mail_type} generiert!")
+        st.subheader("Beschreibung der Challenge")
+        try:
+            # Lade challenge.json
+            challenge_path = f"{selected_id}/challenge.json"
+            challenge_obj = minio_client.get_object(bucket_jobs, challenge_path)
+            challenge_data = json.loads(challenge_obj.read().decode("utf-8"))
+            #st.write(challenge_data.get("description", "Keine Beschreibung verfügbar."))           
+            display_json(challenge_data)
+            st.subheader("Aufgabenstellung")
+            st.write(challenge_data.get("task", "Keine Aufgabenstellung verfügbar."))
+        except Exception as e:
+            #st.error("Challenge-Daten nicht verfügbar.")
+            st.error(e)
 
-# Rechte Spalte: Dokumente des Bewerbers
-with col3:
-    st.header("Dokumente")
-    if selected_id:
-        documents = applicant_data.get("documents", [])
-        st.write("Liste der Dokumente:")
-        for doc in documents:
-            st.write(f"- {doc}")
+        st.subheader("Beurteilung der Lösung")
+        try:
+            # Lade solution.json
+            ChallengeSolution_path = f"{selected_id}/ChallengeSolution.json"
+            ChallengeSolution_obj = minio_client.get_object(bucket_name, ChallengeSolution_path)
+            ChallengeSolution_data = json.loads(ChallengeSolution_obj.read().decode("utf-8"))
+            st.write(ChallengeSolution_data.get("evaluation", "Keine Bewertung verfügbar."))
+        except:
+            st.error("Bewertung nicht verfügbar.")
+            
+
 
 
