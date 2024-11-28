@@ -1,0 +1,48 @@
+{
+    "Technische Fragen": [
+      {
+        "Frage": "Was sind die wichtigsten Unterschiede zwischen GeoJSON und GeoTIFF als Format für die Speicherung von Geo-Daten?",
+        "Antwort": "GeoJSON wird hauptsächlich für die Beschreibung von geometrischen Objekten wie Punkten, Linien und Polygonen verwendet. Es ist textbasiert und leicht lesbar. GeoTIFF hingegen speichert Bilddaten wie Rasterkarten, Höhenmodelle oder Luftaufnahmen und enthält Metadaten, die die geographische Lage der Daten beschreiben."
+      },
+      {
+        "Frage": "Wie wird die Kommunikation zwischen den verschiedenen Komponenten eines Geo-Informationssystems (GIS) durchgeführt?",
+        "Antwort": "Die Kommunikation erfolgt oft über Standards wie Web Map Service (WMS) für die Bereitstellung von Kartenbildern oder Web Feature Service (WFS) für die Bereitstellung von geometrischen und Attributdaten. Diese Protokolle ermöglichen es, Daten zwischen verschiedenen Systemen zu teilen."
+      },
+      {
+        "Frage": "Was ist ein Geo-Informationssystem (GIS) und wie wird es in der Praxis verwendet?",
+        "Antwort": "Ein GIS ist ein System, das geografische Daten erfasst, speichert, analysiert und darstellt. Es wird in Bereichen wie Landwirtschaft (z. B. zur Bodenanalyse), Urbanistik (z. B. für Stadtplanung) und Umweltmanagement (z. B. zur Überwachung von Naturschutzgebieten) verwendet."
+      },
+      {
+        "Frage": "Wie wird die Datenbank für ein Geo-Informationssystem (GIS) konfiguriert und gehandhabt?",
+        "Antwort": "Für GIS-Datenbanken werden oft Systeme wie PostgreSQL mit der Erweiterung PostGIS verwendet, die geografische Daten unterstützen. Man erstellt spezielle Tabellen für Geodaten und nutzt SQL-Abfragen für räumliche Analysen. Alternativ kann MySQL genutzt werden, allerdings bietet es weniger GIS-Funktionen."
+      }
+    ],
+    "Persönliche Eignung": [
+      {
+        "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Kommunikationsfähigkeiten unter Beweis stellen?",
+        "Antwort": "Ich würde sicherstellen, dass ich aktiv zu Meetings beitrage, Fragen stelle, um Missverständnisse zu vermeiden, und meine Fortschritte regelmäßig teile. Außerdem würde ich Tools wie Slack oder Jira nutzen, um effizient mit meinem Team zu kommunizieren."
+      },
+      {
+        "Frage": "Wie würdest du als Junior-Entwickler im Bereich Geo-Informationssysteme (GIS) deine Problemlösungsfähigkeiten unter Beweis stellen?",
+        "Antwort": "Ich würde komplexe Probleme zuerst analysieren, sie in kleinere Teile zerlegen und dann Schritt für Schritt eine Lösung finden. Dabei würde ich die Dokumentation und Community-Ressourcen wie Stack Overflow nutzen, um mir bei der Fehlersuche zu helfen."
+      },
+      {
+        "Frage": "Wie würdest du als Geo-Informationssystem-Entwickler deine Motivation und Leidenschaft für die Branche unter Beweis stellen?",
+        "Antwort": "Ich bin begeistert von der Idee, wie GIS dabei hilft, reale Probleme zu lösen, z. B. in der Stadtplanung oder beim Katastrophenschutz. Ich würde meine Bereitschaft zeigen, mich weiterzubilden, z. B. durch Kurse oder eigene kleine Projekte."
+      },
+      {
+        "Frage": "Wie würdest du als Teammitglied im Kontext eines Geo-Informationssystems (GIS) deine Fähigkeiten und Erfahrungen unter Beweis stellen?",
+        "Antwort": "Ich würde meine Kenntnisse in Technologien wie PostGIS oder Leaflet teilen und aktiv bei Teamprojekten mitarbeiten. Dabei würde ich versuchen, Probleme zu lösen, die ich schon in anderen Projekten gemeistert habe, und diese Erfahrungen mit dem Team teilen."
+      }
+    ],
+    "Codingaufgabe": [
+      {
+        "Aufgabe": "Implementieren Sie eine RESTful-API für die Speicherung und Abfrage von Punkten von Interesse (POI) in einer Datenbank. Die API sollte folgende Endpunkte haben: GET /pois, POST /pois, GET /pois/:id. Die Datenbank sollte ein JSON-Format haben. Die API sollte auch Benachrichtigungen an die Entwickler senden, wenn Daten in der Datenbank verändert werden. Sie können eine beliebige Programmiersprache und eine beliebige Datenbank verwenden.",
+        "Antwort": {
+          "Code": "```python\nfrom flask import Flask, request, jsonify\nimport sqlite3\nimport smtplib\n\napp = Flask(__name__)\n\ndef send_notification(action, poi):\n    server = smtplib.SMTP('smtp.example.com', 587)\n    server.starttls()\n    server.login('your_email@example.com', 'password')\n    message = f\"Subject: POI {action}\\n\\n{poi}\"\n    server.sendmail('your_email@example.com', 'developer@example.com', message)\n    server.quit()\n\ndef get_db_connection():\n    conn = sqlite3.connect('database.db')\n    conn.row_factory = sqlite3.Row\n    return conn\n\n@app.route('/pois', methods=['GET'])\ndef get_pois():\n    conn = get_db_connection()\n    pois = conn.execute('SELECT * FROM pois').fetchall()\n    conn.close()\n    return jsonify([dict(row) for row in pois])\n\n@app.route('/pois', methods=['POST'])\ndef create_poi():\n    new_poi = request.get_json()\n    conn = get_db_connection()\n    conn.execute('INSERT INTO pois (name, latitude, longitude) VALUES (?, ?, ?)',\n                 (new_poi['name'], new_poi['latitude'], new_poi['longitude']))\n    conn.commit()\n    conn.close()\n    send_notification('created', new_poi)\n    return jsonify(new_poi), 201\n\n@app.route('/pois/<int:id>', methods=['GET'])\ndef get_poi(id):\n    conn = get_db_connection()\n    poi = conn.execute('SELECT * FROM pois WHERE id = ?', (id,)).fetchone()\n    conn.close()\n    if poi is None:\n        return jsonify({'error': 'POI not found'}), 404\n    return jsonify(dict(poi))\n\nif __name__ == '__main__':\n    app.run(debug=True)\n```",
+          "Erklärung": "Ich habe Flask als Framework verwendet und SQLite als Datenbank. Die Endpunkte GET, POST und GET by ID sind implementiert. Benachrichtigungen werden mit SMTP verschickt, wenn Daten erstellt werden. Die Datenbank ist einfach gehalten mit einer `pois`-Tabelle, die die Felder `id`, `name`, `latitude` und `longitude` enthält."
+        }
+      }
+    ]
+  }
+  
