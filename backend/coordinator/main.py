@@ -150,6 +150,23 @@ async def upload_cv(job_id: int, file: UploadFile = File(...)):
         try:
             response = requests.post(url)
             print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+
+            response_data = response.json()
+            response_json_string = json.dumps(response_data)
+            response_bytes = response_json_string.encode('utf-8')
+            file_like_object = BytesIO(response_bytes)
+
+            # Upload the data to MinIO
+            bucket_name = "applicants"
+            object_path = f"{random_applicants_id}/{job_id}/applicant_eval.json"
+
+            minio_client.put_object(
+                bucket_name=bucket_name,
+                object_name=object_path,
+                data=file_like_object,
+                length=len(response_bytes),  # Length of the byte content
+                content_type="application/json"  # Content type is JSON
+            )
         except Exception as e:
             raise Exception(f"Failed to call model backend {url}: {str(e)}")
 
@@ -269,6 +286,23 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
         try:
             response = requests.post(url, json=challenge_solution.model_dump())
             print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+
+            response_data = response.json()
+            response_json_string = json.dumps(response_data)
+            response_bytes = response_json_string.encode('utf-8')
+            file_like_object = BytesIO(response_bytes)
+
+            # Upload the data to MinIO
+            bucket_name = "applicants"
+            object_path = f"{applicant_id}/{job_id}/ChallengeSolution.json"
+
+            minio_client.put_object(
+                bucket_name=bucket_name,
+                object_name=object_path,
+                data=file_like_object,
+                length=len(response_bytes),  # Length of the byte content
+                content_type="application/json"  # Content type is JSON
+            )
         except Exception as e:
             raise Exception(f"Failed to call model backend {url}: {str(e)}")
 
@@ -364,6 +398,23 @@ async def upload_job_description(job_id: int, file: UploadFile = File(...)):
         try:
             response = requests.post(url, json=pdf_dict)
             print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+
+            response_data = response.json()
+            response_json_string = json.dumps(response_data)
+            response_bytes = response_json_string.encode('utf-8')
+            file_like_object = BytesIO(response_bytes)
+
+            # Upload the data to MinIO
+            bucket_name = "jobs"
+            object_path = f"{job_id}/challenge.json"
+
+            minio_client.put_object(
+                bucket_name=bucket_name,
+                object_name=object_path,
+                data=file_like_object,
+                length=len(response_bytes),  # Length of the byte content
+                content_type="application/json"  # Content type is JSON
+            )
         except Exception as e:
             raise Exception(f"Failed to call model backend {url}: {str(e)}")
 
@@ -372,6 +423,23 @@ async def upload_job_description(job_id: int, file: UploadFile = File(...)):
         try:
             response = requests.post(url, json=pdf_dict)
             print(f"Request to {url} returned with HTTP status code {response.status_code}.")
+
+            response_data = response.json()
+            response_json_string = json.dumps(response_data)
+            response_bytes = response_json_string.encode('utf-8')
+            file_like_object = BytesIO(response_bytes)
+
+            # Upload the data to MinIO
+            bucket_name = "jobs"
+            object_path = f"{job_id}/anforderung.json"
+
+            minio_client.put_object(
+                bucket_name=bucket_name,
+                object_name=object_path,
+                data=file_like_object,
+                length=len(response_bytes),  # Length of the byte content
+                content_type="application/json"  # Content type is JSON
+            )
         except Exception as e:
             raise Exception(f"Failed to call model backend {url}: {str(e)}")
 
