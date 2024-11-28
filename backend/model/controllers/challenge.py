@@ -92,9 +92,25 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
     Unterteile die Fragen in die folgenden Kategorien:
     1. Technische Fragen: Überprüfung des Wissens ausschließlich zu den genannten Technologien oder Tools (z. B. Programmiersprachen, Software, Frameworks) der Stellenbeschreibung. 
     2. Persönliche Eignung: Überprüfung von Soft Skills z.B. Teamfähigkeit, Kommunikationsstärke oder andere Soft Skills die zur .
-    3. Motivationsfragen: Überprüfung, warum der Bewerber für diese Rolle geeignet ist und was ihn an der Stelle motiviert.
+    3. Codingaufgabe: Überprüfung, warum der Bewerber auf {job_level}-Level in einer der genannten Programmiersprachen coden kann.
     
-    Keine Fragen zu Java!
+
+    Beispiel:
+    "Frage": "Eine klassische Retrospektive wird im Team regelmäßig durchgeführt. Ein Post Mortem allerdings nur bei Bedarf. Bitte gehe auf folgende Fragen näher ein: Was ist der Unterschied zwischen einer Retro und einem Post Mortem? Wann und warum wird ein Post Mortem hauptsächlich durchgeführt? Nenne das Ziel eines Post Mortems und gehe darauf ein, was muss alles beachtet werden sollte."
+    
+    "Frage": "Die Bundesregierung muss im Notfall eigene Staatsbürger im Ausland aus Gefahr für Leib und Leben retten können. 
+    Durch ein gemeinsames Lagebild aller beteiligten Bundesressorts soll eine schnelle, flexible und mobile Krisenbewältigung gefördert werden. 
+    KVInfoSysBund wird im Kern ein von der BWI betriebenes webbasiertes Geo-
+    Informationssystem zur individuellen Lagebilddarstellung und ressortübergreifenden
+    Zusammenarbeit sein und als Datendrehscheibe zwischen verschiedenen internen und
+    externen Datenquellen dienen.
+    Ihre Aufgabe ist nun einen Backend Service zu entwickeln, der Schnittstellen zur Verfügung
+    stellt, um Points of Interest zu speichern und abzurufen. Ein vorhandener, imaginärer Service
+    erwartet Benachrichtigungen bei Datenänderungen.
+    Ein Point of Interest besteht aus den folgenden Informationen: 
+    Name, Geo-Koordinate, Art des POI (Hafen, Flughafen, Krankenhaus…), Anschrift ,Spezielle Felder je nach Art des POI:, Hafen: 0-n Piers mit Name und Geo-Koordinate, Flughafen: 0-n Landebahnen mit Himmelsrichtung und Länge, Krankenhaus: Anzahl Betten auf Intensivstation und Pflegestation. 
+    Ihre Aufgaben sind konkret: Implementieren Sie die geeigneten Endpunkte, Persistieren Sie die Daten in einer Datenbank Ihrer Wahl, Versenden Sie Benachrichtigungen bei Datenänderungen, Achten Sie auf eine geeignete Testabdeckung"
+    
 
     Erstelle die hälfte der {question_count} Fragen als Technische Fragen und den Rest als Persönliche Eignung oder Motivationsfragen.
     Formatiere das Ergebnis exakt im folgenden JSON-Format:
@@ -113,9 +129,9 @@ def generate_questions_from_requirements(requirements_json, question_count=10, j
             }},
             ...
         ],
-        "Motivationsfragen": [
+        "Codingaufgabe": [
             {{
-                "Frage": "<Text der Motivationsfrage>",
+                "Aufgabe": "<Text der Codingaufgabe>",
                 "Bewertungsmaßstab": "<Bewertungsmaßstab für die Antwort>"
             }},
             ...
