@@ -1,6 +1,7 @@
 import os
 import json
 from io import BytesIO
+import requests
 from minio import Minio
 from minio.error import S3Error
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -35,6 +36,31 @@ async def upload_file(bucket: str, id: int, name:str, response):
                             content_type="application/json"        
                             ) 
     return
+
+def download_file(bucket: str, object_name: str):
+    """
+    Downloads a file from the specified bucket in MinIO.
+
+    :param bucket: The name of the bucket
+    :param object_name: The path to the file within the bucket
+    :return: The contents of the file as a string
+    """
+    try:
+        # Get the object from the specified bucket
+        response = minio_client.get_object(bucket_name=bucket, object_name=object_name)
+
+        # Read the content from the response and decode it
+        file_content = response.read().decode("utf-8")
+
+        # Close the response stream
+        response.close()
+        response.release_conn()
+
+        return file_content
+
+    except Exception as e:
+        print(f"An error occurred while downloading the file: {e}")
+        return None
  
 def format_messages(messages):
     """
@@ -93,13 +119,14 @@ def challenge():
 
         # Validate required fields
         if not data or not question_count or not job_level:
-            raise ValueError("Missing required fields: 'job_posting_json', 'question_count', or 'job_level'.")
+            raise ValueError("Missing required fields: 'json', 'question_count', or 'job_level'.")
 
         # Process the input (call your functions)
         requirements_json = extract_requirements_and_skills_with_json(data)
 
         questions_json = generate_questions_from_requirements(requirements_json, question_count, job_level)
         print("Generated Questions:", questions_json)
+        upload_file('jobs', data.get('job_id'), 'challenge.json', questions_json)
         #return jsonify(requirements_json)
         return jsonify([requirements_json, questions_json])
 
@@ -117,6 +144,7 @@ def evaluation():
 
         # Bewertungen erstellen
         result = evaluate_candidate_responses(data)
+        upload_file('applicants', data.get('applicant_id'), 'ChallengeSolution.json', result)
         return jsonify(result)
 
     except Exception as e:
@@ -125,13 +153,41 @@ def evaluation():
 
 @app.route("/assess_job", methods=["POST"])
 def assess_job():
-    pass
+    try:
+        # Extract the data from the JSON payload
+        data = request.get_json()
+        if not data:
+            raise ValueError("No JSON payload found in the request.")
+
+        # Validate required fields
+        if not data.get('text'):
+            raise ValueError("Missing required fields: 'text")
+
+        # Process the input (call your functions)
+        requirements_json = extract_requirements_and_skills_with_json(data)
+        upload_file('jobs', data.get('job_id'), 'anforderung.json', requirements_json)
+        return jsonify([requirements_json])
+
+    except Exception as e:
+        print(f"Error occurred: {e}")  # Log the error
+        return jsonify({"error": str(e)}), 500
 
 
-@app.route("/assess_applicant", methods=["POST"])
-def assess_job():
+@app.route("/assess_applicant/<int:applicant_id>/<int:job_id>", methods=["POST"])
+def assess_applicant(applicant_id: int, job_id: int):
+    
+    cv = download_file(bucket='applicants', object_name=f"{applicant_id}/" + 'cv.json')
+    job_description = download_file(bucket='jobs', object_name=f"{job_id}/" + 'job_description.json')
+    resume = cv.get('text')
+    job_posting = job_description.get('text')
 
-    match_offer_application(job_posting, resume)
+    try:    
+        result = match_offer_application(job_posting, resume)
+        upload_file(bucket='applicants', id=applicant_id, name='applicant_eval.json', response=result)
+
+    except Exception as e:
+        print(f"Error occurred: {e}")  # Log the error
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8001)

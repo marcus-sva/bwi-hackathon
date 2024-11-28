@@ -267,7 +267,7 @@ async def upload_challenge_solution(applicant_id: int, job_id: int, challenge_so
         # trigger generate_evaluation in backend model
         url = f"{model_address}/generate_evaluation"
         try:
-            response = requests.post(url, json=file_content)
+            response = requests.post(url, json=challenge_solution.model_dump())
             print(f"Request to {url} returned with HTTP status code {response.status_code}.")
         except Exception as e:
             raise Exception(f"Failed to call model backend {url}: {str(e)}")
