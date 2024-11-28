@@ -28,7 +28,10 @@ minio_client = Minio(minio_address, access_key=minio_access_key, secret_key=mini
 def upload_file(bucket: str, id: int, name: str, response: dict):       
     try:
         # Upload the file to MinIO
-        json_bytes = BytesIO(response.encode("utf-8"))
+        # Convert the dictionary to a JSON string
+        response_json = json.dumps(response)  # Convert dict to JSON string
+        json_bytes = BytesIO(response_json.encode("utf-8"))  # Encode string to bytes
+        #json_bytes = BytesIO(response.encode("utf-8"))
         object_path = f"{id}/" + name
         minio_client.put_object(
             bucket_name=bucket, 
