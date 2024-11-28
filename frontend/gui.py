@@ -33,6 +33,12 @@ def display_json(data):
 
 def display_solution_json(data):
     for category, questions in data.items():
+        if category == "Zusammenfassung":
+            st.subheader("Zusammenfassung")
+            st.write(questions)
+        if category == "Empfehlung":
+            st.subheader("Empfehlung")
+            st.write(questions)
         if not isinstance(questions, list):
             continue
         with st.expander(category, expanded=False):  # Dropdown-Menü für jede Kategorie
@@ -51,12 +57,6 @@ def display_solution_json(data):
                     st.write(item.get("Antwort", "Kein Bewertungsmaßstab verfügbar."))
                     st.subheader("Bewertung")
                     st.write(item.get("Bewertung", "Kein Bewertungsmaßstab verfügbar."))
-        if category == "Zusammenfassung":
-            st.subheader("Zusammenfassung")
-            st.write(questions)
-        if category == "Empfehlung":
-            st.subheader("Empfehlung")
-            st.write(questions)
 
 def load_objects_from_minio(bucket_name):
     # Überprüfen, ob der Bucket existiert
